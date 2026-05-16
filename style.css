@@ -1,0 +1,1794 @@
+/* =====================================================
+TOKO DEFANA - PREMIUM MODERN UI
+FULL VERSION SIAP COPY PASTE
+===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+
+--primary:#2563eb;
+--primary2:#3b82f6;
+--success:#16a34a;
+--danger:#ef4444;
+--dark:#0f172a;
+--gray:#64748b;
+--bg:#edf4ff;
+--white:#ffffff;
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#edf4ff,
+#f8fbff
+);
+
+display:flex;
+
+overflow-x:hidden;
+
+color:var(--dark);
+
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar{
+
+position:fixed;
+
+left:0;
+top:0;
+
+width:220px;
+height:100vh;
+
+background:
+linear-gradient(
+180deg,
+#071739,
+#0f172a
+);
+
+padding:18px;
+
+overflow:auto;
+
+z-index:999;
+
+}
+
+.sidebar h2{
+
+color:white;
+
+font-size:28px;
+
+margin-bottom:25px;
+
+font-weight:700;
+
+}
+
+.sidebar button{
+
+width:100%;
+
+padding:13px;
+
+margin-bottom:10px;
+
+border:none;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,.08);
+
+color:white;
+
+font-size:14px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.sidebar button:hover{
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+transform:translateX(3px);
+
+}
+
+/* =====================================================
+MAIN
+===================================================== */
+
+.main{
+
+margin-left:220px;
+
+padding:20px;
+
+width:100%;
+
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+.topbar{
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+margin-bottom:22px;
+
+flex-wrap:wrap;
+
+}
+
+.topbar h1{
+
+font-size:34px;
+
+font-weight:700;
+
+color:var(--dark);
+
+}
+
+.topbar input{
+
+flex:1;
+
+padding:15px 18px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:14px;
+
+background:white;
+
+box-shadow:
+0 5px 18px rgba(0,0,0,.06);
+
+outline:none;
+
+}
+
+/* =====================================================
+GRID PRODUK
+===================================================== */
+
+.product-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(165px,1fr));
+
+gap:14px;
+
+}
+
+/* =====================================================
+CARD PRODUK
+===================================================== */
+
+.produk-row{
+
+background:
+rgba(255,255,255,.95);
+
+backdrop-filter:blur(12px);
+
+border-radius:24px;
+
+padding:14px;
+
+position:relative;
+
+overflow:hidden;
+
+cursor:pointer;
+
+transition:.25s;
+
+border:
+1px solid rgba(255,255,255,.4);
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.05);
+
+}
+
+.produk-row:hover{
+
+transform:
+translateY(-4px);
+
+box-shadow:
+0 14px 26px rgba(37,99,235,.14);
+
+}
+
+.produk-row::before{
+
+content:'';
+
+position:absolute;
+
+top:-35px;
+right:-35px;
+
+width:90px;
+height:90px;
+
+background:
+rgba(37,99,235,.05);
+
+border-radius:50%;
+
+}
+
+.kategori-badge{
+
+display:inline-flex;
+
+align-items:center;
+
+padding:5px 10px;
+
+background:#dbeafe;
+
+color:#2563eb;
+
+border-radius:999px;
+
+font-size:10px;
+
+font-weight:600;
+
+margin-bottom:10px;
+
+}
+
+.produk-info h3{
+
+font-size:14px;
+
+font-weight:600;
+
+line-height:1.4;
+
+margin-bottom:8px;
+
+min-height:38px;
+
+display:-webkit-box;
+
+-webkit-line-clamp:2;
+
+-webkit-box-orient:vertical;
+
+overflow:hidden;
+
+color:#0f172a;
+
+}
+
+.price{
+
+font-size:20px;
+
+font-weight:700;
+
+color:#16a34a;
+
+margin-bottom:4px;
+
+}
+
+/* =====================================================
+FLOAT CART
+===================================================== */
+
+.cart-float{
+
+position:fixed;
+
+right:20px;
+bottom:20px;
+
+width:68px;
+height:68px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:28px;
+
+color:white;
+
+cursor:pointer;
+
+z-index:99999;
+
+box-shadow:
+0 12px 28px rgba(37,99,235,.28);
+
+transition:.25s;
+
+}
+
+.cart-float:hover{
+
+transform:scale(1.08);
+
+}
+
+.cart-float span{
+
+position:absolute;
+
+top:-3px;
+right:-3px;
+
+width:24px;
+height:24px;
+
+background:#ef4444;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:11px;
+
+font-weight:700;
+
+}
+
+/* =====================================================
+CART BOX
+===================================================== */
+
+.cart-box{
+
+position:fixed;
+
+top:0;
+right:-100%;
+
+width:390px;
+max-width:100%;
+
+height:100vh;
+
+background:white;
+
+padding:20px;
+
+overflow:auto;
+
+transition:.35s;
+
+z-index:999999;
+
+box-shadow:
+-10px 0 30px rgba(0,0,0,.12);
+
+}
+
+.cart-box.active{
+right:0;
+}
+
+.cart-box::before{
+
+content:'';
+
+display:block;
+
+width:70px;
+height:7px;
+
+background:#d1d5db;
+
+border-radius:999px;
+
+margin:0 auto 18px;
+
+}
+
+.cart-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-bottom:18px;
+
+}
+
+.cart-header h2{
+
+font-size:32px;
+
+font-weight:700;
+
+}
+
+.close-btn{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:14px;
+
+background:#ef4444;
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+/* =====================================================
+FORM
+===================================================== */
+
+.cart-box input,
+.cart-box select{
+
+width:100%;
+
+padding:15px 16px;
+
+border:2px solid #e2e8f0;
+
+border-radius:18px;
+
+background:#f8fafc;
+
+font-size:14px;
+
+margin-bottom:14px;
+
+outline:none;
+
+transition:.25s;
+
+}
+
+.cart-box input:focus,
+.cart-box select:focus{
+
+border-color:#2563eb;
+
+background:white;
+
+box-shadow:
+0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+/* =====================================================
+QR
+===================================================== */
+
+#qrBox{
+
+display:none;
+
+text-align:center;
+
+margin:18px 0;
+
+padding:16px;
+
+background:#f8fafc;
+
+border-radius:20px;
+
+border:1px solid #e2e8f0;
+
+}
+
+.qr-title{
+
+margin-bottom:12px;
+
+font-size:16px;
+
+font-weight:700;
+
+}
+
+#qrBox img{
+
+width:100%;
+max-width:220px;
+
+border-radius:18px;
+
+background:white;
+
+padding:8px;
+
+box-shadow:
+0 5px 18px rgba(0,0,0,.06);
+
+}
+
+/* =====================================================
+BUTTON
+===================================================== */
+
+.checkout-btn,
+.reset-btn,
+.mini-cart-btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:18px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:10px;
+
+font-size:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+margin-top:12px;
+
+transition:.25s;
+
+}
+
+.checkout-btn{
+
+background:
+linear-gradient(
+135deg,
+#22c55e,
+#16a34a
+);
+
+color:white;
+
+box-shadow:
+0 10px 25px rgba(34,197,94,.22);
+
+}
+
+.reset-btn{
+
+background:
+linear-gradient(
+135deg,
+#ef4444,
+#dc2626
+);
+
+color:white;
+
+box-shadow:
+0 10px 25px rgba(239,68,68,.22);
+
+}
+
+.mini-cart-btn{
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+box-shadow:
+0 10px 25px rgba(37,99,235,.22);
+
+}
+
+.checkout-btn:hover,
+.reset-btn:hover,
+.mini-cart-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* =====================================================
+POPUP PREMIUM
+===================================================== */
+
+.popup{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(15,23,42,.55);
+
+backdrop-filter:blur(6px);
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+opacity:0;
+
+pointer-events:none;
+
+transition:.25s;
+
+z-index:99999;
+
+padding:20px;
+
+}
+
+.popup.active{
+
+opacity:1;
+
+pointer-events:auto;
+
+}
+
+.popup-content{
+
+width:100%;
+max-width:330px;
+
+background:
+rgba(255,255,255,.97);
+
+backdrop-filter:blur(14px);
+
+padding:26px 22px;
+
+border-radius:32px;
+
+text-align:center;
+
+animation:popupShow .25s ease;
+
+box-shadow:
+0 20px 50px rgba(0,0,0,.18);
+
+}
+
+@keyframes popupShow{
+
+from{
+transform:scale(.88);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.popup-content h2{
+
+font-size:30px;
+font-weight:700;
+
+line-height:1.3;
+
+color:#0f172a;
+
+margin-bottom:14px;
+
+}
+
+.popup-content p{
+
+font-size:46px;
+font-weight:800;
+
+color:#16a34a;
+
+margin-bottom:24px;
+
+}
+
+/* QTY */
+
+.popup-qty{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+gap:14px;
+
+margin-bottom:24px;
+
+}
+
+.popup-qty button{
+
+width:56px;
+height:56px;
+
+border:none;
+
+border-radius:20px;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+font-size:30px;
+
+font-weight:700;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:.25s;
+
+box-shadow:
+0 12px 24px rgba(37,99,235,.25);
+
+}
+
+.popup-qty button:hover{
+
+transform:scale(1.06);
+
+}
+
+.popup-qty input{
+
+width:90px;
+height:56px;
+
+border:none;
+
+background:#f1f5f9;
+
+border-radius:20px;
+
+text-align:center;
+
+font-size:24px;
+
+font-weight:700;
+
+color:#0f172a;
+
+outline:none;
+
+}
+
+/* ACTION */
+
+.popup-actions{
+
+display:flex;
+
+gap:12px;
+
+margin-top:10px;
+
+}
+
+.popup-actions button{
+
+flex:1;
+
+}
+
+.popup-btn{
+
+padding:15px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+font-size:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+box-shadow:
+0 12px 24px rgba(37,99,235,.22);
+
+}
+
+.popup-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.popup-close{
+
+padding:15px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+135deg,
+#ef4444,
+#dc2626
+);
+
+color:white;
+
+font-size:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+box-shadow:
+0 12px 24px rgba(239,68,68,.22);
+
+}
+
+.popup-close:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* =====================================================
+MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+body{
+display:block;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:relative;
+
+width:100%;
+height:auto;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:14px;
+
+overflow-x:auto;
+
+white-space:nowrap;
+
+}
+
+.sidebar h2{
+
+font-size:22px;
+
+margin:0 10px 0 0;
+
+flex-shrink:0;
+
+}
+
+.sidebar button{
+
+width:auto;
+
+min-width:110px;
+
+margin:0;
+
+padding:11px 14px;
+
+font-size:13px;
+
+flex-shrink:0;
+
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:0;
+
+padding:14px;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+flex-direction:column;
+
+align-items:stretch;
+
+gap:12px;
+
+}
+
+.topbar h1{
+
+font-size:28px;
+
+text-align:center;
+
+}
+
+/* GRID */
+
+.product-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:12px;
+
+}
+
+/* CARD */
+
+.produk-row{
+
+padding:12px;
+
+border-radius:20px;
+
+}
+
+.produk-info h3{
+
+font-size:13px;
+
+min-height:34px;
+
+}
+
+.price{
+
+font-size:17px;
+
+}
+
+/* CART */
+
+.cart-box{
+width:100%;
+}
+
+/* FLOAT */
+
+.cart-float{
+
+width:60px;
+height:60px;
+
+font-size:24px;
+
+right:16px;
+bottom:16px;
+
+}
+
+/* POPUP */
+
+.popup-content{
+
+max-width:300px;
+
+padding:24px 18px;
+
+border-radius:28px;
+
+}
+
+.popup-content h2{
+
+font-size:26px;
+
+}
+
+.popup-content p{
+
+font-size:40px;
+
+}
+
+.popup-qty button{
+
+width:50px;
+height:50px;
+
+font-size:26px;
+
+}
+
+.popup-qty input{
+
+width:80px;
+height:50px;
+
+font-size:22px;
+
+}
+
+}
+
+/* =====================================================
+SEARCH WRAPPER
+===================================================== */
+
+.search-box{
+
+position:relative;
+
+flex:1;
+
+}
+
+/* INPUT */
+
+.search-box input{
+
+width:100%;
+
+padding:
+15px 48px 15px 18px;
+
+border:none;
+
+border-radius:18px;
+
+font-size:14px;
+
+background:white;
+
+box-shadow:
+0 5px 18px rgba(0,0,0,.06);
+
+outline:none;
+
+}
+
+/* TOMBOL CLEAR */
+
+.clear-search{
+
+position:absolute;
+
+right:14px;
+
+top:50%;
+
+transform:translateY(-50%);
+
+width:30px;
+height:30px;
+
+border:none;
+
+border-radius:50%;
+
+background:#ef4444;
+
+color:white;
+
+font-size:14px;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:.2s;
+
+}
+
+.clear-search:hover{
+
+transform:
+translateY(-50%)
+scale(1.08);
+
+}
+/* =====================================================
+FIX LAYOUT PRODUK FULL
+===================================================== */
+
+body{
+overflow-x:hidden;
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:220px;
+
+width:calc(100% - 220px);
+
+padding:20px;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+position:sticky;
+
+top:0;
+
+z-index:100;
+
+background:#edf4ff;
+
+padding-bottom:15px;
+
+}
+
+/* GRID */
+
+.product-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(220px,1fr));
+
+gap:18px;
+
+width:100%;
+
+}
+
+/* CARD */
+
+.produk-row{
+
+width:100%;
+
+min-width:0;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+padding:14px;
+
+}
+
+.product-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:12px;
+
+}
+
+}
+/* =====================================================
+FIX TOPBAR & SEARCH TIDAK GESER
+===================================================== */
+
+html,
+body{
+
+margin:0;
+padding:0;
+
+overflow-x:hidden;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+left:0;
+top:0;
+bottom:0;
+
+width:220px;
+
+z-index:999;
+
+overflow-y:auto;
+
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:220px;
+
+width:calc(100% - 220px);
+
+min-height:100vh;
+
+padding:20px;
+
+overflow-x:hidden;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+position:sticky;
+
+top:0;
+
+z-index:500;
+
+background:#edf4ff;
+
+padding-bottom:14px;
+
+}
+
+/* SEARCH */
+
+.search-box{
+
+width:100%;
+
+position:relative;
+
+}
+
+/* INPUT */
+
+.search-box input{
+
+width:100%;
+
+}
+
+/* GRID */
+
+.product-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(220px,1fr));
+
+gap:18px;
+
+align-items:start;
+
+width:100%;
+
+}
+
+/* CARD */
+
+.produk-row{
+
+width:100%;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.sidebar{
+
+position:relative;
+
+width:100%;
+
+height:auto;
+
+display:flex;
+
+gap:10px;
+
+overflow-x:auto;
+
+white-space:nowrap;
+
+}
+
+.main{
+
+margin-left:0;
+
+width:100%;
+
+padding:14px;
+
+}
+
+.topbar{
+
+top:0;
+
+}
+
+.product-grid{
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:12px;
+
+}
+
+}
+/* =====================================================
+MODE RINGAN / HAPUS ANIMASI BERAT
+===================================================== */
+
+/* HAPUS SEMUA TRANSISI BERAT */
+
+*{
+
+animation:none !important;
+
+transition:none !important;
+
+scroll-behavior:auto !important;
+
+}
+
+/* HAPUS BLUR */
+
+.popup,
+.popup-content,
+.topbar,
+.produk-row{
+
+backdrop-filter:none !important;
+
+}
+
+/* HAPUS SHADOW BERAT */
+
+.produk-row,
+.cart-box,
+.popup-content,
+.cart-float,
+.checkout-btn,
+.reset-btn,
+.popup-btn,
+.popup-close,
+.mini-cart-btn{
+
+box-shadow:none !important;
+
+}
+
+/* HOVER MATI */
+
+.produk-row:hover,
+.popup-btn:hover,
+.popup-close:hover,
+.checkout-btn:hover,
+.reset-btn:hover,
+.mini-cart-btn:hover,
+.cart-float:hover{
+
+transform:none !important;
+
+}
+
+/* POPUP */
+
+.popup{
+
+background:
+rgba(0,0,0,.45);
+
+}
+
+/* PRODUK */
+
+.produk-row{
+
+border:
+1px solid #e2e8f0;
+
+}
+
+/* BUTTON */
+
+.checkout-btn,
+.reset-btn,
+.popup-btn,
+.popup-close,
+.mini-cart-btn{
+
+font-weight:600;
+
+}
+
+/* FLOAT */
+
+.cart-float{
+
+border:
+3px solid white;
+
+}
+
+/* SCROLL LEBIH HALUS */
+
+body{
+
+overflow-x:hidden;
+
+-webkit-overflow-scrolling:touch;
+
+}
+.admin-btn{
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+
+    background: #111;
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    z-index: 9999;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+    transition: 0.3s;
+}
+
+.admin-btn:hover{
+    transform: scale(1.05);
+    background: #222;
+}
+/* =========================
+TAMBAHKAN DI style.css
+========================= */
+
+.admin-link{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#111;
+color:white;
+padding:12px 18px;
+border-radius:10px;
+text-decoration:none;
+font-weight:600;
+z-index:999;
+}
+.stok-produk{
+    margin-top:8px;
+    font-size:14px;
+    font-weight:bold;
+    color:#0f172a;
+}
+.loading-box{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:99999;
+}
+
+.loading-box.active{
+display:flex;
+}
+
+.spinner{
+width:60px;
+height:60px;
+border:6px solid #ffffff30;
+border-top:6px solid white;
+border-radius:50%;
+animation:putar 1s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes putar{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+.loading-box p{
+color:white;
+font-size:18px;
+font-weight:bold;
+}
+.stok-habis{
+background:#999;
+cursor:not-allowed;
+opacity:0.7;
+}
+/* =========================
+TOMBOL TAMBAH KERANJANG
+========================= */
+
+.btn-cart-modern{
+width:100%;
+border:none;
+padding:14px;
+border-radius:14px;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+
+background:linear-gradient(
+135deg,
+#00c853,
+#00e676
+);
+
+color:white;
+
+transition:0.3s;
+box-shadow:
+0 4px 12px rgba(0,0,0,0.15);
+}
+
+.btn-cart-modern:hover{
+transform:translateY(-3px);
+box-shadow:
+0 8px 18px rgba(0,0,0,0.2);
+}
+
+.btn-cart-modern:active{
+transform:scale(0.96);
+}
+
+/* =========================
+TOMBOL HAPUS
+========================= */
+
+.btn-hapus-modern{
+border:none;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+
+background:linear-gradient(
+135deg,
+#ff5252,
+#ff1744
+);
+
+color:white;
+font-size:14px;
+font-weight:600;
+
+transition:0.3s;
+}
+
+.btn-hapus-modern:hover{
+transform:translateY(-2px);
+box-shadow:
+0 6px 15px rgba(255,0,0,0.25);
+}
+
+.btn-hapus-modern:active{
+transform:scale(0.95);
+}
+.cart-item{
+animation:fadeCart .3s ease;
+}
+
+@keyframes fadeCart{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+/* =========================
+TOMBOL STOK HABIS
+========================= */
+
+.btn-stok-habis{
+
+width:100%;
+
+border:none;
+
+padding:14px;
+
+border-radius:14px;
+
+font-size:15px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+cursor:not-allowed;
+
+background:linear-gradient(
+135deg,
+#9e9e9e,
+#616161
+);
+
+color:white;
+
+opacity:0.9;
+
+box-shadow:
+0 4px 10px rgba(0,0,0,0.15);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* EFEK GARIS */
+
+.btn-stok-habis::after{
+
+content:'';
+
+position:absolute;
+
+top:0;
+left:-100%;
+
+width:100%;
+height:100%;
+
+background:rgba(255,255,255,0.15);
+
+transform:skewX(-25deg);
+
+animation:stokHabisAnim 2s infinite;
+
+}
+
+@keyframes stokHabisAnim{
+
+100%{
+left:150%;
+}
+
+}

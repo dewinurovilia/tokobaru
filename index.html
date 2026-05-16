@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>TOKO DEFANA</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+<link rel="icon"
+href="https://cdn-icons-png.flaticon.com/512/263/263142.png">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- =========================
+SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+<h2>🛒 DEFANA</h2>
+
+<div id="kategoriList"></div>
+
+</div>
+
+<!-- =========================
+MAIN
+========================= -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<h1>
+TOKO DEFANA
+</h1>
+
+<div class="search-box">
+
+<input
+id="searchInput"
+type="text"
+placeholder="🔍 Cari produk..."
+onkeyup="renderProduk()">
+
+<button
+class="clear-search"
+onclick="clearSearch()">
+
+✕
+
+</button>
+
+</div>
+
+<!-- PRODUK -->
+
+<div
+id="productList"
+class="product-grid">
+
+</div>
+
+</div>
+
+<!-- =========================
+FLOAT CART
+========================= -->
+
+<div
+class="cart-float"
+onclick="toggleCart()">
+
+🛒
+
+<span id="cartCount">
+0
+</span>
+
+</div>
+
+<!-- =========================
+CART BOX
+========================= -->
+
+<div
+class="cart-box"
+id="cartBox">
+
+<!-- HEADER -->
+
+<div class="cart-header">
+
+<h2>
+Keranjang
+</h2>
+
+<button
+class="close-btn"
+onclick="toggleCart()">
+
+✕
+
+</button>
+
+</div>
+
+<!-- FORM -->
+
+<input
+type="text"
+id="namaPemesan"
+placeholder="👤 Nama Pemesan">
+
+<select
+id="pengiriman"
+onchange="toggleMetode()">
+
+<option value="" disabled selected>
+🚚 Pilih Pengiriman
+</option>
+
+<option value="Ambil Sendiri">
+Ambil Sendiri
+</option>
+
+<option value="Diantar">
+Diantar
+</option>
+
+</select>
+
+<select
+id="pembayaran"
+onchange="toggleQR()">
+
+<option value="COD">
+💵 COD
+</option>
+
+<option value="Transfer">
+🏦 Transfer
+</option>
+
+</select>
+
+<!-- QR -->
+
+<div id="qrBox">
+
+<p class="qr-title">
+Scan QR Pembayaran
+</p>
+
+<img src="img/barcode.png">
+
+</div>
+
+<!-- CART -->
+<div id="cartItems"></div>
+
+<div id="cartTotal"></div>
+
+<!-- PASSWORD STRUK TARUH DI SINI -->
+
+<div
+id="passwordStrukBox"
+style="
+display:none;
+margin-top:12px;
+">
+
+<input
+type="password"
+id="passwordStruk"
+placeholder="🔒 Masukkan Password Struk">
+
+<button
+id="btnUnlock"
+type="button"
+onclick="cekPasswordStruk()"
+class="mini-cart-btn">
+
+🔓 Unlock Struk
+
+</button>
+
+</div>
+
+<!-- TOMBOL WA -->
+
+<button
+id="btnWA"
+class="checkout-btn"
+onclick="checkoutWA()"
+style="display:none;">
+
+📲 Pesan via WhatsApp
+
+</button>
+
+<!-- CETAK STRUK -->
+
+<button
+id="btnStruk"
+class="checkout-btn"
+onclick="cetakStruk()"
+style="display:none;">
+
+🖨 Cetak Struk
+
+</button>
+
+<!-- RESET -->
+
+<button
+class="reset-btn"
+onclick="resetCart()">
+
+🗑 Reset Keranjang
+
+</button>
+
+</div>
+
+<!-- =========================
+POPUP PRODUK
+========================= -->
+
+<div
+class="popup"
+id="popupBox">
+
+<div class="popup-content">
+
+<h2 id="popupNama">
+Produk
+</h2>
+
+<p id="popupHarga">
+Rp 0
+</p>
+
+<div class="popup-qty">
+
+<button onclick="popupKurang()">
+−
+</button>
+
+<input
+type="number"
+id="popupQty"
+value="1"
+min="1">
+
+<button onclick="popupTambah()">
++
+</button>
+
+</div>
+
+<button
+class="popup-btn"
+onclick="confirmAddCart()">
+
+🛒 Tambahkan
+
+</button>
+
+<button
+class="popup-close"
+onclick="closePopup()">
+
+Tutup
+
+</button>
+
+</div>
+
+</div>
+<!-- TOMBOL ADMIN -->
+<a href="admin/admin.html" class="admin-link">
+
+⚙️ Admin
+
+</a>
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+onValue
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCvco9APepbM1YRhDLGzE2uxFBVtLL2NLs",
+authDomain: "fauz2327-b8dfa.firebaseapp.com",
+databaseURL: "https://fauz2327-b8dfa-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "fauz2327-b8dfa",
+storageBucket: "fauz2327-b8dfa.firebasestorage.app",
+messagingSenderId: "625104866445",
+appId: "1:625104866445:web:129165fbc539edb36466c4",
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getDatabase(app);
+
+window.firebaseDB = db;
+window.firebaseRef = ref;
+window.firebaseOnValue = onValue;
+
+</script>
+<!-- SCRIPT -->
+<script type="module" src="script.js"></script>
+<div id="produk-container"></div>
+
+<!-- LOADING -->
+
+<div class="loading-box" id="loadingBox">
+
+<div class="spinner"></div>
+
+<p id="loadingText">
+Memproses...
+</p>
+
+</div>
+</body>

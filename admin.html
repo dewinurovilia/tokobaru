@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DASHBOARD DEFANA</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f1f5f9;
+}
+
+/* LOGIN */
+
+.login-page{
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#0f172a;
+}
+
+.login-box{
+background:white;
+padding:35px;
+width:350px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.login-box h1{
+margin-bottom:20px;
+}
+
+.login-box input{
+width:100%;
+padding:14px;
+border-radius:12px;
+border:1px solid #ddd;
+margin-bottom:15px;
+}
+
+.login-box button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2563eb;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+display:none;
+}
+
+.topbar{
+background:white;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logout-btn{
+background:#dc2626;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:12px;
+cursor:pointer;
+}
+
+.container{
+padding:25px;
+}
+
+.search-box{
+width:100%;
+padding:15px;
+border-radius:14px;
+border:1px solid #ddd;
+margin-bottom:25px;
+font-size:15px;
+}
+
+/* SECTION */
+
+.section-title{
+font-size:22px;
+font-weight:bold;
+margin:25px 0 15px;
+}
+
+.warning-title{
+color:#dc2626;
+}
+
+.normal-title{
+color:#16a34a;
+}
+
+.produk-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.stok-tipis{
+border:2px solid #ef4444;
+}
+
+.card h2{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.harga{
+color:#16a34a;
+font-size:18px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.stock{
+margin-bottom:15px;
+font-size:15px;
+}
+
+.btn-group{
+display:flex;
+gap:10px;
+}
+
+.btn-group button{
+flex:1;
+padding:12px;
+border:none;
+border-radius:12px;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+.tambah{
+background:#16a34a;
+}
+
+.kurangi{
+background:#dc2626;
+}
+
+/* TOAST */
+
+.toast{
+position:fixed;
+bottom:30px;
+right:30px;
+background:#111827;
+color:white;
+padding:15px 22px;
+border-radius:14px;
+opacity:0;
+transform:translateY(20px);
+transition:0.3s;
+z-index:9999;
+}
+
+.toast.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="login-page" id="loginPage">
+
+<div class="login-box">
+
+<h1>🔒 Login Admin</h1>
+
+<input
+type="password"
+id="password"
+placeholder="Masukkan Password">
+
+<button onclick="loginAdmin()">
+Masuk Dashboard
+</button>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard" id="dashboard">
+
+<div class="topbar">
+
+<h1>DASHBOARD TOKO DEFANA</h1>
+
+<button
+class="logout-btn"
+onclick="logoutAdmin()">
+Logout
+</button>
+
+</div>
+
+<div class="container">
+
+<input
+type="text"
+id="search"
+class="search-box"
+placeholder="🔍 Cari produk..."
+onkeyup="renderProduk()">
+
+<div id="produkList"></div>
+
+</div>
+
+</div>
+
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+<span id="toastText"></span>
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+onValue,
+set
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCvco9APepbM1YRhDLGzE2uxFBVtLL2NLs",
+authDomain: "fauz2327-b8dfa.firebaseapp.com",
+databaseURL: "https://fauz2327-b8dfa-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "fauz2327-b8dfa",
+storageBucket: "fauz2327-b8dfa.appspot.com",
+messagingSenderId: "625104866445",
+appId: "1:625104866445:web:129165fbc539edb36466c4"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getDatabase(app);
+
+/* PASSWORD */
+
+const PASSWORD = "db27";
+
+let produk = [];
+
+/* LOGIN */
+
+window.loginAdmin = function(){
+
+const inputPassword =
+document.getElementById("password").value;
+
+if(inputPassword === PASSWORD){
+
+localStorage.setItem(
+"adminLogin",
+"true"
+);
+
+showDashboard();
+
+}else{
+
+showToast("Password salah!");
+
+}
+
+}
+
+/* SHOW DASHBOARD */
+
+function showDashboard(){
+
+document
+.getElementById("loginPage")
+.style.display = "none";
+
+document
+.getElementById("dashboard")
+.style.display = "block";
+
+loadProduk();
+
+}
+
+/* AUTO LOGIN */
+
+window.onload = function(){
+
+if(
+localStorage.getItem("adminLogin")
+=== "true"
+){
+
+showDashboard();
+
+}
+
+}
+
+/* LOGOUT */
+
+window.logoutAdmin = function(){
+
+localStorage.removeItem("adminLogin");
+
+location.reload();
+
+}
+
+/* LOAD PRODUK */
+
+function loadProduk(){
+
+onValue(ref(db), (snapshot)=>{
+
+const data = snapshot.val();
+
+if(!data){
+
+document
+.getElementById("produkList")
+.innerHTML =
+"<h2>Produk kosong</h2>";
+
+return;
+
+}
+
+produk = Array.isArray(data)
+? data
+: Object.values(data);
+
+renderProduk();
+
+});
+
+}
+
+/* RENDER PRODUK */
+
+window.renderProduk = function(){
+
+const search =
+document
+.getElementById("search")
+.value
+.toLowerCase();
+
+const list =
+document
+.getElementById("produkList");
+
+list.innerHTML = "";
+
+const BATAS_STOK = 3;
+
+const hasil =
+produk.filter(item =>
+
+item.nama &&
+item.nama.toLowerCase().includes(search)
+
+);
+
+const stokSedikit =
+hasil.filter(item =>
+
+Number(item.stok || 0)
+<= BATAS_STOK
+
+);
+
+const stokNormal =
+hasil.filter(item =>
+
+Number(item.stok || 0)
+> BATAS_STOK
+
+);
+
+/* STOCK MENIPIS */
+
+if(stokSedikit.length > 0){
+
+list.innerHTML += `
+
+<div class="section-title warning-title">
+⚠️ STOCK MENIPIS
+</div>
+
+<div class="produk-grid" id="stokSedikit"></div>
+
+`;
+
+const gridSedikit =
+document.getElementById("stokSedikit");
+
+stokSedikit.forEach((item)=>{
+
+const index = produk.indexOf(item);
+
+gridSedikit.innerHTML += `
+
+<div class="card stok-tipis">
+
+<h2>${item.nama}</h2>
+
+<div class="harga">
+Rp ${Number(item.harga || 0).toLocaleString()}
+</div>
+
+<div class="stock">
+⚠️ Stock : <b>${item.stok || 0}</b>
+</div>
+
+<div class="btn-group">
+
+<button
+class="tambah"
+onclick="tambahStock(${index})">
+
++ Tambah
+
+</button>
+
+<button
+class="kurangi"
+onclick="kurangiStock(${index})">
+
+- Kurangi
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* STOCK NORMAL */
+
+if(stokNormal.length > 0){
+
+list.innerHTML += `
+
+<div class="section-title normal-title">
+✅ STOCK NORMAL
+</div>
+
+<div class="produk-grid" id="stokNormal"></div>
+
+`;
+
+const gridNormal =
+document.getElementById("stokNormal");
+
+stokNormal.forEach((item)=>{
+
+const index = produk.indexOf(item);
+
+gridNormal.innerHTML += `
+
+<div class="card">
+
+<h2>${item.nama}</h2>
+
+<div class="harga">
+Rp ${Number(item.harga || 0).toLocaleString()}
+</div>
+
+<div class="stock">
+📦 Stock : <b>${item.stok || 0}</b>
+</div>
+
+<div class="btn-group">
+
+<button
+class="tambah"
+onclick="tambahStock(${index})">
+
++ Tambah
+
+</button>
+
+<button
+class="kurangi"
+onclick="kurangiStock(${index})">
+
+- Kurangi
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+}
+
+/* TAMBAH STOCK */
+
+window.tambahStock = function(index){
+
+const item = produk[index];
+
+if(!item) return;
+
+const stokBaru =
+Number(item.stok || 0) + 1;
+
+set(
+ref(db, index + '/stok'),
+stokBaru
+).then(()=>{
+
+showToast(
+'Stock ' + item.nama + ' ditambah'
+);
+
+});
+
+}
+
+/* KURANGI STOCK */
+
+window.kurangiStock = function(index){
+
+const item = produk[index];
+
+if(!item) return;
+
+const stokBaru =
+Math.max(
+Number(item.stok || 0) - 1,
+0
+);
+
+set(
+ref(db, index + '/stok'),
+stokBaru
+).then(()=>{
+
+showToast(
+'Stock ' + item.nama + ' dikurangi'
+);
+
+});
+
+}
+
+/* TOAST */
+
+function showToast(text){
+
+const toast =
+document.getElementById("toast");
+
+const toastText =
+document.getElementById("toastText");
+
+toastText.innerHTML = text;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2000);
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login Admin</title>
+
+<link rel="stylesheet" href="admin.css">
+
+</head>
+<body>
+
+<div class="login-box">
+
+<h1>🔒 Login Dashboard</h1>
+
+<input
+type="password"
+id="password"
+placeholder="Masukkan Password">
+
+<button onclick="loginAdmin()">
+Login
+</button>
+
+</div>
+
+<script>
+
+const PASSWORD = "admin123";
+
+function loginAdmin(){
+
+const pass =
+document.getElementById("password").value;
+
+if(pass === PASSWORD){
+
+localStorage.setItem("adminLogin","true");
+
+window.location.href = "admin.html";
+
+}else{
+
+alert("Password Salah!");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
