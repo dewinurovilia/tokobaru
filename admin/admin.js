@@ -1,65 +1,176 @@
-// PASSWORD LOGIN
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-const PASSWORD = "db27";
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// LOGIN
+/* =========================
+FIREBASE CONFIG
+========================= */
 
-function loginAdmin(){
+const firebaseConfig = {
 
-const pass =
+apiKey: "API_KEY",
+authDomain: "PROJECT.firebaseapp.com",
+databaseURL: "https://PROJECT-default-rtdb.firebaseio.com",
+projectId: "PROJECT",
+storageBucket: "PROJECT.appspot.com",
+messagingSenderId: "XXXXX",
+appId: "XXXXX"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+/* =========================
+LOGIN ADMIN
+========================= */
+
+window.loginAdmin = async function(){
+
+const email =
+document.getElementById("email").value;
+
+const password =
 document.getElementById("password").value;
 
-if(pass === PASSWORD){
+try{
 
-document.getElementById("loginBox").style.display = "none";
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-document.getElementById("dashboard").style.display = "block";
+document.getElementById("loginBox")
+.style.display = "none";
+
+document.getElementById("dashboard")
+.style.display = "block";
+
+renderProduk();
+
+}
+catch(error){
+
+alert("Email atau password salah");
+
+console.log(error);
+
+}
+
+};
+
+/* =========================
+CEK LOGIN
+========================= */
+
+onAuthStateChanged(auth, (user)=>{
+
+if(user){
+
+document.getElementById("loginBox")
+.style.display = "none";
+
+document.getElementById("dashboard")
+.style.display = "block";
 
 renderProduk();
 
 }else{
 
-alert("Password Salah!");
+document.getElementById("loginBox")
+.style.display = "block";
+
+document.getElementById("dashboard")
+.style.display = "none";
 
 }
 
-}
+});
 
-// AMBIL DATA PRODUK
+/* =========================
+LOGOUT
+========================= */
+
+window.logoutAdmin = async function(){
+
+await signOut(auth);
+
+alert("Logout berhasil");
+
+};
+
+/* =========================
+DATA PRODUK
+========================= */
 
 let produk = [];
 
-// LOAD PRODUK
+/* =========================
+LOAD STORAGE
+========================= */
+
+const dataStorage =
+localStorage.getItem("produk");
+
+if(dataStorage){
+
+produk = JSON.parse(dataStorage);
+
+}
+
+/* =========================
+LOAD PRODUK JSON
+========================= */
 
 fetch("produk.json")
 .then(res => res.json())
 .then(data => {
 
+if(produk.length === 0){
+
 produk = data;
+
+}
 
 renderProduk();
 
 });
 
-// TAMPILKAN PRODUK
+/* =========================
+RENDER PRODUK
+========================= */
 
 function renderProduk(){
 
+const searchInput =
+document.getElementById("searchProduk");
+
+if(!searchInput) return;
+
 const keyword =
-document.getElementById("searchProduk")
-.value
-.toLowerCase();
+searchInput.value.toLowerCase();
 
 const list =
 document.getElementById("listProduk");
 
+if(!list) return;
+
 list.innerHTML = "";
 
 /* =========================
-BATAS stock MENIPIS
+BATAS STOCK MENIPIS
 ========================= */
 
-const BATAS_stock = 3;
+const BATAS_STOCK = 3;
 
 /* =========================
 FILTER PRODUK
@@ -75,14 +186,14 @@ item.nama
 );
 
 /* =========================
-stock MENIPIS
+STOCK MENIPIS
 ========================= */
 
 const stockSedikit =
 hasil.filter(item =>
 
 Number(item.stock || 0)
-<= BATAS_stock
+<= BATAS_STOCK
 
 );
 
@@ -90,7 +201,7 @@ const stockNormal =
 hasil.filter(item =>
 
 Number(item.stock || 0)
-> BATAS_stock
+> BATAS_STOCK
 
 );
 
@@ -104,7 +215,7 @@ list.innerHTML += `
 
 <div class="stock-warning-box">
 
-⚠️ stock MENIPIS
+⚠️ STOCK MENIPIS
 (${stockSedikit.length} Produk)
 
 </div>
@@ -114,7 +225,7 @@ list.innerHTML += `
 }
 
 /* =========================
-RENDER stock MENIPIS
+RENDER STOCK MENIPIS
 ========================= */
 
 stockSedikit.forEach((item)=>{
@@ -128,7 +239,7 @@ list.innerHTML += `
 <h3>${item.nama}</h3>
 
 <p>
-⚠️ stock : ${item.stock || 0}
+⚠️ Stock : ${item.stock || 0}
 </p>
 
 </div>
@@ -137,16 +248,17 @@ list.innerHTML += `
 
 <button
 class="btn tambah"
-onclick="tambahstock('${item.id}')">
+onclick="tambahStock('${item.id}')">
 
-+ stock
++ Stock
 
 </button>
 
 <button
 class="btn kurang"
-onclick="kurangstock('${item.id}')">
-- stock
+onclick="kurangStock('${item.id}')">
+
+- Stock
 
 </button>
 
@@ -159,7 +271,7 @@ onclick="kurangstock('${item.id}')">
 });
 
 /* =========================
-RENDER stock NORMAL
+RENDER STOCK NORMAL
 ========================= */
 
 stockNormal.forEach((item)=>{
@@ -173,7 +285,7 @@ list.innerHTML += `
 <h3>${item.nama}</h3>
 
 <p>
-stock : ${item.stock || 0}
+Stock : ${item.stock || 0}
 </p>
 
 </div>
@@ -182,17 +294,17 @@ stock : ${item.stock || 0}
 
 <button
 class="btn tambah"
-onclick="tambahstock('${item.id}')">
+onclick="tambahStock('${item.id}')">
 
-+ stock
++ Stock
 
 </button>
 
 <button
 class="btn kurang"
-onclick="kurangstock('${item.id}')">
+onclick="kurangStock('${item.id}')">
 
-- stock
+- Stock
 
 </button>
 
@@ -203,15 +315,22 @@ onclick="kurangstock('${item.id}')">
 `;
 
 });
-// TAMBAH stock
 
-function tambahstock(id){
+}
+
+/* =========================
+TAMBAH STOCK
+========================= */
+
+window.tambahStock = function(id){
 
 const item =
 produk.find(p => p.id == id);
 
 if(!item.stock){
+
 item.stock = 0;
+
 }
 
 item.stock++;
@@ -220,28 +339,38 @@ renderProduk();
 
 simpanStorage();
 
-}
-// KURANG stock
+};
 
-function kurangstock(id){
+/* =========================
+KURANG STOCK
+========================= */
+
+window.kurangStock = function(id){
 
 const item =
 produk.find(p => p.id == id);
 
 if(!item.stock){
+
 item.stock = 0;
+
 }
 
 if(item.stock > 0){
+
 item.stock--;
+
 }
 
 renderProduk();
 
 simpanStorage();
 
-}
-// SIMPAN LOCAL STORAGE
+};
+
+/* =========================
+SIMPAN STORAGE
+========================= */
 
 function simpanStorage(){
 
@@ -249,16 +378,5 @@ localStorage.setItem(
 "produk",
 JSON.stringify(produk)
 );
-
-}
-
-// LOAD STORAGE
-
-const dataStorage =
-localStorage.getItem("produk");
-
-if(dataStorage){
-
-produk = JSON.parse(dataStorage);
 
 }
