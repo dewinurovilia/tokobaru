@@ -74,7 +74,7 @@ LOAD PRODUK FIREBASE
 function loadProduk(){
 
 const produkRef =
-ref(firebaseDB,'produk');
+ref(firebaseDB);
 
 onValue(produkRef,(snapshot)=>{
 
@@ -88,7 +88,15 @@ return;
 
 }
 
-produk = Object.values(data);
+/* FILTER HANYA PRODUK */
+
+produk =
+Object.values(data).filter(item =>
+
+item &&
+item.nama
+
+);
 
 renderKategori();
 
@@ -245,6 +253,7 @@ disabled>
 ❌ STOK HABIS
 
 </button>
+
 `
 
 : `
@@ -452,231 +461,5 @@ showToast(
 selectedProduct.nama +
 ' ditambahkan ke keranjang'
 );
-
-}
-
-/* =========================
-CLEAR SEARCH
-========================= */
-
-window.clearSearch = function(){
-
-document.getElementById(
-'searchInput'
-).value='';
-
-renderProduk();
-
-}
-
-/* =========================
-TOGGLE CART
-========================= */
-
-window.toggleCart = function(){
-
-document
-.getElementById('cartBox')
-.classList
-.toggle('active');
-
-}
-
-/* =========================
-TOGGLE QR
-========================= */
-
-window.toggleQR = function(){
-
-const pembayaran =
-document.getElementById('pembayaran');
-
-const qr =
-document.getElementById('qrBox');
-
-if(!pembayaran || !qr) return;
-
-if(pembayaran.value==='Transfer'){
-
-qr.style.display='block';
-
-}else{
-
-qr.style.display='none';
-
-}
-
-}
-
-/* =========================
-UPDATE CART
-========================= */
-
-function updateCart(){
-
-const cartBox =
-document.getElementById('cartItems');
-
-const totalBox =
-document.getElementById('cartTotal');
-
-const countBox =
-document.getElementById('cartCount');
-
-if(!cartBox) return;
-
-cartBox.innerHTML = '';
-
-let total = 0;
-
-if(cart.length===0){
-
-cartBox.innerHTML =
-'<p>Keranjang kosong</p>';
-
-if(totalBox){
-
-totalBox.innerHTML='';
-
-}
-
-if(countBox){
-
-countBox.innerHTML='0';
-
-}
-
-return;
-
-}
-
-cart.forEach((item,index)=>{
-
-const subtotal =
-item.harga * item.qty;
-
-total += subtotal;
-
-cartBox.innerHTML += `
-
-<div class="cart-item">
-
-<h4>${item.nama}</h4>
-
-<p>
-
-${item.qty} x
-Rp ${Number(item.harga).toLocaleString()}
-
-</p>
-
-<b>
-
-Rp ${subtotal.toLocaleString()}
-
-</b>
-
-<br><br>
-
-<button
-class="btn-hapus-modern"
-onclick="hapusCart(${index})">
-
-🗑 Hapus
-
-</button>
-
-</div>
-
-`;
-
-});
-
-if(totalBox){
-
-totalBox.innerHTML =
-
-'Total : Rp ' +
-total.toLocaleString();
-
-}
-
-if(countBox){
-
-countBox.innerHTML =
-cart.length;
-
-}
-
-}
-
-/* =========================
-HAPUS CART
-========================= */
-
-window.hapusCart = function(index){
-
-cart.splice(index,1);
-
-updateCart();
-
-toggleMetode();
-
-}
-
-/* =========================
-KIRIM REKAP GOOGLE SHEET
-========================= */
-
-async function kirimRekap(
-nama,
-pengiriman,
-pembayaran,
-total,
-items
-){
-
-const data={
-
-nama:nama,
-pengiriman:pengiriman,
-pembayaran:pembayaran,
-total:total,
-items:items
-
-};
-
-try{
-
-await fetch(
-
-'https://script.google.com/macros/s/AKfycbxWfHVxDop4n8SqwP1vxGLj1D4jnTe7_iTrqGJ4bm9dDW0BiDDSxOPpy7X5Dcvb1dEa/exec',
-
-{
-method:'POST',
-mode:'no-cors',
-
-headers:{
-'Content-Type':'text/plain'
-},
-
-body:JSON.stringify(data)
-
-}
-
-);
-
-console.log(
-'Rekap berhasil dikirim'
-);
-
-}catch(error){
-
-console.log(
-'Error kirim rekap:',
-error
-);
-
-}
 
 }
