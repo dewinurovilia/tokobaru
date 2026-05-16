@@ -43,13 +43,57 @@ const firebaseDB =
 getDatabase(app);
 
 /* =========================
-TOKO DEFANA FULL SCRIPT
+DATA GLOBAL
 ========================= */
 
 let produk = [];
 let kategoriAktif = 'Semua';
 let cart = [];
 let selectedProduct = null;
+
+/* =========================
+RESET KEUANGAN HARIAN
+========================= */
+
+cekResetHarian();
+
+function cekResetHarian(){
+
+const hariIni =
+new Date().toISOString().split('T')[0];
+
+const keuanganRef =
+ref(firebaseDB,'keuangan');
+
+onValue(keuanganRef,(snapshot)=>{
+
+const data = snapshot.val() || {};
+
+const tanggalLama =
+data.tanggal || '';
+
+if(tanggalLama !== hariIni){
+
+set(
+ref(firebaseDB,'keuangan'),
+{
+
+tanggal: hariIni,
+modalHari: 0,
+penjualanHari: 0
+
+}
+);
+
+}
+
+},
+{
+onlyOnce:true
+}
+);
+
+}
 
 /* =========================
 LOAD AWAL
@@ -68,7 +112,7 @@ toggleMetode();
 });
 
 /* =========================
-LOAD PRODUK FIREBASE
+LOAD PRODUK
 ========================= */
 
 function loadProduk(){
@@ -82,13 +126,11 @@ const data = snapshot.val();
 
 if(!data){
 
-console.log('Data kosong');
+console.log('Produk kosong');
 
 return;
 
 }
-
-/* FILTER HANYA PRODUK */
 
 produk =
 Object.values(data).filter(item =>
@@ -203,9 +245,7 @@ if(filtered.length===0){
 list.innerHTML = `
 
 <p style="padding:20px;">
-
 Produk tidak ditemukan
-
 </p>
 
 `;
@@ -221,9 +261,7 @@ list.innerHTML += `
 <div class="produk-row">
 
 <div class="kategori-badge">
-
 ${item.kategori || 'Produk'}
-
 </div>
 
 <div class="produk-info">
@@ -231,15 +269,11 @@ ${item.kategori || 'Produk'}
 <h3>${item.nama}</h3>
 
 <div class="price">
-
 Rp ${Number(item.harga).toLocaleString()}
-
 </div>
 
 <div class="stok-produk">
-
 📦 Stock : ${item.stok || 0}
-
 </div>
 
 ${Number(item.stok) <= 0
@@ -281,7 +315,7 @@ onclick="openPopup('${item.id}')">
 }
 
 /* =========================
-POPUP PRODUK
+POPUP
 ========================= */
 
 window.openPopup = function(id){
@@ -292,7 +326,11 @@ p => p.id == id
 );
 
 if(!selectedProduct){
+
+showToast('Produk tidak ditemukan');
+
 return;
+
 }
 
 if(Number(selectedProduct.stok) <= 0){
@@ -311,7 +349,6 @@ selectedProduct.nama;
 document.getElementById(
 'popupHarga'
 ).innerHTML =
-
 'Rp ' +
 Number(
 selectedProduct.harga
@@ -327,10 +364,6 @@ document.getElementById(
 
 }
 
-/* =========================
-TUTUP POPUP
-========================= */
-
 window.closePopup = function(){
 
 document.getElementById(
@@ -340,15 +373,13 @@ document.getElementById(
 }
 
 /* =========================
-QTY +
+QTY
 ========================= */
 
 window.popupTambah = function(){
 
 const qty =
-document.getElementById(
-'popupQty'
-);
+document.getElementById('popupQty');
 
 const jumlah =
 parseInt(qty.value);
@@ -370,16 +401,10 @@ qty.value = jumlah + 1;
 
 }
 
-/* =========================
-QTY -
-========================= */
-
 window.popupKurang = function(){
 
 const qty =
-document.getElementById(
-'popupQty'
-);
+document.getElementById('popupQty');
 
 if(qty.value > 1){
 
@@ -390,7 +415,7 @@ qty.value--;
 }
 
 /* =========================
-CONFIRM TAMBAH CART
+TAMBAH CART
 ========================= */
 
 window.confirmAddCart = function(){
@@ -461,5 +486,380 @@ showToast(
 selectedProduct.nama +
 ' ditambahkan ke keranjang'
 );
+
+}
+
+/* =========================
+UPDATE CART
+========================= */
+
+function updateCart(){
+
+const cartBox =
+document.getElementById('cartItems');
+
+const totalBox =
+document.getElementById('cartTotal');
+
+const countBox =
+document.getElementById('cartCount');
+
+if(!cartBox) return;
+
+cartBox.innerHTML='';
+
+let total = 0;
+
+if(cart.length===0){
+
+cartBox.innerHTML =
+'<p>Keranjang kosong</p>';
+
+if(totalBox){
+
+totalBox.innerHTML='';
+
+}
+
+if(countBox){
+
+countBox.innerHTML='0';
+
+}
+
+return;
+
+}
+
+cart.forEach((item,index)=>{
+
+const subtotal =
+item.harga * item.qty;
+
+total += subtotal;
+
+cartBox.innerHTML += `
+
+<div class="cart-item">
+
+<h4>${item.nama}</h4>
+
+<p>
+${item.qty} x
+Rp ${Number(item.harga).toLocaleString()}
+</p>
+
+<b>
+Rp ${subtotal.toLocaleString()}
+</b>
+
+<br><br>
+
+<button
+class="btn-hapus-modern"
+onclick="hapusCart(${index})">
+
+🗑 Hapus
+
+</button>
+
+</div>
+
+`;
+
+});
+
+if(totalBox){
+
+totalBox.innerHTML =
+'Total : Rp ' +
+total.toLocaleString();
+
+}
+
+if(countBox){
+
+countBox.innerHTML =
+cart.length;
+
+}
+
+}
+
+/* =========================
+HAPUS CART
+========================= */
+
+window.hapusCart = function(index){
+
+cart.splice(index,1);
+
+updateCart();
+
+toggleMetode();
+
+}
+
+/* =========================
+TOGGLE CART
+========================= */
+
+window.toggleCart = function(){
+
+document
+.getElementById('cartBox')
+.classList
+.toggle('active');
+
+}
+
+/* =========================
+TOGGLE QR
+========================= */
+
+window.toggleQR = function(){
+
+const pembayaran =
+document.getElementById('pembayaran');
+
+const qr =
+document.getElementById('qrBox');
+
+if(!pembayaran || !qr) return;
+
+if(pembayaran.value==='Transfer'){
+
+qr.style.display='block';
+
+}else{
+
+qr.style.display='none';
+
+}
+
+}
+
+/* =========================
+TOGGLE METODE
+========================= */
+
+window.toggleMetode = function(){
+
+const pengiriman =
+document.getElementById('pengiriman');
+
+const btnWA =
+document.getElementById('btnWA');
+
+const btnStruk =
+document.getElementById('btnStruk');
+
+if(!pengiriman || !btnWA || !btnStruk)
+return;
+
+btnWA.style.display='none';
+btnStruk.style.display='none';
+
+if(cart.length===0) return;
+
+if(pengiriman.value==='Diantar'){
+
+btnWA.style.display='flex';
+
+}
+
+if(pengiriman.value==='Ambil Sendiri'){
+
+btnStruk.style.display='flex';
+
+}
+
+}
+
+/* =========================
+CHECKOUT WA
+========================= */
+
+window.checkoutWA = async function(){
+
+const nama =
+document.getElementById(
+'namaPemesan'
+).value;
+
+if(!nama){
+
+showToast('Isi nama');
+
+return;
+
+}
+
+if(cart.length===0){
+
+showToast('Keranjang kosong');
+
+return;
+
+}
+
+let total = 0;
+let pesan =
+'🛒 PESANAN TOKO DEFANA%0A%0A';
+
+cart.forEach(item=>{
+
+const subtotal =
+item.harga * item.qty;
+
+total += subtotal;
+
+pesan +=
+item.nama +
+' ('+item.qty+') = Rp '+
+subtotal.toLocaleString() +
+'%0A';
+
+});
+
+pesan +=
+'%0ATOTAL : Rp ' +
+total.toLocaleString();
+
+await kurangiStockCheckout();
+
+await tambahPenjualan(total);
+
+cart=[];
+
+updateCart();
+
+renderProduk();
+
+window.open(
+'https://wa.me/6281554041777?text='+pesan,
+'_blank'
+);
+
+showToast('Checkout berhasil');
+
+}
+
+/* =========================
+TAMBAH PENJUALAN
+========================= */
+
+async function tambahPenjualan(total){
+
+const keuanganRef =
+ref(firebaseDB,'keuangan');
+
+onValue(keuanganRef,(snapshot)=>{
+
+const data = snapshot.val() || {};
+
+const lama =
+data.penjualanHari || 0;
+
+set(
+ref(firebaseDB,'keuangan/penjualanHari'),
+lama + total
+);
+
+},
+{
+onlyOnce:true
+}
+);
+
+}
+
+/* =========================
+KURANGI STOCK
+========================= */
+
+async function kurangiStockCheckout(){
+
+for(let i=0;i<cart.length;i++){
+
+const itemCart = cart[i];
+
+const indexProduk =
+produk.findIndex(
+p => p.id == itemCart.id
+);
+
+if(indexProduk===-1) continue;
+
+const stokSekarang =
+Number(
+produk[indexProduk].stok || 0
+);
+
+const stokBaru =
+Math.max(
+stokSekarang - itemCart.qty,
+0
+);
+
+await set(
+
+ref(
+firebaseDB,
+indexProduk + '/stok'
+),
+
+stokBaru
+
+);
+
+produk[indexProduk].stok =
+stokBaru;
+
+}
+
+}
+
+/* =========================
+RESET CART
+========================= */
+
+window.resetCart = function(){
+
+cart = [];
+
+updateCart();
+
+toggleMetode();
+
+showToast(
+'Keranjang dikosongkan'
+);
+
+}
+
+/* =========================
+TOAST
+========================= */
+
+function showToast(text){
+
+const toast =
+document.getElementById('toast');
+
+const toastText =
+document.getElementById('toastText');
+
+if(!toast || !toastText) return;
+
+toastText.innerHTML = text;
+
+toast.classList.add('show');
+
+setTimeout(()=>{
+
+toast.classList.remove('show');
+
+},2000);
 
 }
