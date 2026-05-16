@@ -128,11 +128,16 @@ type="number"
 id="stokProduk"
 placeholder="Stok Produk">
 
+<input
+type="text"
+id="gambarProduk"
+placeholder="Link Gambar">
+
 <select id="kategoriProduk">
 <option value="">Pilih Kategori</option>
 </select>
 
-<div style="display:flex; gap:10px;">
+<div class="kategori-row">
 
 <input
 type="text"
@@ -145,14 +150,17 @@ Tambah
 
 </div>
 
-<button onclick="tambahProduk()">
+<button
+class="simpan-btn"
+onclick="tambahProduk()">
+
 Simpan Produk
+
 </button>
 
 </div>
 
 </div>
-
 /* SEARCH */
 
 .search-box{
