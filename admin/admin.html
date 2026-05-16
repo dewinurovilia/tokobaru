@@ -103,65 +103,55 @@ font-weight:bold;
 padding:25px;
 }
 
-/* KEUANGAN */
+<!-- TAMBAH PRODUK -->
 
-.finance-box{
-background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:25px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
+<div class="finance-box">
 
-.finance-title{
-font-size:22px;
-font-weight:bold;
-margin-bottom:20px;
-}
+<div class="finance-title">
+📦 Tambah Produk Baru
+</div>
 
-.finance-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
+<div class="produk-form">
 
-.finance-card{
-background:#f8fafc;
-padding:20px;
-border-radius:18px;
-text-align:center;
-}
+<input
+type="text"
+id="namaProduk"
+placeholder="Nama Produk">
 
-.finance-card h3{
-font-size:15px;
-margin-bottom:10px;
-color:#64748b;
-}
+<input
+type="number"
+id="hargaProduk"
+placeholder="Harga Produk">
 
-.finance-card h2{
-font-size:28px;
-color:#16a34a;
-margin-bottom:15px;
-}
+<input
+type="number"
+id="stokProduk"
+placeholder="Stok Produk">
 
-.finance-card input{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-margin-bottom:10px;
-}
+<select id="kategoriProduk">
+<option value="">Pilih Kategori</option>
+</select>
 
-.finance-card button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-background:#2563eb;
-color:white;
-cursor:pointer;
-font-weight:bold;
-}
+<div style="display:flex; gap:10px;">
+
+<input
+type="text"
+id="kategoriBaru"
+placeholder="Tambah kategori baru">
+
+<button onclick="tambahKategori()">
+Tambah
+</button>
+
+</div>
+
+<button onclick="tambahProduk()">
+Simpan Produk
+</button>
+
+</div>
+
+</div>
 
 /* SEARCH */
 
