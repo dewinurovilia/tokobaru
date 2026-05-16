@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DASHBOARD DEFANA</title>
+<title>DASHBOARD TOKO DEFANA</title>
 
 <style>
 
@@ -28,38 +28,44 @@ display:flex;
 justify-content:center;
 align-items:center;
 background:#0f172a;
+padding:20px;
 }
 
 .login-box{
 background:white;
 padding:35px;
-width:350px;
+width:100%;
+max-width:380px;
 border-radius:20px;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
 .login-box h1{
-margin-bottom:20px;
+margin-bottom:25px;
+color:#111827;
 }
 
 .login-box input{
 width:100%;
-padding:14px;
-border-radius:12px;
+padding:15px;
+border-radius:14px;
 border:1px solid #ddd;
 margin-bottom:15px;
+font-size:15px;
+outline:none;
 }
 
 .login-box button{
 width:100%;
-padding:14px;
+padding:15px;
 border:none;
-border-radius:12px;
+border-radius:14px;
 background:#2563eb;
 color:white;
 font-size:16px;
 cursor:pointer;
+font-weight:bold;
 }
 
 /* DASHBOARD */
@@ -75,6 +81,12 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 box-shadow:0 2px 10px rgba(0,0,0,0.08);
+flex-wrap:wrap;
+gap:15px;
+}
+
+.topbar h1{
+font-size:24px;
 }
 
 .logout-btn{
@@ -84,11 +96,74 @@ border:none;
 padding:12px 18px;
 border-radius:12px;
 cursor:pointer;
+font-weight:bold;
 }
 
 .container{
 padding:25px;
 }
+
+/* KEUANGAN */
+
+.finance-box{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.finance-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.finance-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.finance-card{
+background:#f8fafc;
+padding:20px;
+border-radius:18px;
+text-align:center;
+}
+
+.finance-card h3{
+font-size:15px;
+margin-bottom:10px;
+color:#64748b;
+}
+
+.finance-card h2{
+font-size:28px;
+color:#16a34a;
+margin-bottom:15px;
+}
+
+.finance-card input{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:1px solid #ddd;
+margin-bottom:10px;
+}
+
+.finance-card button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* SEARCH */
 
 .search-box{
 width:100%;
@@ -97,6 +172,7 @@ border-radius:14px;
 border:1px solid #ddd;
 margin-bottom:25px;
 font-size:15px;
+outline:none;
 }
 
 /* SECTION */
@@ -208,9 +284,14 @@ transform:translateY(0);
 <h1>🔒 Login Admin</h1>
 
 <input
+type="email"
+id="email"
+placeholder="Email Admin">
+
+<input
 type="password"
 id="password"
-placeholder="Masukkan Password">
+placeholder="Password">
 
 <button onclick="loginAdmin()">
 Masuk Dashboard
@@ -238,12 +319,69 @@ Logout
 
 <div class="container">
 
+<!-- KEUANGAN -->
+
+<div class="finance-box">
+
+<div class="finance-title">
+💰 Keuangan Hari Ini
+</div>
+
+<div class="finance-grid">
+
+<div class="finance-card">
+
+<h3>Modal Hari Ini</h3>
+
+<h2 id="modalText">
+Rp 0
+</h2>
+
+<input
+type="number"
+id="inputModal"
+placeholder="Masukkan modal">
+
+<button onclick="simpanModal()">
+Simpan Modal
+</button>
+
+</div>
+
+<div class="finance-card">
+
+<h3>Total Penjualan</h3>
+
+<h2 id="penjualanText">
+Rp 0
+</h2>
+
+</div>
+
+<div class="finance-card">
+
+<h3>Laba Hari Ini</h3>
+
+<h2 id="labaText">
+Rp 0
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SEARCH -->
+
 <input
 type="text"
 id="search"
 class="search-box"
 placeholder="🔍 Cari produk..."
 onkeyup="renderProduk()">
+
+<!-- PRODUK -->
 
 <div id="produkList"></div>
 
@@ -266,9 +404,18 @@ import {
 getDatabase,
 ref,
 onValue,
-set
+set,
+get
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 /* FIREBASE */
 
@@ -288,35 +435,72 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-/* PASSWORD */
-
-const PASSWORD = "db27";
+const auth = getAuth(app);
 
 let produk = [];
 
+/* FORMAT RUPIAH */
+
+function rupiah(angka){
+
+return "Rp " +
+Number(angka || 0)
+.toLocaleString("id-ID");
+
+}
+
 /* LOGIN */
 
-window.loginAdmin = function(){
+window.loginAdmin = async function(){
 
-const inputPassword =
+const email =
+document.getElementById("email").value;
+
+const password =
 document.getElementById("password").value;
 
-if(inputPassword === PASSWORD){
+try{
 
-localStorage.setItem(
-"adminLogin",
-"true"
+await signInWithEmailAndPassword(
+auth,
+email,
+password
 );
+
+showToast("Login berhasil");
+
+}
+catch(error){
+
+showToast("Email atau password salah");
+
+console.log(error);
+
+}
+
+}
+
+/* AUTO LOGIN */
+
+onAuthStateChanged(auth, (user)=>{
+
+if(user){
 
 showDashboard();
 
 }else{
 
-showToast("Password salah!");
+document
+.getElementById("loginPage")
+.style.display = "flex";
+
+document
+.getElementById("dashboard")
+.style.display = "none";
 
 }
 
-}
+});
 
 /* SHOW DASHBOARD */
 
@@ -332,30 +516,76 @@ document
 
 loadProduk();
 
-}
-
-/* AUTO LOGIN */
-
-window.onload = function(){
-
-if(
-localStorage.getItem("adminLogin")
-=== "true"
-){
-
-showDashboard();
-
-}
+loadKeuangan();
 
 }
 
 /* LOGOUT */
 
-window.logoutAdmin = function(){
+window.logoutAdmin = async function(){
 
-localStorage.removeItem("adminLogin");
+await signOut(auth);
 
-location.reload();
+showToast("Logout berhasil");
+
+}
+
+/* LOAD KEUANGAN */
+
+function loadKeuangan(){
+
+onValue(ref(db, 'keuangan'), (snapshot)=>{
+
+const data = snapshot.val() || {};
+
+const modal =
+data.modalHari || 0;
+
+const penjualan =
+data.penjualanHari || 0;
+
+const laba =
+penjualan - modal;
+
+document.getElementById(
+"modalText"
+).innerHTML = rupiah(modal);
+
+document.getElementById(
+"penjualanText"
+).innerHTML = rupiah(penjualan);
+
+document.getElementById(
+"labaText"
+).innerHTML = rupiah(laba);
+
+});
+
+}
+
+/* SIMPAN MODAL */
+
+window.simpanModal = async function(){
+
+const modal =
+Number(
+document.getElementById("inputModal").value
+);
+
+if(!modal){
+
+showToast("Masukkan modal");
+
+return;
+
+}
+
+await set(
+ref(db, 'keuangan/modalHari'),
+modal
+);
+
+showToast("Modal berhasil disimpan");
 
 }
 
@@ -458,7 +688,7 @@ gridSedikit.innerHTML += `
 <h2>${item.nama}</h2>
 
 <div class="harga">
-Rp ${Number(item.harga || 0).toLocaleString()}
+${rupiah(item.harga)}
 </div>
 
 <div class="stock">
@@ -521,7 +751,7 @@ gridNormal.innerHTML += `
 <h2>${item.nama}</h2>
 
 <div class="harga">
-Rp ${Number(item.harga || 0).toLocaleString()}
+${rupiah(item.harga)}
 </div>
 
 <div class="stock">
