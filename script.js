@@ -315,7 +315,7 @@ onclick="openPopup('${item.id}')">
 }
 
 /* =========================
-POPUP
+POPUP PRODUK
 ========================= */
 
 window.openPopup = function(id){
@@ -371,10 +371,6 @@ document.getElementById(
 ).classList.remove('active');
 
 }
-
-/* =========================
-QTY
-========================= */
 
 window.popupTambah = function(){
 
@@ -586,10 +582,6 @@ cart.length;
 
 }
 
-/* =========================
-HAPUS CART
-========================= */
-
 window.hapusCart = function(index){
 
 cart.splice(index,1);
@@ -600,10 +592,6 @@ toggleMetode();
 
 }
 
-/* =========================
-TOGGLE CART
-========================= */
-
 window.toggleCart = function(){
 
 document
@@ -612,10 +600,6 @@ document
 .toggle('active');
 
 }
-
-/* =========================
-TOGGLE QR
-========================= */
 
 window.toggleQR = function(){
 
@@ -640,6 +624,39 @@ qr.style.display='none';
 }
 
 /* =========================
+PASSWORD STRUK
+========================= */
+
+window.cekPasswordStruk = function(){
+
+const password =
+document.getElementById(
+'passwordStruk'
+).value;
+
+/* PASSWORD CETAK STRUK = 27 */
+
+if(password === '27'){
+
+document.getElementById(
+'btnStruk'
+).style.display='flex';
+
+showToast(
+'Akses cetak struk dibuka'
+);
+
+}else{
+
+showToast(
+'Password salah'
+);
+
+}
+
+}
+
+/* =========================
 TOGGLE METODE
 ========================= */
 
@@ -654,13 +671,23 @@ document.getElementById('btnWA');
 const btnStruk =
 document.getElementById('btnStruk');
 
-if(!pengiriman || !btnWA || !btnStruk)
-return;
+const passwordBox =
+document.getElementById('passwordStrukBox');
+
+if(
+!pengiriman ||
+!btnWA ||
+!btnStruk ||
+!passwordBox
+) return;
 
 btnWA.style.display='none';
 btnStruk.style.display='none';
+passwordBox.style.display='none';
 
-if(cart.length===0) return;
+if(cart.length===0){
+return;
+}
 
 if(pengiriman.value==='Diantar'){
 
@@ -670,9 +697,97 @@ btnWA.style.display='flex';
 
 if(pengiriman.value==='Ambil Sendiri'){
 
-btnStruk.style.display='flex';
+passwordBox.style.display='block';
 
 }
+
+}
+
+/* =========================
+KIRIM REKAP GOOGLE SHEET
+========================= */
+
+async function kirimRekap(
+nama,
+pengiriman,
+pembayaran,
+total,
+items
+){
+
+const data={
+
+nama:nama,
+pengiriman:pengiriman,
+pembayaran:pembayaran,
+total:total,
+items:items
+
+};
+
+try{
+
+await fetch(
+
+'https://script.google.com/macros/s/AKfycbxWfHVxDop4n8SqwP1vxGLj1D4jnTe7_iTrqGJ4bm9dDW0BiDDSxOPpy7X5Dcvb1dEa/exec',
+
+{
+method:'POST',
+mode:'no-cors',
+
+headers:{
+'Content-Type':'text/plain'
+},
+
+body:JSON.stringify(data)
+
+}
+
+);
+
+console.log(
+'Rekap berhasil dikirim'
+);
+
+}catch(error){
+
+console.log(
+'Error kirim rekap:',
+error
+);
+
+}
+
+}
+
+/* =========================
+LOADING
+========================= */
+
+function showLoading(text='Memproses...'){
+
+const loading =
+document.getElementById('loadingBox');
+
+const loadingText =
+document.getElementById('loadingText');
+
+if(!loading || !loadingText) return;
+
+loading.classList.add('active');
+
+loadingText.innerHTML = text;
+
+}
+
+function hideLoading(){
+
+const loading =
+document.getElementById('loadingBox');
+
+if(!loading) return;
+
+loading.classList.remove('active');
 
 }
 
@@ -682,12 +797,26 @@ CHECKOUT WA
 
 window.checkoutWA = async function(){
 
+showLoading('Mengirim pesanan...');
+
 const nama =
 document.getElementById(
 'namaPemesan'
 ).value;
 
+const pengiriman =
+document.getElementById(
+'pengiriman'
+).value;
+
+const pembayaran =
+document.getElementById(
+'pembayaran'
+).value;
+
 if(!nama){
+
+hideLoading();
 
 showToast('Isi nama');
 
@@ -697,15 +826,20 @@ return;
 
 if(cart.length===0){
 
+hideLoading();
+
 showToast('Keranjang kosong');
 
 return;
 
 }
 
-let total = 0;
 let pesan =
 '🛒 PESANAN TOKO DEFANA%0A%0A';
+
+let total = 0;
+
+let items = [];
 
 cart.forEach(item=>{
 
@@ -720,11 +854,24 @@ item.nama +
 subtotal.toLocaleString() +
 '%0A';
 
+items.push({
+
+nama:item.nama,
+qty:item.qty,
+harga:item.harga,
+subtotal:subtotal
+
 });
 
-pesan +=
-'%0ATOTAL : Rp ' +
-total.toLocaleString();
+});
+
+await kirimRekap(
+nama,
+pengiriman,
+pembayaran,
+total,
+items
+);
 
 await kurangiStockCheckout();
 
@@ -736,12 +883,131 @@ updateCart();
 
 renderProduk();
 
+hideLoading();
+
 window.open(
 'https://wa.me/6281554041777?text='+pesan,
 '_blank'
 );
 
 showToast('Checkout berhasil');
+
+}
+
+/* =========================
+CETAK STRUK
+========================= */
+
+window.cetakStruk = async function(){
+
+showLoading('Mencetak struk...');
+
+const nama =
+document.getElementById(
+'namaPemesan'
+).value;
+
+const pembayaran =
+document.getElementById(
+'pembayaran'
+).value;
+
+const pengiriman =
+document.getElementById(
+'pengiriman'
+).value;
+
+if(!nama){
+
+hideLoading();
+
+showToast('Isi nama');
+
+return;
+
+}
+
+if(cart.length===0){
+
+hideLoading();
+
+showToast('Keranjang kosong');
+
+return;
+
+}
+
+let total = 0;
+let items = [];
+let text = '';
+
+text += 'TOKO DEFANA\n';
+text += '====================\n';
+text += 'Nama : '+nama+'\n';
+text += 'Pengiriman : '+pengiriman+'\n';
+text += 'Pembayaran : '+pembayaran+'\n';
+text += '====================\n';
+
+cart.forEach(item=>{
+
+const subtotal =
+item.harga * item.qty;
+
+total += subtotal;
+
+text +=
+item.nama +
+' ('+item.qty+') = Rp '+
+subtotal +
+'\n';
+
+items.push({
+
+nama:item.nama,
+qty:item.qty,
+harga:item.harga,
+subtotal:subtotal
+
+});
+
+});
+
+text += '====================\n';
+text += 'TOTAL : Rp '+total+'\n';
+text += 'TERIMA KASIH';
+
+await kirimRekap(
+nama,
+pengiriman,
+pembayaran,
+total,
+items
+);
+
+await kurangiStockCheckout();
+
+await tambahPenjualan(total);
+
+cart=[];
+
+updateCart();
+
+renderProduk();
+
+hideLoading();
+
+const printWindow =
+window.open('','','width=300,height=600');
+
+printWindow.document.write(
+'<pre>'+text+'</pre>'
+);
+
+printWindow.document.close();
+
+printWindow.print();
+
+showToast('Struk berhasil dicetak');
 
 }
 
@@ -863,3 +1129,35 @@ toast.classList.remove('show');
 },2000);
 
 }
+<!-- PASSWORD STRUK -->
+
+<div id="passwordStrukBox">
+
+<input
+type="password"
+id="passwordStruk"
+placeholder="Password Cetak Struk">
+
+<button onclick="cekPasswordStruk()">
+
+Buka Cetak Struk
+
+</button>
+
+</div>
+
+<!-- LOADING -->
+
+<div class="loading-box" id="loadingBox">
+
+<div class="loading-content">
+
+<div class="loader"></div>
+
+<p id="loadingText">
+Memproses...
+</p>
+
+</div>
+
+</div>
