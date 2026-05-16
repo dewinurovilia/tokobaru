@@ -21,13 +21,14 @@ CONFIG FIREBASE
 
 const firebaseConfig = {
 
- apiKey: "AIzaSyCvco9APepbM1YRhDLGzE2uxFBVtLL2NLs",
-  authDomain: "fauz2327-b8dfa.firebaseapp.com",
-  databaseURL: "https://fauz2327-b8dfa-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "fauz2327-b8dfa",
-  storageBucket: "fauz2327-b8dfa.firebasestorage.app",
-  messagingSenderId: "625104866445",
-  appId: "1:625104866445:web:129165fbc539edb36466c4",
+apiKey: "AIzaSyCvco9APepbM1YRhDLGzE2uxFBVtLL2NLs",
+authDomain: "fauz2327-b8dfa.firebaseapp.com",
+databaseURL: "https://fauz2327-b8dfa-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "fauz2327-b8dfa",
+storageBucket: "fauz2327-b8dfa.firebasestorage.app",
+messagingSenderId: "625104866445",
+appId: "1:625104866445:web:129165fbc539edb36466c4",
+
 };
 
 /* =========================
@@ -39,7 +40,9 @@ const app = !getApps().length
 : getApp();
 
 const firebaseDB =
-getDatabase(app);/* =========================
+getDatabase(app);
+
+/* =========================
 TOKO DEFANA FULL SCRIPT
 ========================= */
 
@@ -71,7 +74,7 @@ LOAD PRODUK FIREBASE
 function loadProduk(){
 
 const produkRef =
-ref(firebaseDB);
+ref(firebaseDB,'produk');
 
 onValue(produkRef,(snapshot)=>{
 
@@ -257,7 +260,6 @@ onclick="openPopup('${item.id}')">
 `
 
 }
-</button>
 
 </div>
 
@@ -381,6 +383,7 @@ qty.value--;
 /* =========================
 CONFIRM TAMBAH CART
 ========================= */
+
 window.confirmAddCart = function(){
 
 const qty =
@@ -400,10 +403,6 @@ cart.find(
 i => i.id == selectedProduct.id
 );
 
-/* =========================
-VALIDASI STOCK
-========================= */
-
 if(qty > stok){
 
 showToast(
@@ -413,10 +412,6 @@ showToast(
 return;
 
 }
-
-/* =========================
-JIKA SUDAH ADA DI CART
-========================= */
 
 if(existing){
 
@@ -537,7 +532,6 @@ let total = 0;
 if(cart.length===0){
 
 cartBox.innerHTML =
-
 '<p>Keranjang kosong</p>';
 
 if(totalBox){
@@ -684,460 +678,5 @@ error
 );
 
 }
-
-}
-
-/* =========================
-TOGGLE METODE
-========================= */
-
-window.toggleMetode = function(){
-
-const pengiriman =
-document.getElementById(
-'pengiriman'
-);
-
-const btnWA =
-document.getElementById(
-'btnWA'
-);
-
-const btnStruk =
-document.getElementById(
-'btnStruk'
-);
-
-const passwordBox =
-document.getElementById(
-'passwordStrukBox'
-);
-
-if(
-!pengiriman ||
-!btnWA ||
-!btnStruk ||
-!passwordBox
-) return;
-
-btnWA.style.display='none';
-
-btnStruk.style.display='none';
-
-passwordBox.style.display='none';
-
-if(cart.length===0){
-return;
-}
-
-if(
-pengiriman.value==='Diantar'
-){
-
-btnWA.style.display='flex';
-
-}
-
-if(
-pengiriman.value==='Ambil Sendiri'
-){
-
-passwordBox.style.display='block';
-
-}
-
-}
-
-/* =========================
-PASSWORD STRUK
-========================= */
-
-window.cekPasswordStruk = function(){
-
-const password =
-document.getElementById(
-'passwordStruk'
-).value;
-
-if(password==='27'){
-
-document.getElementById(
-'btnStruk'
-).style.display='flex';
-
-showToast('Akses struk dibuka');
-
-}else{
-
-showToast('Password salah');
-
-}
-
-}
-
-/* =========================
-CHECKOUT WHATSAPP
-========================= */
-
-window.checkoutWA = async function(){
-
-showLoading('Mengirim pesanan...');
-
-const nama =
-document.getElementById(
-'namaPemesan'
-).value;
-
-const pengiriman =
-document.getElementById(
-'pengiriman'
-).value;
-
-const pembayaran =
-document.getElementById(
-'pembayaran'
-).value;
-
-if(!nama){
-
-hideLoading();
-
-showToast('Isi nama');
-
-return;
-
-}
-
-if(cart.length===0){
-
-hideLoading();
-
-showToast('Keranjang kosong');
-
-return;
-
-}
-
-let pesan =
-'🛒 PESANAN TOKO DEFANA%0A%0A';
-
-pesan +=
-'Nama : ' + nama + '%0A';
-
-pesan +=
-'Pengiriman : ' + pengiriman + '%0A';
-
-pesan +=
-'Pembayaran : ' + pembayaran + '%0A%0A';
-
-let total = 0;
-
-let items = [];
-
-cart.forEach(item=>{
-
-const subtotal =
-item.harga * item.qty;
-
-total += subtotal;
-
-pesan +=
-
-item.nama +
-' ('+item.qty+') = Rp '+
-subtotal.toLocaleString() +
-'%0A';
-
-items.push({
-
-nama:item.nama,
-qty:item.qty,
-harga:item.harga,
-subtotal:subtotal
-
-});
-
-});
-
-pesan +=
-'%0A TOTAL : Rp ' +
-total.toLocaleString();
-
-await kirimRekap(
-nama,
-pengiriman,
-pembayaran,
-total,
-items
-);
-
-await kurangiStockCheckout();
-
-cart = [];
-
-updateCart();
-
-renderProduk();
-
-hideLoading();
-
-window.open(
-
-'https://wa.me/6281554041777?text='+pesan,
-
-'_blank'
-
-);
-
-showToast('Checkout berhasil');
-
-}
-/* =========================
-CETAK STRUK
-========================= */
-
-window.cetakStruk = async function(){
-
-showLoading('Mencetak struk...');
-
-const nama =
-document.getElementById(
-'namaPemesan'
-).value;
-
-const pengiriman =
-document.getElementById(
-'pengiriman'
-).value;
-
-const pembayaran =
-document.getElementById(
-'pembayaran'
-).value;
-
-if(!nama){
-
-hideLoading();
-
-showToast('Isi nama');
-
-return;
-
-}
-
-if(cart.length===0){
-
-hideLoading();
-
-showToast('Keranjang kosong');
-
-return;
-
-}
-
-let total = 0;
-
-let items = [];
-
-let text = '';
-
-text += 'TOKO DEFANA\n';
-text += '====================\n';
-
-text += 'Nama : '+nama+'\n';
-text += 'Pengiriman : '+pengiriman+'\n';
-text += 'Pembayaran : '+pembayaran+'\n';
-
-text += '====================\n';
-
-cart.forEach(item=>{
-
-const subtotal =
-item.harga * item.qty;
-
-total += subtotal;
-
-text +=
-item.nama +
-' ('+item.qty+') = Rp '+
-subtotal +
-'\n';
-
-items.push({
-
-nama:item.nama,
-qty:item.qty,
-harga:item.harga,
-subtotal:subtotal
-
-});
-
-});
-
-text += '====================\n';
-
-text +=
-'TOTAL : ' + total + '\n';
-
-text +=
-'TERIMA KASIH';
-
-await kirimRekap(
-nama,
-pengiriman,
-pembayaran,
-total,
-items
-);
-
-await kurangiStockCheckout();
-
-cart = [];
-
-updateCart();
-
-renderProduk();
-
-hideLoading();
-
-const printWindow =
-window.open('','','width=300,height=600');
-
-printWindow.document.write(
-'<pre>'+text+'</pre>'
-);
-
-printWindow.document.close();
-
-printWindow.print();
-
-showToast('Struk berhasil dicetak');
-
-}
-/* =========================
-LOADING
-========================= */
-
-function showLoading(text='Memproses...'){
-
-const loading =
-document.getElementById('loadingBox');
-
-const loadingText =
-document.getElementById('loadingText');
-
-if(!loading || !loadingText) return;
-
-loading.classList.add('active');
-
-loadingText.innerHTML = text;
-
-}
-
-function hideLoading(){
-
-const loading =
-document.getElementById('loadingBox');
-
-if(!loading) return;
-
-loading.classList.remove('active');
-
-}
-
-/* =========================
-TOAST
-========================= */
-
-function showToast(text){
-
-const toast =
-document.getElementById('toast');
-
-const toastText =
-document.getElementById('toastText');
-
-if(!toast || !toastText) return;
-
-toastText.innerHTML = text;
-
-toast.classList.add('show');
-
-setTimeout(()=>{
-
-toast.classList.remove('show');
-
-},2000);
-
-}
-
-/* =========================
-KURANGI STOCK CHECKOUT
-========================= */
-
-async function kurangiStockCheckout(){
-
-for(let i = 0; i < cart.length; i++){
-
-const itemCart = cart[i];
-
-const indexProduk =
-produk.findIndex(
-p => p.id == itemCart.id
-);
-
-if(indexProduk === -1) continue;
-
-const stokSekarang =
-Number(
-produk[indexProduk].stok || 0
-);
-
-const stokBaru =
-Math.max(
-stokSekarang - itemCart.qty,
-0
-);
-
-await set(
-
-ref(
-firebaseDB,
-indexProduk + '/stok'
-),
-
-stokBaru
-
-);
-
-produk[indexProduk].stok = stokBaru;
-
-}
-
-}
-/* =========================
-RESET CART
-========================= */
-
-window.resetCart = function(){
-
-if(cart.length === 0){
-showToast('Keranjang sudah kosong');
-return;
-}
-
-const yakin = confirm(
-'Yakin ingin mengosongkan keranjang?'
-);
-
-if(!yakin) return;
-
-cart = [];
-
-updateCart();
-
-toggleMetode();
-
-showToast('Keranjang dikosongkan');
 
 }
