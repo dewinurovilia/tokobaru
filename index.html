@@ -370,4 +370,63 @@ if ("serviceWorker" in navigator) {
 }
 
 </script>
+  <script>
+
+if ("serviceWorker" in navigator) {
+
+  navigator.serviceWorker.register("sw.js")
+  .then(() => console.log("Service Worker aktif"));
+
+}
+
+</script>
+
+<!-- MENU BAWAH -->
+<div class="bottom-menu">
+
+<button onclick="showPage('home')">
+🏠<br>Home
+</button>
+
+<button onclick="showPage('kategori')">
+📂<br>Kategori
+</button>
+
+<button onclick="window.location.href='admin/admin.html'">
+⚙️<br>Admin
+</button>
+
+<button onclick="toggleCart()">
+🛒<br>Checkout
+</button>
+
+</div>
+
+<script>
+
+function showPage(menu){
+
+if(menu==='home'){
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+if(menu==='kategori'){
+
+document.querySelector('.sidebar')
+.scrollIntoView({
+behavior:'smooth'
+});
+
+}
+
+}
+
+</script>
+
+</body>
 </body>
