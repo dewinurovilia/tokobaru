@@ -103,65 +103,62 @@ font-weight:bold;
 padding:25px;
 }
 
-<!-- TAMBAH PRODUK -->
+/* TAMBAH PRODUK */
 
-<div class="finance-box">
+.finance-box{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:25px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
 
-<div class="finance-title">
-📦 Tambah Produk Baru
-</div>
+.finance-title{
+font-size:22px;
+font-weight:bold;
+margin-bottom:20px;
+}
 
-<div class="produk-form">
+.produk-form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
 
-<input
-type="text"
-id="namaProduk"
-placeholder="Nama Produk">
+.produk-form input,
+.produk-form select{
+padding:14px;
+border-radius:12px;
+border:1px solid #ddd;
+font-size:15px;
+}
 
-<input
-type="number"
-id="hargaProduk"
-placeholder="Harga Produk">
+.kategori-row{
+display:flex;
+gap:10px;
+}
 
-<input
-type="number"
-id="stokProduk"
-placeholder="Stok Produk">
+.kategori-row button{
+width:120px;
+border:none;
+border-radius:12px;
+background:#16a34a;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
 
-<input
-type="text"
-id="gambarProduk"
-placeholder="Link Gambar">
+.simpan-btn{
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2563eb;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
 
-<select id="kategoriProduk">
-<option value="">Pilih Kategori</option>
-</select>
-
-<div class="kategori-row">
-
-<input
-type="text"
-id="kategoriBaru"
-placeholder="Tambah kategori baru">
-
-<button onclick="tambahKategori()">
-Tambah
-</button>
-
-</div>
-
-<button
-class="simpan-btn"
-onclick="tambahProduk()">
-
-Simpan Produk
-
-</button>
-
-</div>
-
-</div>
-  
 /* SEARCH */
 
 .search-box{
@@ -317,6 +314,66 @@ Logout
 </div>
 
 <div class="container">
+
+<!-- TAMBAH PRODUK -->
+
+<div class="finance-box">
+
+<div class="finance-title">
+📦 Tambah Produk Baru
+</div>
+
+<div class="produk-form">
+
+<input
+type="text"
+id="namaProduk"
+placeholder="Nama Produk">
+
+<input
+type="number"
+id="hargaProduk"
+placeholder="Harga Produk">
+
+<input
+type="number"
+id="stokProduk"
+placeholder="Stok Produk">
+
+<input
+type="text"
+id="gambarProduk"
+placeholder="Link Gambar">
+
+<select id="kategoriProduk">
+<option value="">Pilih Kategori</option>
+</select>
+
+<div class="kategori-row">
+
+<input
+type="text"
+id="kategoriBaru"
+placeholder="Tambah kategori baru">
+
+<button onclick="tambahKategori()">
+Tambah
+</button>
+
+</div>
+
+<button
+class="simpan-btn"
+onclick="tambahProduk()">
+
+Simpan Produk
+
+</button>
+
+</div>
+
+</div>
+
 <!-- SEARCH -->
 
 <input
@@ -349,8 +406,7 @@ import {
 getDatabase,
 ref,
 onValue,
-set,
-get
+set
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
@@ -461,7 +517,7 @@ document
 
 loadProduk();
 
-loadKeuangan();
+loadKategori();
 
 }
 
@@ -475,9 +531,7 @@ showToast("Logout berhasil");
 
 }
 
-/* =========================
-KATEGORI
-========================= */
+/* KATEGORI */
 
 let kategoriList = [
 "Makanan",
@@ -531,6 +585,8 @@ showToast("Kategori ditambahkan");
 
 }
 
+/* TAMBAH PRODUK */
+
 window.tambahProduk = async function(){
 
 const nama =
@@ -573,7 +629,6 @@ renderProduk();
 showToast("Produk berhasil ditambahkan");
 
 }
-
 
 /* LOAD PRODUK */
 
