@@ -211,13 +211,9 @@ return cocokKategori && cocokSearch;
 if(filtered.length===0){
 
 list.innerHTML = `
-
 <p style="padding:20px;">
-
 Produk tidak ditemukan
-
 </p>
-
 `;
 
 return;
@@ -228,27 +224,25 @@ filtered.forEach(item=>{
 
 list.innerHTML += `
 
-<div class="produk-row">
+<div class="product-card">
 
-<div class="kategori-badge">
+<div class="product-info">
 
+<div class="product-category">
 ${item.kategori || 'Produk'}
-
 </div>
 
-<div class="produk-info">
+<div class="product-name">
+${item.nama}
+</div>
 
-<h3>${item.nama}</h3>
+<div class="product-detail">
+Stock : ${item.stok || 0}
+</div>
 
-<div class="price">
-
+<div class="product-price">
 Rp ${Number(item.harga).toLocaleString()}
-
 </div>
-
-<div class="stok-produk">
-
-📦 Stock : ${item.stok || 0}
 
 </div>
 
@@ -260,27 +254,25 @@ ${Number(item.stok) <= 0
 class="btn-stok-habis"
 disabled>
 
-❌ STOK HABIS
+Habis
 
 </button>
+
 `
 
 : `
 
 <button
-class="btn-cart-modern"
+class="buy-btn"
 onclick="openPopup('${item.id}')">
 
-🛒 Tambah Keranjang
++
 
 </button>
 
 `
 
 }
-</button>
-
-</div>
 
 </div>
 
