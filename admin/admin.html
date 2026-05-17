@@ -955,31 +955,26 @@ if(namaBaru === null) return;
 /* EDIT HARGA */
 
 const hargaBaru = prompt(
-'Edit Harga',
+'Edit Harga Produk',
 item.harga
 );
 
 if(hargaBaru === null) return;
 
-/* EDIT KATEGORI */
+/* VALIDASI */
 
-const kategoriBaru = prompt(
-'Edit Kategori',
-item.kategori || ''
-);
+if(
+namaBaru.trim() === '' ||
+Number(hargaBaru) <= 0
+){
 
-if(kategoriBaru === null) return;
+showToast('Data tidak valid');
 
-/* EDIT GAMBAR */
+return;
 
-const gambarBaru = prompt(
-'Edit Link Gambar',
-item.gambar || ''
-);
+}
 
-if(gambarBaru === null) return;
-
-/* UPDATE DATA */
+/* UPDATE */
 
 produk[index] = {
 
@@ -987,11 +982,7 @@ produk[index] = {
 
 nama: namaBaru,
 
-harga: Number(hargaBaru),
-
-kategori: kategoriBaru,
-
-gambar: gambarBaru
+harga: Number(hargaBaru)
 
 };
 
@@ -1001,12 +992,10 @@ await set(ref(db), produk);
 
 /* REFRESH */
 
-loadKategori();
-
 renderProduk();
 
 showToast(
-'Produk berhasil diupdate'
+'Produk berhasil diedit'
 );
 
 }
