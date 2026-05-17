@@ -151,7 +151,7 @@ renderProduk();
 RENDER PRODUK
 ========================= */
 
-function renderProduk(){
+window.renderProduk = function(){
 
 const list =
 document.getElementById('productList');
