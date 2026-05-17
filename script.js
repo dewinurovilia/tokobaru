@@ -525,10 +525,6 @@ qr.style.display='none';
 
 }
 
-/* =========================
-UPDATE CART
-========================= */
-
 function updateCart(){
 
 const cartBox =
@@ -549,19 +545,14 @@ let total = 0;
 if(cart.length===0){
 
 cartBox.innerHTML =
-
 '<p>Keranjang kosong</p>';
 
 if(totalBox){
-
 totalBox.innerHTML='';
-
 }
 
 if(countBox){
-
 countBox.innerHTML='0';
-
 }
 
 return;
@@ -582,16 +573,12 @@ cartBox.innerHTML += `
 <h4>${item.nama}</h4>
 
 <p>
-
 ${item.qty} x
 Rp ${Number(item.harga).toLocaleString()}
-
 </p>
 
 <b>
-
 Rp ${subtotal.toLocaleString()}
-
 </b>
 
 <br><br>
@@ -610,7 +597,7 @@ onclick="hapusCart(${index})">
 
 });
 
-if(totalBox){
+/* TOTAL */
 
 if(totalBox){
 
@@ -665,10 +652,12 @@ totalBox.innerHTML =
 
 'Total : Rp ' +
 total.toLocaleString()
-
 + warning;
 
 }
+
+/* JUMLAH CART */
+
 if(countBox){
 
 countBox.innerHTML =
@@ -677,7 +666,6 @@ cart.length;
 }
 
 }
-
 /* =========================
 HAPUS CART
 ========================= */
