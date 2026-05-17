@@ -620,7 +620,7 @@ font-weight:bold;
 ">
 
 ⚠️ Belanja kurang Rp${kurang.toLocaleString()}
-lagi untuk checkout WA
+lagi untuk checkout WA dan diantar
 
 </div>
 
