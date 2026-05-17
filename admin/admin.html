@@ -526,13 +526,11 @@ showToast("Logout berhasil");
 
 }
 
-/* KATEGORI */
+/* =========================
+AMBIL KATEGORI OTOMATIS
+========================= */
 
-let kategoriList = [
-"Makanan",
-"Minuman",
-"Snack"
-];
+let kategoriList = [];
 
 function loadKategori(){
 
@@ -541,20 +539,41 @@ document.getElementById("kategoriProduk");
 
 if(!select) return;
 
+/* AMBIL SEMUA KATEGORI DARI PRODUK */
+
+kategoriList = [
+...new Set(
+
+produk
+.map(item => item.kategori)
+.filter(k => k)
+
+)
+
+];
+
+/* RESET DROPDOWN */
+
 select.innerHTML =
 '<option value="">Pilih Kategori</option>';
 
-kategoriList.forEach((item)=>{
+/* TAMPILKAN KATEGORI */
+
+kategoriList.forEach((kategori)=>{
 
 select.innerHTML += `
-<option value="${item}">
-${item}
+<option value="${kategori}">
+${kategori}
 </option>
 `;
 
 });
 
 }
+
+/* =========================
+TAMBAH KATEGORI BARU
+========================= */
 
 window.tambahKategori = function(){
 
@@ -566,7 +585,13 @@ input.value.trim();
 
 if(!kategori) return;
 
+/* CEK DUPLIKAT */
+
+if(!kategoriList.includes(kategori)){
+
 kategoriList.push(kategori);
+
+}
 
 loadKategori();
 
@@ -579,7 +604,6 @@ input.value = "";
 showToast("Kategori ditambahkan");
 
 }
-
 /* TAMBAH PRODUK */
 
 window.tambahProduk = async function(){
