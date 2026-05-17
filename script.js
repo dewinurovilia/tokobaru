@@ -210,21 +210,9 @@ return cocokKategori && cocokSearch;
 
 if(filtered.length===0){
 
-list.innerHTML = `
-
-<p style="padding:20px;">
-
-Produk tidak ditemukan
-
-</p>
-
-`;
-
-return;
-
-}
-
 filtered.forEach(item=>{
+
+list.innerHTML += `
 
 <div class="product-card">
 
@@ -277,20 +265,10 @@ onclick="openPopup('${item.id}')">
 }
 
 </div>
-${Number(item.stok) <= 0
 
-? `
+`;
 
-<button
-class="btn-stok-habis"
-disabled>
-
-❌ STOK HABIS
-
-</button>
-`
-
-: `
+});
 
 <button
 class="btn-cart-modern"
