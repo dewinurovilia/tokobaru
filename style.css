@@ -878,54 +878,60 @@ body{
 display:block;
 }
 
-/* SIDEBAR */
+/* SIDEBAR MOBILE */
 
 .sidebar{
 
-position:relative;
+position:fixed;
 
-width:100%;
-height:auto;
+top:0;
 
-display:flex;
+left:-280px;
 
-align-items:center;
+width:260px;
 
-gap:10px;
+height:100vh;
 
-padding:14px;
+background:#0b1742;
 
-overflow-x:auto;
+z-index:999999;
 
-white-space:nowrap;
+overflow-y:auto;
 
+transition:0.3s ease;
+
+padding:20px;
+
+}
+
+/* SAAT DIBUKA */
+
+.sidebar.active{
+left:0;
 }
 
 .sidebar h2{
 
-font-size:22px;
+font-size:24px;
 
-margin:0 10px 0 0;
-
-flex-shrink:0;
+margin-bottom:20px;
 
 }
 
 .sidebar button{
 
-width:auto;
+width:100%;
 
-min-width:110px;
+margin-bottom:12px;
 
-margin:0;
+padding:14px;
 
-padding:11px 14px;
+font-size:14px;
 
-font-size:13px;
-
-flex-shrink:0;
+border-radius:14px;
 
 }
+
 
 /* MAIN */
 
