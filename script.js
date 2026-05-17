@@ -660,12 +660,17 @@ total.toLocaleString()
 /* JUMLAH CART */
 
 if(countBox){
-
-if(countBox){
-countBox.innerHTML='0';
+countBox.innerHTML = cart.length;
 }
 
-document.getElementById('bottomCartCount').innerHTML='0';
+const bottomCount =
+document.getElementById('bottomCartCount');
+
+if(bottomCount){
+bottomCount.innerHTML = cart.length;
+}
+
+}
  
 /* =========================
 HAPUS CART
