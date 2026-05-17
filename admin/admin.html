@@ -797,7 +797,13 @@ onclick="kurangiStock(${index})">
 
 </button>
 
-</div>
+<button
+class="edit-btn"
+onclick="editProduk(${index})">
+
+✏️ Edit
+
+</button>
 
 </div>
 
@@ -922,7 +928,84 @@ showToast(
 });
 
 }
+/* =========================
+EDIT PRODUK
+========================= */
 
+window.editProduk = async function(index){
+
+const item = produk[index];
+
+if(!item) return;
+
+/* EDIT NAMA */
+
+const namaBaru = prompt(
+'Edit Nama Produk',
+item.nama
+);
+
+if(namaBaru === null) return;
+
+/* EDIT HARGA */
+
+const hargaBaru = prompt(
+'Edit Harga',
+item.harga
+);
+
+if(hargaBaru === null) return;
+
+/* EDIT KATEGORI */
+
+const kategoriBaru = prompt(
+'Edit Kategori',
+item.kategori || ''
+);
+
+if(kategoriBaru === null) return;
+
+/* EDIT GAMBAR */
+
+const gambarBaru = prompt(
+'Edit Link Gambar',
+item.gambar || ''
+);
+
+if(gambarBaru === null) return;
+
+/* UPDATE DATA */
+
+produk[index] = {
+
+...item,
+
+nama: namaBaru,
+
+harga: Number(hargaBaru),
+
+kategori: kategoriBaru,
+
+gambar: gambarBaru
+
+};
+
+/* SIMPAN FIREBASE */
+
+await set(ref(db), produk);
+
+/* REFRESH */
+
+loadKategori();
+
+renderProduk();
+
+showToast(
+'Produk berhasil diupdate'
+);
+
+}
+  
 /* TOAST */
 
 function showToast(text){
