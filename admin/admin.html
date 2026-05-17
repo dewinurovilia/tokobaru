@@ -340,11 +340,6 @@ type="number"
 id="stokProduk"
 placeholder="Stok Produk">
 
-<input
-type="text"
-id="gambarProduk"
-placeholder="Link Gambar">
-
 <select id="kategoriProduk">
 <option value="">Pilih Kategori</option>
 </select>
@@ -598,9 +593,6 @@ document.getElementById("hargaProduk").value;
 const stok =
 document.getElementById("stokProduk").value;
 
-const gambar =
-document.getElementById("gambarProduk").value;
-
 const kategori =
 document.getElementById("kategoriProduk").value;
 
@@ -616,7 +608,6 @@ const produkBaru = {
 nama,
 harga:Number(harga),
 stok:Number(stok),
-gambar,
 kategori
 };
 
