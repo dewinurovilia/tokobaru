@@ -2,7 +2,7 @@
   "name": "Toko Defana",
   "short_name": "Defana",
   "description": "Aplikasi Toko Defana",
-  "start_url": "/",
+  "start_url": "/tokobaru/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#16a34a",
