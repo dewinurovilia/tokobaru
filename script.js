@@ -1076,12 +1076,6 @@ items
 
 await kurangiStockCheckout();
 
-cart = [];
-
-updateCart();
-
-renderProduk();
-
 hideLoading();
 
 const printWindow = window.open('', '', 'width=400,height=700');
@@ -1190,6 +1184,13 @@ printWindow.document.close();
 printWindow.focus();
 
 printWindow.print();
+
+cart = [];
+
+updateCart();
+
+renderProduk();
+
 showToast('Struk berhasil dicetak');
 
 }
