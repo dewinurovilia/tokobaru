@@ -161,6 +161,7 @@ Simpan Produk
 </div>
 
 </div>
+  
 /* SEARCH */
 
 .search-box{
@@ -316,58 +317,6 @@ Logout
 </div>
 
 <div class="container">
-
-<!-- KEUANGAN -->
-
-<div class="finance-box">
-
-<div class="finance-title">
-💰 Keuangan Hari Ini
-</div>
-
-<div class="finance-grid">
-
-<div class="finance-card">
-
-<h3>Modal Hari Ini</h3>
-
-<h2 id="modalText">
-Rp 0
-</h2>
-
-<input
-type="number"
-id="inputModal"
-placeholder="Masukkan modal">
-
-<button onclick="simpanModal()">
-Simpan Modal
-</button>
-
-</div>
-
-<div class="finance-card">
-
-<h3>Total Uang Hari Ini</h3>
-
-<h2 id="penjualanText">
-Rp 0
-</h2>
-
-</div>
-
-<div class="finance-card">
-
-<h3>Total Modal</h3>
-
-<h2 id="modalTotalText">
-Rp 0
-</h2>
-
-</div>
-
-</div>
-
 <!-- SEARCH -->
 
 <input
@@ -526,64 +475,105 @@ showToast("Logout berhasil");
 
 }
 
-/* LOAD KEUANGAN */
+/* =========================
+KATEGORI
+========================= */
 
-function loadKeuangan(){
+let kategoriList = [
+"Makanan",
+"Minuman",
+"Snack"
+];
 
-onValue(ref(db, 'keuangan'), (snapshot)=>{
+function loadKategori(){
 
-const data = snapshot.val() || {};
+const select =
+document.getElementById("kategoriProduk");
 
-const modal =
-data.modalHari || 0;
+if(!select) return;
 
-const penjualan =
-data.penjualanHari || 0;
+select.innerHTML =
+'<option value="">Pilih Kategori</option>';
 
-const laba =
-penjualan - modal;
+kategoriList.forEach((item)=>{
 
-document.getElementById(
-"modalText"
-).innerHTML = rupiah(modal);
-
-document.getElementById(
-"penjualanText"
-).innerHTML = rupiah(penjualan);
-
-document.getElementById(
-"labaText"
-).innerHTML = rupiah(laba);
+select.innerHTML += `
+<option value="${item}">
+${item}
+</option>
+`;
 
 });
 
 }
 
-/* SIMPAN MODAL */
+window.tambahKategori = function(){
 
-window.simpanModal = async function(){
+const input =
+document.getElementById("kategoriBaru");
 
-const modal =
-Number(
-document.getElementById("inputModal").value
-);
+const kategori =
+input.value.trim();
 
-if(!modal){
+if(!kategori) return;
 
-showToast("Masukkan modal");
+kategoriList.push(kategori);
+
+loadKategori();
+
+document.getElementById(
+"kategoriProduk"
+).value = kategori;
+
+input.value = "";
+
+showToast("Kategori ditambahkan");
+
+}
+
+window.tambahProduk = async function(){
+
+const nama =
+document.getElementById("namaProduk").value;
+
+const harga =
+document.getElementById("hargaProduk").value;
+
+const stok =
+document.getElementById("stokProduk").value;
+
+const gambar =
+document.getElementById("gambarProduk").value;
+
+const kategori =
+document.getElementById("kategoriProduk").value;
+
+if(!nama || !harga || !stok){
+
+showToast("Lengkapi data");
 
 return;
 
 }
 
-await set(
-ref(db, 'keuangan/modalHari'),
-modal
-);
+const produkBaru = {
+nama,
+harga:Number(harga),
+stok:Number(stok),
+gambar,
+kategori
+};
 
-showToast("Modal berhasil disimpan");
+produk.push(produkBaru);
+
+await set(ref(db), produk);
+
+renderProduk();
+
+showToast("Produk berhasil ditambahkan");
 
 }
+
 
 /* LOAD PRODUK */
 
