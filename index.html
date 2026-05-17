@@ -380,53 +380,43 @@ if ("serviceWorker" in navigator) {
 }
 
 </script>
-
-<!-- MENU BAWAH -->
-<div class="bottom-menu">
-
-<button onclick="showPage('home')">
-🏠<br>Home
-</button>
-
-<button onclick="showPage('kategori')">
-📂<br>Kategori
-</button>
-
-<button onclick="window.location.href='admin/admin.html'">
-⚙️<br>Admin
-</button>
-
-<button onclick="toggleCart()">
-🛒<br>Checkout
-</button>
-
-</div>
-
 <script>
 
-function showPage(menu){
+if ("serviceWorker" in navigator) {
 
-if(menu==='home'){
-
-window.scrollTo({
-top:0,
-behavior:'smooth'
-});
-
-}
-
-if(menu==='kategori'){
-
-document.querySelector('.sidebar')
-.scrollIntoView({
-behavior:'smooth'
-});
-
-}
+  navigator.serviceWorker.register("sw.js")
+  .then(() => console.log("Service Worker aktif"));
 
 }
 
 </script>
 
+<!-- MENU BAWAH -->
+
+<div class="bottom-menu">
+
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<span>🏠</span>
+Home
+</button>
+
+<button onclick="document.querySelector('.sidebar').scrollIntoView({behavior:'smooth'})">
+<span>📂</span>
+Kategori
+</button>
+
+<button onclick="window.location.href='admin/admin.html'">
+<span>⚙️</span>
+Admin
+</button>
+
+<button onclick="toggleCart()">
+<span>🛒</span>
+Checkout
+</button>
+
+</div>
+
+</body>
 </body>
 </body>
