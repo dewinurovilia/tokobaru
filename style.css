@@ -1949,3 +1949,8 @@ font-size:22px;
 body{
 padding-bottom:90px;
 }
+/* HILANGKAN TOMBOL CART LAMA */
+
+.cart-float{
+display:none;
+}
