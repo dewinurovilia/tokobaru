@@ -628,20 +628,42 @@ return;
 
 }
 
+/* BUAT ID PRODUK */
+
+const idProduk =
+'PRD-' + Date.now();
+
 const produkBaru = {
-nama,
+
+id:idProduk,
+
+nama:nama,
+
 harga:Number(harga),
+
 stok:Number(stok),
-kategori
+
+kategori:kategori
+
 };
+
+/* TAMBAH KE ARRAY */
 
 produk.push(produkBaru);
 
+/* SIMPAN FIREBASE */
+
 await set(ref(db), produk);
+
+/* REFRESH */
+
+loadKategori();
 
 renderProduk();
 
-showToast("Produk berhasil ditambahkan");
+showToast(
+'Produk berhasil ditambahkan'
+);
 
 }
 
