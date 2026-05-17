@@ -226,32 +226,57 @@ return;
 
 filtered.forEach(item=>{
 
-list.innerHTML += `
+<div class="product-card">
 
-<div class="produk-row">
+<div class="product-info">
 
-<div class="kategori-badge">
-
+<div class="product-category">
 ${item.kategori || 'Produk'}
-
 </div>
 
-<div class="produk-info">
+<div class="product-name">
+${item.nama}
+</div>
 
-<h3>${item.nama}</h3>
+<div class="product-detail">
+Stock : ${item.stok || 0}
+</div>
 
-<div class="price">
-
+<div class="product-price">
 Rp ${Number(item.harga).toLocaleString()}
+</div>
 
 </div>
 
-<div class="stok-produk">
+${Number(item.stok) <= 0
 
-📦 Stock : ${item.stok || 0}
+? `
+
+<button
+class="btn-stok-habis"
+disabled>
+
+Habis
+
+</button>
+
+`
+
+: `
+
+<button
+class="buy-btn"
+onclick="openPopup('${item.id}')">
+
++
+
+</button>
+
+`
+
+}
 
 </div>
-
 ${Number(item.stok) <= 0
 
 ? `
