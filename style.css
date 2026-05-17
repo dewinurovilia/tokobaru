@@ -1954,3 +1954,25 @@ padding-bottom:90px;
 .cart-float{
 display:none;
 }
+/* BADGE JUMLAH CART */
+
+.menu-cart{
+position:relative;
+}
+
+#bottomCartCount{
+position:absolute;
+top:8px;
+right:20px;
+background:red;
+color:white;
+font-size:11px;
+min-width:18px;
+height:18px;
+padding:0 5px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+}
