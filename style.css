@@ -868,17 +868,13 @@ transform:translateY(-2px);
 
 }
 
-/* =====================================================
-MOBILE
-===================================================== */
-
 @media(max-width:768px){
 
 body{
 display:block;
 }
 
-/* SIDEBAR MOBILE */
+/* SIDEBAR */
 
 .sidebar{
 
@@ -888,35 +884,41 @@ top:0;
 
 left:-280px;
 
-width:260px;
+width:250px;
 
 height:100vh;
 
 background:#0b1742;
 
-z-index:999999;
+padding:20px;
 
 overflow-y:auto;
 
-transition:0.3s ease;
+z-index:999999;
 
-padding:20px;
+transition:0.3s;
+
+display:block;
 
 }
 
-/* SAAT DIBUKA */
+/* SAAT TAMPIL */
 
 .sidebar.active{
 left:0;
 }
 
+/* JUDUL */
+
 .sidebar h2{
 
-font-size:24px;
+font-size:26px;
 
 margin-bottom:20px;
 
 }
+
+/* TOMBOL KATEGORI */
 
 .sidebar button{
 
@@ -928,16 +930,15 @@ padding:14px;
 
 font-size:14px;
 
-border-radius:14px;
-
 }
-
 
 /* MAIN */
 
 .main{
 
-margin-left:0;
+margin-left:0 !important;
+
+width:100%;
 
 padding:14px;
 
@@ -962,6 +963,9 @@ font-size:28px;
 text-align:center;
 
 }
+
+}
+
 /* CART */
 
 .cart-box{
@@ -1981,4 +1985,25 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-weight:bold;
+}
+/* CART BOX */
+
+.cart-box{
+
+bottom:80px !important;
+
+height:calc(100vh - 90px);
+
+border-top-left-radius:20px;
+
+border-top-right-radius:20px;
+
+}
+
+/* MENU BAWAH TETAP DI ATAS */
+
+.bottom-menu{
+
+z-index:9999999;
+
 }
