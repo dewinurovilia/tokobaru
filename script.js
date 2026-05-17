@@ -871,6 +871,22 @@ subtotal:subtotal
 
 });
 
+/* =========================
+MINIMAL CHECKOUT
+========================= */
+
+if(total < 50000){
+
+hideLoading();
+
+showToast(
+'Minimal belanja Rp50.000'
+);
+
+return;
+
+}
+
 pesan +=
 '%0A TOTAL : Rp ' +
 total.toLocaleString();
