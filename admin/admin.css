@@ -368,3 +368,17 @@ padding:15px;
 background:#f59e0b;
 color:white;
 }
+.btn-excel{
+background:#1d6f42;
+color:#fff;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+margin-bottom:15px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.btn-excel:hover{
+opacity:0.9;
+}
