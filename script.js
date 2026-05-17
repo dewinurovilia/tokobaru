@@ -612,13 +612,63 @@ onclick="hapusCart(${index})">
 
 if(totalBox){
 
-totalBox.innerHTML =
+if(totalBox){
 
-'Total : Rp ' +
-total.toLocaleString();
+let warning = '';
+
+if(total < 50000){
+
+const kurang = 50000 - total;
+
+warning = `
+
+<div style="
+margin-top:10px;
+padding:10px;
+background:#ffebeb;
+color:#d60000;
+border-radius:8px;
+font-size:14px;
+font-weight:bold;
+">
+
+⚠️ Belanja kurang Rp${kurang.toLocaleString()}
+lagi untuk checkout WA
+
+</div>
+
+`;
+
+}else{
+
+warning = `
+
+<div style="
+margin-top:10px;
+padding:10px;
+background:#e8fff0;
+color:#009944;
+border-radius:8px;
+font-size:14px;
+font-weight:bold;
+">
+
+✅ Checkout WhatsApp tersedia
+
+</div>
+
+`;
 
 }
 
+totalBox.innerHTML =
+
+'Total : Rp ' +
+total.toLocaleString()
+
++ warning;
+
+}
 if(countBox){
 
 countBox.innerHTML =
