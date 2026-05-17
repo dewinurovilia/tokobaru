@@ -259,63 +259,6 @@ font-size:22px;
 cursor:pointer;
 flex-shrink:0;
 }
-.kategori-badge{
-
-display:inline-flex;
-
-align-items:center;
-
-padding:5px 10px;
-
-background:#dbeafe;
-
-color:#2563eb;
-
-border-radius:999px;
-
-font-size:10px;
-
-font-weight:600;
-
-margin-bottom:10px;
-
-}
-
-.produk-info h3{
-
-font-size:14px;
-
-font-weight:600;
-
-line-height:1.4;
-
-margin-bottom:8px;
-
-min-height:38px;
-
-display:-webkit-box;
-
--webkit-line-clamp:2;
-
--webkit-box-orient:vertical;
-
-overflow:hidden;
-
-color:#0f172a;
-
-}
-
-.price{
-
-font-size:20px;
-
-font-weight:700;
-
-color:#16a34a;
-
-margin-bottom:4px;
-
-}
 
 /* =====================================================
 FLOAT CART
@@ -1579,11 +1522,7 @@ text-decoration:none;
 font-weight:600;
 z-index:999;
 }
-.stok-produk{
-    margin-top:8px;
-    font-size:14px;
-    font-weight:bold;
-    color:#0f172a;
+
 }
 .loading-box{
 position:fixed;
@@ -1761,35 +1700,6 @@ overflow:hidden;
 
 }
 
-/* EFEK GARIS */
-
-.btn-stok-habis::after{
-
-content:'';
-
-position:absolute;
-
-top:0;
-left:-100%;
-
-width:100%;
-height:100%;
-
-background:rgba(255,255,255,0.15);
-
-transform:skewX(-25deg);
-
-animation:stokHabisAnim 2s infinite;
-
-}
-
-@keyframes stokHabisAnim{
-
-100%{
-left:150%;
-}
-
-}
 /* =========================
 RESPONSIVE MOBILE
 ========================= */
@@ -1819,4 +1729,32 @@ padding:15px;
 padding:15px;
 }
 
+}
+.btn-stok-habis,
+.buy-btn{
+
+width:42px;
+height:42px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border:none;
+border-radius:12px;
+
+font-size:18px;
+font-weight:bold;
+
+flex-shrink:0;
+}
+
+.buy-btn{
+background:#00c853;
+color:white;
+}
+
+.btn-stok-habis{
+background:#999;
+color:white;
 }
