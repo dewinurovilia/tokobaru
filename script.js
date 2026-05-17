@@ -661,12 +661,12 @@ total.toLocaleString()
 
 if(countBox){
 
-countBox.innerHTML =
-cart.length;
-
+if(countBox){
+countBox.innerHTML='0';
 }
 
-}
+document.getElementById('bottomCartCount').innerHTML='0';
+ 
 /* =========================
 HAPUS CART
 ========================= */
