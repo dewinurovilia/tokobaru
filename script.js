@@ -1084,17 +1084,112 @@ renderProduk();
 
 hideLoading();
 
-const printWindow =
-window.open('','','width=300,height=600');
+const printWindow = window.open('', '', 'width=400,height=700');
 
-printWindow.document.write(
-'<pre>'+text+'</pre>'
-);
+printWindow.document.write(`
+<html>
+<head>
+<title>Struk</title>
+
+<style>
+
+body{
+font-family: monospace;
+width:58mm;
+margin:0;
+padding:8px;
+font-size:11px;
+color:#000;
+}
+
+.center{
+text-align:center;
+}
+
+.line{
+border-top:1px dashed #000;
+margin:5px 0;
+}
+
+.item{
+margin-bottom:6px;
+}
+
+.total{
+font-weight:bold;
+font-size:13px;
+}
+
+@media print{
+body{
+width:58mm;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="center">
+<b>TOKO DEFANA</b><br>
+Terima Kasih
+</div>
+
+<div class="line"></div>
+
+Nama : ${nama}<br>
+Pengiriman : ${pengiriman}<br>
+Pembayaran : ${pembayaran}<br>
+
+<div class="line"></div>
+`);
+
+cart.forEach(item=>{
+
+const subtotal = item.harga * item.qty;
+
+printWindow.document.write(`
+
+<div class="item">
+
+${item.nama}<br>
+
+${item.qty} x Rp ${Number(item.harga).toLocaleString()}<br>
+
+<b>Rp ${subtotal.toLocaleString()}</b>
+
+</div>
+
+`);
+
+});
+
+printWindow.document.write(`
+
+<div class="line"></div>
+
+<div class="total">
+TOTAL : Rp ${total.toLocaleString()}
+</div>
+
+<div class="line"></div>
+
+<div class="center">
+TERIMA KASIH<br>
+Sudah Berbelanja DIsini
+</div>
+
+</body>
+</html>
+
+`);
 
 printWindow.document.close();
 
-printWindow.print();
+printWindow.focus();
 
+printWindow.print();
 showToast('Struk berhasil dicetak');
 
 }
