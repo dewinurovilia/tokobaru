@@ -15,6 +15,11 @@ set,
 onValue
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+import {
+getAuth,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 /* =========================
 CONFIG FIREBASE
 ========================= */
@@ -39,7 +44,11 @@ const app = !getApps().length
 : getApp();
 
 const firebaseDB =
-getDatabase(app);/* =========================
+getDatabase(app);
+
+const auth = getAuth(app);
+
+/* =========================
 TOKO DEFANA FULL SCRIPT
 ========================= */
 
@@ -798,18 +807,25 @@ passwordBox.style.display='block';
 
 }
 
-/* =========================
-PASSWORD STRUK
-========================= */
-
-window.cekPasswordStruk = function(){
+window.cekPasswordStruk = async function(){
 
 const password =
 document.getElementById(
 'passwordStruk'
 ).value;
 
-if(password==='27'){
+/* EMAIL ADMIN TETAP */
+const email = 'adminku@gmail.com';
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+/* JIKA BERHASIL */
 
 document.getElementById(
 'btnStruk'
@@ -817,9 +833,11 @@ document.getElementById(
 
 showToast('Akses struk dibuka');
 
-}else{
+}catch(error){
 
 showToast('Password salah');
+
+console.log(error);
 
 }
 
