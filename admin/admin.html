@@ -1016,7 +1016,58 @@ showToast(
 );
 
 }
-  
+/* =========================
+DOWNLOAD REKAP EXCEL
+========================= */
+
+window.downloadRekapExcel = function(){
+
+const stokMenipis = produk.filter(item =>
+Number(item.stok || 0) <= 3
+);
+
+if(stokMenipis.length === 0){
+
+showToast('Tidak ada stok menipis');
+
+return;
+
+}
+
+const dataExcel = stokMenipis.map(item => ({
+
+ID: item.id || '',
+
+Nama_Produk: item.nama || '',
+
+Kategori: item.kategori || '',
+
+Harga: item.harga || 0,
+
+Stok: item.stok || 0
+
+}));
+
+const worksheet =
+XLSX.utils.json_to_sheet(dataExcel);
+
+const workbook =
+XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(
+workbook,
+worksheet,
+'Stok Menipis'
+);
+
+XLSX.writeFile(
+workbook,
+'rekap-stok-menipis.xlsx'
+);
+
+showToast('Excel berhasil didownload');
+
+}  
 /* TOAST */
 
 function showToast(text){
@@ -1041,8 +1092,5 @@ toast.classList.remove("show");
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
-</script>
-
 </body>
 </html>
