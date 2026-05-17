@@ -171,17 +171,29 @@ list.innerHTML='';
 const filtered =
 produk.filter(item=>{
 
+/* FILTER KATEGORI */
+
 const cocokKategori =
 
-kategoriAktif==='Semua'
+kategoriAktif === 'Semua'
 ||
-item.kategori===kategoriAktif;
+(item.kategori || '') === kategoriAktif;
+
+/* FILTER PENCARIAN */
+
+const nama =
+(item.nama || '')
+.toLowerCase();
+
+const kategori =
+(item.kategori || '')
+.toLowerCase();
 
 const cocokSearch =
 
-item.nama
-.toLowerCase()
-.includes(search);
+nama.includes(search)
+||
+kategori.includes(search);
 
 return cocokKategori && cocokSearch;
 
