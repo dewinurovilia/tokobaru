@@ -1321,8 +1321,18 @@ showToast('Keranjang dikosongkan');
 
 window.toggleSidebar = function(){
 
-document
-.querySelector('.sidebar')
-.classList.toggle('active');
+const sidebar =
+document.querySelector('.sidebar');
+
+const overlay =
+document.querySelector('.sidebar-overlay');
+
+sidebar.classList.toggle('active');
+
+overlay.classList.toggle('active');
+
+}
+
+</script>
 
 }
