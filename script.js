@@ -1012,8 +1012,13 @@ window.cetakStruk = async function(){
   printWindow.document.write(`
       <div class="line"></div>
       <div class="total">
+        <div class="total">
         TOTAL : Rp ${total.toLocaleString()}
-      </div>
+        </div>
+        <br>
+        Bayar : Rp ${uangBayarGlobal.toLocaleString()}
+        <br>
+        Kembali : Rp ${kembalianGlobal.toLocaleString()}
       <div class="line"></div>
       <div class="center">
         TERIMA KASIH<br>
@@ -1345,7 +1350,8 @@ return;
 }
 
 const kembali = uang - total;
-
+uangBayarGlobal = uang;
+kembalianGlobal = kembali;
 tutupPopupBayar();
 
 /* LANJUT CETAK */
