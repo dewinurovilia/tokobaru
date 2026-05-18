@@ -1229,6 +1229,8 @@ z-index:9999999;
 }
 /* SIDEBAR SIMPLE PREMIUM */
 
+/* SIDEBAR SIMPLE PREMIUM */
+
 .sidebar{
 
 position:fixed;
@@ -1241,13 +1243,15 @@ height:100vh;
 
 padding:22px 18px;
 
+padding-bottom:120px;
+
+box-sizing:border-box;
+
 overflow-y:auto;
 
 transition:.3s ease;
 
 z-index:999999;
-
-/* WARNA */
 
 background:
 linear-gradient(
@@ -1255,6 +1259,14 @@ linear-gradient(
 #0f172a,
 #111827
 );
+
+box-shadow:
+4px 0 15px rgba(0,0,0,0.15);
+
+border-top-right-radius:24px;
+border-bottom-right-radius:24px;
+
+}
 
 /* SHADOW RINGAN */
 
