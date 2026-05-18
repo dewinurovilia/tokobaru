@@ -1318,3 +1318,11 @@ toggleMetode();
 showToast('Keranjang dikosongkan');
 
 }
+
+window.toggleSidebar = function(){
+
+document
+.querySelector('.sidebar')
+.classList.toggle('active');
+
+}
