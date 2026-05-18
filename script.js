@@ -516,6 +516,13 @@ if(countBox){
 countBox.innerHTML='0';
 }
 
+const bottomCount =
+document.getElementById('bottomCartCount');
+
+if(bottomCount){
+bottomCount.innerHTML='0';
+}
+
 return;
 
 }
