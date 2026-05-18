@@ -1318,41 +1318,48 @@ document.getElementById(
 
 }
 
-window.tutupPopupBayar = function(){
+window.bukaPopupBayar = function(){
 
-document.getElementById(
-'popupBayar'
-).classList.remove('active');
+if(cart.length === 0){
 
-}
-
-window.prosesCetakStruk = function(){
-
-let total = 0;
-
-cart.forEach(item=>{
-total += item.harga * item.qty;
-});
-
-const uang =
-parseInt(
-document.getElementById(
-'uangBayar'
-).value
-) || 0;
-
-if(uang < total){
-
-showToast('Uang kurang');
+showToast('Keranjang kosong');
 
 return;
 
 }
 
-const kembali = uang - total;
-uangBayarGlobal = uang;
-kembalianGlobal = kembali;
-tutupPopupBayar();
+/* TUTUP KERANJANG */
+
+document
+.getElementById('cartBox')
+.classList.remove('active');
+
+/* HITUNG TOTAL */
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.harga * item.qty;
+
+});
+
+/* TAMPILKAN TOTAL */
+
+document.getElementById(
+'totalBayarText'
+).innerHTML =
+
+'Rp ' +
+total.toLocaleString();
+
+/* BUKA POPUP */
+
+document.getElementById(
+'popupBayar'
+).classList.add('active');
+
+}
 
 /* LANJUT CETAK */
 
