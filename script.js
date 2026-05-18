@@ -1136,15 +1136,17 @@ window.resetCart = function(){
 
 };
 
-window.toggleSidebar = function(){
+window.closeSidebar = function(){
 
-  const sidebar = document.querySelector('.sidebar');
+  const sidebar =
+  document.querySelector('.sidebar');
 
-  const overlay = document.querySelector('.sidebar-overlay');
+  const overlay =
+  document.querySelector('.sidebar-overlay');
 
-  sidebar.classList.toggle('active');
+  sidebar.classList.remove('active');
 
-  overlay.classList.toggle('active');
+  overlay.classList.remove('active');
 
 };
 
@@ -1180,36 +1182,69 @@ function resetButton(button,text){
 RENDER KATEGORI (UPDATED)
 ========================= */
 function renderKategori(){
-  const kategoriList = document.getElementById('kategoriList');
+
+  const kategoriList =
+  document.getElementById('kategoriList');
+
+  const kategoriSidebar =
+  document.getElementById('kategoriListSidebar');
+
   if(!kategoriList) return;
 
   const kategoriUnik = [
     'Semua',
-    ...new Set(produk.map(item => item.kategori || 'Lainnya'))
+    ...new Set(
+      produk.map(
+        item => item.kategori || 'Lainnya'
+      )
+    )
   ];
 
   kategoriList.innerHTML = '';
 
-  kategoriUnik.forEach(kat => {
-    // Cek apakah kategori ini yang sedang aktif
-    const isAktif = (kat === kategoriAktif) ? 'class="active"' : '';
+  if(kategoriSidebar){
+    kategoriSidebar.innerHTML = '';
+  }
 
-    kategoriList.innerHTML += `
-      <button ${isAktif} onclick="pilihKategori(this, '${kat}')">
-        ${kat}
+  kategoriUnik.forEach(kat => {
+
+    const isAktif =
+    (kat === kategoriAktif)
+    ? 'class="active"'
+    : '';
+
+    const tombol = `
+      <button
+      ${isAktif}
+      onclick="pilihKategori(this, '${kat}')">
+
+      ${kat}
+
       </button>
     `;
+
+    kategoriList.innerHTML += tombol;
+
+    if(kategoriSidebar){
+      kategoriSidebar.innerHTML += tombol;
+    }
+
   });
+
 }
 
-/* Fungsi pembantu saat kategori diklik */
 window.pilihKategori = function(element, kat) {
-  // Jalankan filter kategori bawaan Anda
+
   window.filterKategori(kat);
-  
-  // Render ulang kategori agar status class "active" berpindah tempat
+
   renderKategori();
-  
-  // Efek otomatis geser sedikit ke tengah saat tombol ditekan
-  element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+  closeSidebar();
+
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest',
+    inline: 'center'
+  });
+
 }
