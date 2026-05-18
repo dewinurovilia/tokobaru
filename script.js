@@ -56,7 +56,9 @@ let produk = [];
 let kategoriAktif = 'Semua';
 let cart = [];
 let selectedProduct = null;
-
+/* TAMBAHAN */
+let uangBayarGlobal = 0;
+let kembalianGlobal = 0;
 /* =========================
 LOAD AWAL
 ========================= */
