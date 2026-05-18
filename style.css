@@ -1694,3 +1694,71 @@ max-width:100%;
 .main{
 padding-bottom:100px;
 }
+/* =========================
+TOPBAR MODERN
+========================= */
+
+.topbar{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+position:sticky;
+top:0;
+
+z-index:999;
+
+padding:15px;
+
+background:#edf2ff;
+
+}
+
+/* TOMBOL MENU */
+
+.menu-toggle{
+
+position:absolute;
+
+left:15px;
+
+width:46px;
+height:46px;
+
+border:none;
+border-radius:14px;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+font-size:26px;
+font-weight:bold;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+cursor:pointer;
+
+box-shadow:
+0 4px 12px rgba(37,99,235,.25);
+
+}
+
+/* JUDUL */
+
+.topbar h1{
+
+font-size:28px;
+font-weight:800;
+
+color:#0f172a;
+
+}
