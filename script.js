@@ -1163,19 +1163,6 @@ window.closeSidebar = function(){
   overlay.classList.remove('active');
 
 };
-window.closeSidebar = function(){
-
-  const sidebar =
-  document.querySelector('.sidebar');
-
-  const overlay =
-  document.querySelector('.sidebar-overlay');
-
-  sidebar.classList.remove('active');
-
-  overlay.classList.remove('active');
-
-};
 
 /* TOGGLE SIDEBAR */
 
@@ -1291,32 +1278,6 @@ window.pilihKategori = function(element, kat) {
   });
 
 }
-window.bukaPopupBayar = function(){
-
-if(cart.length === 0){
-
-showToast('Keranjang kosong');
-
-return;
-
-}
-
-let total = 0;
-
-cart.forEach(item=>{
-total += item.harga * item.qty;
-});
-
-document.getElementById(
-'totalBayarText'
-).innerHTML =
-'Rp ' + total.toLocaleString();
-
-document.getElementById(
-'popupBayar'
-).classList.add('active');
-
-}
 
 window.bukaPopupBayar = function(){
 
@@ -1358,5 +1319,95 @@ total.toLocaleString();
 document.getElementById(
 'popupBayar'
 ).classList.add('active');
+
+}
+window.tutupPopupBayar = function(){
+
+document.getElementById(
+'popupBayar'
+).classList.remove('active');
+
+}
+
+window.prosesCetakStruk = async function(){
+
+const btn =
+document.querySelector(
+'#popupBayar .popup-btn'
+);
+
+/* LOADING */
+
+btn.disabled = true;
+
+btn.innerHTML = 'Mencetak...';
+
+/* HITUNG TOTAL */
+
+let total = 0;
+
+cart.forEach(item=>{
+
+total += item.harga * item.qty;
+
+});
+
+/* AMBIL UANG */
+
+const uang =
+parseInt(
+document.getElementById(
+'uangBayar'
+).value
+) || 0;
+
+/* VALIDASI */
+
+if(uang < total){
+
+showToast('Uang kurang');
+
+btn.disabled = false;
+
+btn.innerHTML = 'Cetak';
+
+return;
+
+}
+
+/* SIMPAN */
+
+uangBayarGlobal = uang;
+
+kembalianGlobal = uang - total;
+
+/* TUTUP POPUP */
+
+tutupPopupBayar();
+
+/* LOADING GLOBAL */
+
+showLoading(
+'Mencetak struk...'
+);
+
+/* DELAY */
+
+setTimeout(async()=>{
+
+await cetakStruk();
+
+hideLoading();
+
+btn.disabled = false;
+
+btn.innerHTML = 'Cetak';
+
+showToast(
+'Kembalian : Rp ' +
+kembalianGlobal.toLocaleString()
+);
+
+},1200);
 
 }
