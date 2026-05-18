@@ -105,46 +105,6 @@ renderProduk();
 }
 
 /* =========================
-RENDER KATEGORI
-========================= */
-
-function renderKategori(){
-
-const kategoriList =
-document.getElementById('kategoriList');
-
-if(!kategoriList) return;
-
-const kategoriUnik = [
-
-'Semua',
-
-...new Set(
-produk.map(item =>
-item.kategori || 'Lainnya'
-))
-
-];
-
-kategoriList.innerHTML='';
-
-kategoriUnik.forEach(kat=>{
-
-kategoriList.innerHTML += `
-
-<button onclick="filterKategori('${kat}')">
-
-${kat}
-
-</button>
-
-`;
-
-});
-
-}
-
-/* =========================
 FILTER KATEGORI
 ========================= */
 
