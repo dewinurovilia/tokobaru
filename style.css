@@ -725,56 +725,6 @@ transform:translateY(-2px);
 
 }
 
-@media(max-width:768px){
-
-body{
-display:block;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-
-position:fixed;
-
-top:0;
-
-left:-280px;
-
-width:250px;
-
-height:100vh;
-
-background:#0b1742;
-
-padding:20px;
-
-overflow-y:auto;
-
-z-index:999999;
-
-transition:0.3s;
-
-display:block;
-
-}
-
-/* SAAT TAMPIL */
-
-.sidebar.active{
-left:0;
-}
-
-/* JUDUL */
-
-.sidebar h2{
-
-font-size:26px;
-
-margin-bottom:20px;
-
-}
-
 /* TOMBOL KATEGORI */
 
 .sidebar button{
