@@ -1284,3 +1284,84 @@ window.pilihKategori = function(element, kat) {
   });
 
 }
+function bukaPopupBayar(){
+
+const popup =
+document.getElementById('popupBayar');
+
+document.getElementById(
+'totalBayarText'
+).innerText =
+formatRupiah(totalHarga);
+
+popup.classList.add('active');
+
+}
+
+function tutupPopupBayar(){
+
+document
+.getElementById('popupBayar')
+.classList.remove('active');
+
+}
+
+function prosesCetakStruk(){
+
+const uang =
+parseInt(
+document.getElementById(
+'uangBayar'
+).value
+) || 0;
+
+if(uang < totalHarga){
+
+alert('Uang kurang');
+
+return;
+
+}
+
+const kembali =
+uang - totalHarga;
+
+tutupPopupBayar();
+
+/* STRUK */
+
+let isi = `
+TOKO DEFANA
+=================
+
+`;
+
+keranjang.forEach(item=>{
+
+isi += `
+${item.qty}x ${item.nama}
+= ${formatRupiah(item.harga * item.qty)}
+`;
+
+});
+
+isi += `
+
+=================
+Total : ${formatRupiah(totalHarga)}
+Bayar : ${formatRupiah(uang)}
+Kembali : ${formatRupiah(kembali)}
+
+Terima kasih
+`;
+
+const win =
+window.open('','','width=400,height=600');
+
+win.document.write(`
+<pre>${isi}</pre>
+`);
+
+win.print();
+
+}
