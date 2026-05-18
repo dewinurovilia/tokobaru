@@ -1359,6 +1359,7 @@ parseInt(
 document.getElementById(
 'uangBayar'
 ).value
+.replace(/\./g,'')
 ) || 0;
 
 /* VALIDASI */
