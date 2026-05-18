@@ -971,30 +971,6 @@ width:100%;
 min-width:0;
 
 }
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.main{
-
-margin-left:0;
-
-width:100%;
-
-padding:14px;
-
-}
-
-.product-grid{
-
-grid-template-columns:
-repeat(2,1fr);
-
-gap:12px;
-
-}
-
 /* =====================================================
 FIX TOPBAR & SEARCH TIDAK GESER
 ===================================================== */
