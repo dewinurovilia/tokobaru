@@ -142,3 +142,30 @@ padding-bottom:90px;
 }
 
 }
+@media(max-width:600px){
+
+.product-card{
+padding:14px;
+border-radius:18px;
+}
+
+.product-info h3{
+font-size:18px;
+}
+
+.price{
+font-size:22px;
+}
+
+.btn-cart-modern{
+width:58px;
+height:58px;
+font-size:34px;
+border-radius:18px;
+}
+
+.stok-produk{
+font-size:14px;
+}
+
+}
