@@ -1334,5 +1334,3 @@ overlay.classList.toggle('active');
 }
 
 </script>
-
-}
