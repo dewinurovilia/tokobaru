@@ -1360,18 +1360,3 @@ document.getElementById(
 ).classList.add('active');
 
 }
-
-/* LANJUT CETAK */
-
-cetakStruk();
-
-setTimeout(()=>{
-
-alert(
-'Kembalian : Rp ' +
-kembali.toLocaleString()
-);
-
-},500);
-
-}
