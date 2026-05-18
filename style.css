@@ -1152,53 +1152,6 @@ width:100%;
 
 }
 
-/* MOBILE */
-
-@media(max-width:768px){
-
-.sidebar{
-
-position:relative;
-
-width:100%;
-
-height:auto;
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-white-space:nowrap;
-
-}
-
-.main{
-
-margin-left:0;
-
-width:100%;
-
-padding:14px;
-
-}
-
-.topbar{
-
-top:0;
-
-}
-
-.product-grid{
-
-grid-template-columns:
-repeat(2,1fr);
-
-gap:12px;
-
-}
-
 /* =====================================================
 MODE RINGAN / HAPUS ANIMASI BERAT
 ===================================================== */
@@ -1386,6 +1339,7 @@ transform:rotate(0deg);
 100%{
 transform:rotate(360deg);
 }
+}
 
 .loading-box p{
 color:white;
@@ -1479,6 +1433,7 @@ transform:translateY(10px);
 to{
 opacity:1;
 transform:translateY(0);
+}
 }
 
 /* =========================
@@ -1693,7 +1648,7 @@ max-width:1000px;
 transform:translateY(-2px);
 box-shadow:0 10px 20px rgba(0,0,0,0.06);
 }
-
+}
 /* =====================================================
 MOBILE
 ===================================================== */
@@ -1852,4 +1807,5 @@ border-top-right-radius:20px;
 
 z-index:9999999;
 
+}
 }
