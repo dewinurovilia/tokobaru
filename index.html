@@ -55,8 +55,21 @@ MAIN
 <h1>TOKO DEFANA</h1>
 
 <div class="search-box">
-<input type="text" id="searchInput" placeholder="Cari produk...">
-<button class="clear-search">✕</button>
+
+<input
+type="text"
+id="searchInput"
+placeholder="Cari produk..."
+oninput="renderProduk()">
+
+<button
+class="clear-search"
+onclick="clearSearch()">
+
+✕
+
+</button>
+
 </div>
 
 </div>
