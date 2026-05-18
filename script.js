@@ -1334,3 +1334,30 @@ overlay.classList.toggle('active');
 }
 
 </script>
+/* =========================
+BUTTON LOADING
+========================= */
+
+function setButtonLoading(button,text){
+
+if(!button) return;
+
+button.disabled = true;
+
+button.classList.add('btn-loading');
+
+button.innerHTML = text;
+
+}
+
+function resetButton(button,text){
+
+if(!button) return;
+
+button.disabled = false;
+
+button.classList.remove('btn-loading');
+
+button.innerHTML = text;
+
+}
