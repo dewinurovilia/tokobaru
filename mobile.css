@@ -30,7 +30,9 @@ left:0;
 margin-left:0;
 width:100%;
 
-padding:14px;
+padding:85px 14px 100px;
+
+}
 
 }
 
@@ -168,4 +170,16 @@ border-radius:18px;
 font-size:14px;
 }
 
+}
+.search-box{
+margin-bottom:12px;
+}
+
+.products-grid{
+margin-top:0;
+padding-top:0;
+}
+.clear-search{
+z-index:10;
+pointer-events:auto;
 }
