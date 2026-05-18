@@ -1216,14 +1216,3 @@ function resetButton(button,text){
 
 }
 
-function resetButton(button,text){
-
-if(!button) return;
-
-button.disabled = false;
-
-button.classList.remove('btn-loading');
-
-button.innerHTML = text;
-
-}
