@@ -1411,3 +1411,17 @@ kembalianGlobal.toLocaleString()
 },1200);
 
 }
+window.formatInputUang = function(input){
+
+/* HAPUS SEMUA SELAIN ANGKA */
+
+let angka =
+input.value.replace(/\D/g,'');
+
+/* FORMAT RIBUAN */
+
+input.value =
+Number(angka)
+.toLocaleString('id-ID');
+
+}
