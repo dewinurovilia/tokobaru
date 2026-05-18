@@ -846,6 +846,14 @@ CHECKOUT WHATSAPP
 
 window.checkoutWA = async function(){
 
+const btn =
+document.getElementById('btnWA');
+
+setButtonLoading(
+btn,
+'Mengirim...'
+);
+
 showLoading('Mengirim pesanan...');
 
 const nama =
@@ -867,6 +875,11 @@ if(!nama){
 
 hideLoading();
 
+resetButton(
+btn,
+'📲 Pesan via WhatsApp'
+);
+
 showToast('Isi nama');
 
 return;
@@ -876,6 +889,11 @@ return;
 if(cart.length===0){
 
 hideLoading();
+
+resetButton(
+btn,
+'📲 Pesan via WhatsApp'
+);
 
 showToast('Keranjang kosong');
 
@@ -924,6 +942,61 @@ subtotal:subtotal
 
 });
 
+if(total < 50000){
+
+hideLoading();
+
+resetButton(
+btn,
+'📲 Pesan via WhatsApp'
+);
+
+showToast(
+'Minimal belanja Rp50.000'
+);
+
+return;
+
+}
+
+pesan +=
+'%0A TOTAL : Rp ' +
+total.toLocaleString();
+
+await kirimRekap(
+nama,
+pengiriman,
+pembayaran,
+total,
+items
+);
+
+await kurangiStockCheckout();
+
+cart = [];
+
+updateCart();
+
+renderProduk();
+
+hideLoading();
+
+window.open(
+
+'https://wa.me/6281554041777?text='+pesan,
+
+'_blank'
+
+);
+
+showToast('Checkout berhasil');
+
+resetButton(
+btn,
+'📲 Pesan via WhatsApp'
+);
+
+}
 /* =========================
 MINIMAL CHECKOUT
 ========================= */
@@ -979,6 +1052,14 @@ CETAK STRUK
 
 window.cetakStruk = async function(){
 
+const btn =
+document.getElementById('btnStruk');
+
+setButtonLoading(
+btn,
+'Mencetak...'
+);
+
 showLoading('Mencetak struk...');
 
 const nama =
@@ -1000,6 +1081,11 @@ if(!nama){
 
 hideLoading();
 
+resetButton(
+btn,
+'🖨 Cetak Struk'
+);
+
 showToast('Isi nama');
 
 return;
@@ -1009,6 +1095,11 @@ return;
 if(cart.length===0){
 
 hideLoading();
+
+resetButton(
+btn,
+'🖨 Cetak Struk'
+);
 
 showToast('Keranjang kosong');
 
@@ -1077,12 +1168,28 @@ hideLoading();
 
 const printWindow = window.open('', '', 'width=400,height=700');
 
-printWindow.document.write(`
-<html>
-<head>
-<title>Struk</title>
+printWindow.document.write(text);
 
-<style>
+printWindow.document.close();
+
+printWindow.focus();
+
+printWindow.print();
+
+cart = [];
+
+updateCart();
+
+renderProduk();
+
+showToast('Struk berhasil dicetak');
+
+resetButton(
+btn,
+'🖨 Cetak Struk'
+);
+
+}
 
 body{
 font-family: monospace;
