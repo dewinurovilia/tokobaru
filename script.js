@@ -1216,8 +1216,6 @@ function resetButton(button,text){
 
 }
 
-}
-
 function resetButton(button,text){
 
 if(!button) return;
