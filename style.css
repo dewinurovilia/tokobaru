@@ -337,7 +337,7 @@ inset:0;
 
 background:rgba(15,23,42,.55);
 
-backdrop-filter:blur(6px);
+backdrop-filter:blur(14px);
 
 display:flex;
 
@@ -1227,7 +1227,7 @@ border-top-right-radius:20px;
 z-index:9999999;
 
 }
-/* SIDEBAR GLASS WHITE */
+/* SIDEBAR SIMPLE PREMIUM */
 
 .sidebar{
 
@@ -1243,52 +1243,44 @@ padding:22px 18px;
 
 overflow-y:auto;
 
-transition:0.35s ease;
+transition:.3s ease;
 
 z-index:999999;
 
-/* GLASS */
+/* WARNA */
 
 background:
-rgba(255,255,255,0.18);
+linear-gradient(
+180deg,
+#0f172a,
+#111827
+);
 
-backdrop-filter:blur(18px);
-
--webkit-backdrop-filter:blur(18px);
-
-/* BORDER */
-
-border-right:
-1px solid rgba(255,255,255,0.25);
-
-/* SHADOW */
+/* SHADOW RINGAN */
 
 box-shadow:
-0 8px 32px rgba(0,0,0,0.12);
+4px 0 15px rgba(0,0,0,0.15);
 
-/* RADIUS */
-
-border-top-right-radius:28px;
-border-bottom-right-radius:28px;
-
-}
-/* JUDUL SIDEBAR */
-
-.sidebar h2{
-
-color:#0f172a;
-
-font-size:32px;
-font-weight:800;
-
-text-shadow:
-0 2px 10px rgba(255,255,255,0.4);
+border-top-right-radius:24px;
+border-bottom-right-radius:24px;
 
 }
 /* SIDEBAR ACTIVE */
 
 .sidebar.active{
 left:0;
+}
+/* JUDUL SIDEBAR */
+
+.sidebar h2{
+
+color:white;
+
+font-size:30px;
+font-weight:800;
+
+margin-bottom:20px;
+
 }
 /* =========================
 DESKTOP FIX
@@ -1405,8 +1397,6 @@ overflow-x:hidden;
 
 /* BUTTON */
 
-/* BUTTON GLASS */
-
 .kategori-list button{
 
 width:100%;
@@ -1415,35 +1405,21 @@ padding:16px;
 
 border:none;
 
-border-radius:20px;
+border-radius:18px;
 
 background:
-rgba(255,255,255,0.35);
+rgba(255,255,255,0.08);
 
-backdrop-filter:blur(10px);
-
--webkit-backdrop-filter:blur(10px);
-
-color:#111827;
+color:white;
 
 font-size:16px;
 font-weight:600;
 
 text-align:left;
 
-cursor:pointer;
-
-transition:.25s;
-
-/* GLOSSY */
-
-box-shadow:
-0 4px 18px rgba(255,255,255,0.55);,
-inset 0 1px 1px rgba(255,255,255,0.4);
+transition:.2s;
 
 }
-
-/* ACTIVE */
 
 /* ACTIVE */
 
@@ -1452,13 +1428,11 @@ inset 0 1px 1px rgba(255,255,255,0.4);
 background:
 linear-gradient(
 135deg,
-#ffffff,
-#dbeafe
+#22c55e,
+#16a34a
 );
 
-color:#2563eb;
-
-font-weight:700;
+color:white;
 
 }
 /* OVERLAY */
@@ -1471,8 +1445,6 @@ inset:0;
 
 background:
 rgba(0,0,0,0.18);
-
-backdrop-filter:blur(4px);
 
 opacity:0;
 
@@ -1493,11 +1465,10 @@ opacity:1;
 pointer-events:auto;
 
 }
+
 /* HOVER */
 
 .kategori-list button:hover{
-
-transform:translateX(4px);
 
 background:
 rgba(255,255,255,0.14);
