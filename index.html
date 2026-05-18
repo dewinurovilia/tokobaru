@@ -110,26 +110,33 @@ onclick="toggleSidebar()">
 <!-- TOPBAR -->
 <div class="topbar">
 
+<button
+class="menu-toggle"
+onclick="toggleSidebar()">
+
+☰
+
+</button>
+
 <h1>TOKO DEFANA</h1>
 
-<div class="kategori-container">
-  <div id="kategoriList" class="kategori-list"></div>
 </div>
 
 <div class="search-box">
-  <input 
-    type="text" 
-    id="searchInput" 
-    placeholder="Cari produk..." 
-    oninput="renderProduk()">
 
-  <button 
-    class="clear-search" 
-    onclick="clearSearch()">
+<input 
+type="text" 
+id="searchInput" 
+placeholder="Cari produk..." 
+oninput="renderProduk()">
 
-    ✕
-  </button>
-</div>
+<button 
+class="clear-search" 
+onclick="clearSearch()">
+
+✕
+
+</button>
 
 </div>
 <!-- PRODUK -->
