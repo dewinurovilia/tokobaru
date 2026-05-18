@@ -821,8 +821,6 @@ text-align:center;
 
 }
 
-}
-
 /* CART */
 
 .cart-box{
@@ -882,8 +880,6 @@ width:80px;
 height:50px;
 
 font-size:22px;
-
-}
 
 }
 
@@ -1049,7 +1045,6 @@ gap:12px;
 
 }
 
-}
 /* =====================================================
 FIX TOPBAR & SEARCH TIDAK GESER
 ===================================================== */
@@ -1204,7 +1199,6 @@ gap:12px;
 
 }
 
-}
 /* =====================================================
 MODE RINGAN / HAPUS ANIMASI BERAT
 ===================================================== */
@@ -1393,8 +1387,6 @@ transform:rotate(0deg);
 transform:rotate(360deg);
 }
 
-}
-
 .loading-box p{
 color:white;
 font-size:18px;
@@ -1489,7 +1481,6 @@ opacity:1;
 transform:translateY(0);
 }
 
-}
 /* =========================
 TOMBOL STOK HABIS
 ========================= */
@@ -1701,8 +1692,6 @@ max-width:1000px;
 .product-card:hover{
 transform:translateY(-2px);
 box-shadow:0 10px 20px rgba(0,0,0,0.06);
-}
-
 }
 
 /* =====================================================
