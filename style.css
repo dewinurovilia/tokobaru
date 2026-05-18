@@ -1739,12 +1739,17 @@ padding:18px;
 
 }
 .header-top{
-position:sticky;
+position:fixed;
 top:0;
-z-index:9999;
+left:0;
 
-background:rgba(238,242,255,0.9);
-backdrop-filter:blur(10px);
+width:100%;
+
+z-index:99999;
+
+background:#eef2ff;
 
 padding:15px 15px 10px;
+
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
