@@ -56,25 +56,20 @@ MAIN
 <!-- TOPBAR -->
 
 <div class="topbar">
-<h1>
-TOKO DEFANA
-</h1>
+
+<button class="menu-toggle" onclick="toggleSidebar()">
+☰
+</button>
+
+<h1>TOKO DEFANA</h1>
 
 <div class="search-box">
 
-<input
-id="searchInput"
-type="text"
-placeholder="🔍 Cari produk..."
-onkeyup="renderProduk()">
+<input type="text" id="searchInput" placeholder="Cari produk...">
 
-<button
-class="clear-search"
-onclick="clearSearch()">
+<button class="clear-search">✕</button>
 
-✕
-
-</button>
+</div>
 
 </div>
 
