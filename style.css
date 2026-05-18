@@ -1575,61 +1575,6 @@ transform:translateY(-2px);
 box-shadow:0 10px 20px rgba(0,0,0,0.06);
 }
 }
-/* =====================================================
-MOBILE
-===================================================== */
-
-@media(max-width:768px){
-
-.main{
-padding:12px;
-}
-
-.products-grid{
-max-width:100%;
-padding:4px;
-gap:12px;
-}
-
-.product-card{
-padding:14px;
-border-radius:18px;
-gap:12px;
-}
-
-.product-category{
-font-size:10px;
-padding:5px 10px;
-margin-bottom:8px;
-}
-
-.product-name{
-font-size:16px;
-margin-bottom:4px;
-}
-
-.product-detail{
-font-size:13px;
-margin-bottom:4px;
-}
-
-.product-price{
-font-size:24px;
-}
-
-.buy-btn{
-width:42px;
-height:42px;
-font-size:24px;
-border-radius:14px;
-}
-
-.btn-stok-habis{
-min-width:58px;
-height:42px;
-font-size:11px;
-border-radius:12px;
-}
 
 /* MENU BAWAH MODERN */
 
@@ -1734,4 +1679,86 @@ border-top-right-radius:20px;
 z-index:9999999;
 
 }
+}
+/* =========================
+DESKTOP FIX
+========================= */
+
+@media(min-width:769px){
+
+body{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+
+left:0;
+top:0;
+
+width:240px;
+height:100vh;
+
+overflow-y:auto;
+
+background:#fff;
+
+z-index:999;
+
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:240px !important;
+
+width:calc(100% - 240px) !important;
+
+padding:20px;
+
+}
+
+/* MENU BAWAH HILANG */
+
+.bottom-menu{
+display:none;
+}
+
+/* CART */
+
+.cart-box{
+
+width:390px !important;
+
+height:100vh;
+
+top:0;
+bottom:auto;
+
+border-radius:0;
+
+}
+
+/* PRODUK */
+
+.products-grid{
+
+max-width:1100px;
+
+margin:auto;
+
+}
+
+/* CARD */
+
+.product-card{
+
+padding:18px;
+
+}
+
 }
