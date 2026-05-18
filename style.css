@@ -1678,3 +1678,19 @@ transform:translateY(-50%) rotate(360deg);
 }
 
 }
+.kategori-container{
+overflow-x:auto;
+white-space:nowrap;
+}
+
+.kategori-list{
+display:flex;
+flex-wrap:nowrap;
+}
+.search-box{
+width:100%;
+max-width:100%;
+}
+.main{
+padding-bottom:100px;
+}
