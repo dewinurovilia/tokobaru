@@ -941,7 +941,7 @@ overflow-x:hidden;
 .main{
 width:100%;
 min-height:100vh;
-padding:140px 15px 100px;
+padding:70px 15px 100px;
 overflow-y:auto;
 overflow-x:hidden;
 }
@@ -1641,19 +1641,4 @@ padding:18px;
 
 }
 
-}
-.header-top{
-position:fixed;
-top:0;
-left:0;
-
-width:100%;
-
-z-index:99999;
-
-background:#eef2ff;
-
-padding:15px 15px 10px;
-
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
