@@ -43,74 +43,54 @@ color:var(--dark);
 }
 
 
-/* =====================================================
-GRID PRODUK
-===================================================== */
-
-.products-grid{
-display:flex;
-flex-direction:column;
-gap:10px;
-padding:10px;
-}
-
 .product-card{
 background:#fff;
-border-radius:20px;
-padding:16px;
-margin-bottom:16px;
+border-radius:14px;
+padding:10px;
+margin-bottom:10px;
+
 display:flex;
 justify-content:space-between;
 align-items:center;
-box-shadow:0 2px 8px rgba(0,0,0,0.05);
+
 border:1px solid #eee;
 }
 
-.product-info{
-flex:1;
-}
-
 .kategori-badge{
-display:inline-block;
-background:#dbeafe;
-color:#2563eb;
-padding:6px 14px;
-border-radius:20px;
-font-size:13px;
-font-weight:600;
-margin-bottom:10px;
+font-size:10px;
+padding:4px 10px;
+margin-bottom:6px;
 }
 
 .product-info h3{
-font-size:16px;
+font-size:13px;
 font-weight:700;
-color:#0f172a;
-margin-bottom:8px;
+line-height:1.2;
+margin-bottom:4px;
 }
 
 .stok-produk{
-font-size:16px;
-color:#6b7280;
-margin-bottom:10px;
+font-size:11px;
+margin-bottom:4px;
 }
 
 .price{
-font-size:18px;
-font-weight:800;
-color:#16a34a;
+font-size:15px;
+font-weight:700;
 }
 
 .btn-cart-modern{
-width:50px;
-height:50px;
-border:none;
-border-radius:22px;
-background:#00d84f;
-color:white;
-font-size:28px;
-font-weight:bold;
-cursor:pointer;
-flex-shrink:0;
+width:42px;
+height:42px;
+
+font-size:24px;
+
+border-radius:12px;
+}
+.product-info{
+display:flex;
+flex-direction:column;
+gap:2px;
 }
 
 /* =====================================================
