@@ -1284,29 +1284,48 @@ window.pilihKategori = function(element, kat) {
   });
 
 }
-function bukaPopupBayar(){
+window.bukaPopupBayar = function(){
 
-const popup =
-document.getElementById('popupBayar');
+if(cart.length === 0){
+
+showToast('Keranjang kosong');
+
+return;
+
+}
+
+let total = 0;
+
+cart.forEach(item=>{
+total += item.harga * item.qty;
+});
 
 document.getElementById(
 'totalBayarText'
-).innerText =
-formatRupiah(totalHarga);
+).innerHTML =
+'Rp ' + total.toLocaleString();
 
-popup.classList.add('active');
-
-}
-
-function tutupPopupBayar(){
-
-document
-.getElementById('popupBayar')
-.classList.remove('active');
+document.getElementById(
+'popupBayar'
+).classList.add('active');
 
 }
 
-function prosesCetakStruk(){
+window.tutupPopupBayar = function(){
+
+document.getElementById(
+'popupBayar'
+).classList.remove('active');
+
+}
+
+window.prosesCetakStruk = function(){
+
+let total = 0;
+
+cart.forEach(item=>{
+total += item.harga * item.qty;
+});
 
 const uang =
 parseInt(
@@ -1315,53 +1334,29 @@ document.getElementById(
 ).value
 ) || 0;
 
-if(uang < totalHarga){
+if(uang < total){
 
-alert('Uang kurang');
+showToast('Uang kurang');
 
 return;
 
 }
 
-const kembali =
-uang - totalHarga;
+const kembali = uang - total;
 
 tutupPopupBayar();
 
-/* STRUK */
+/* LANJUT CETAK */
 
-let isi = `
-TOKO DEFANA
-=================
+cetakStruk();
 
-`;
+setTimeout(()=>{
 
-keranjang.forEach(item=>{
+alert(
+'Kembalian : Rp ' +
+kembali.toLocaleString()
+);
 
-isi += `
-${item.qty}x ${item.nama}
-= ${formatRupiah(item.harga * item.qty)}
-`;
-
-});
-
-isi += `
-
-=================
-Total : ${formatRupiah(totalHarga)}
-Bayar : ${formatRupiah(uang)}
-Kembali : ${formatRupiah(kembali)}
-
-Terima kasih
-`;
-
-const win =
-window.open('','','width=400,height=600');
-
-win.document.write(`
-<pre>${isi}</pre>
-`);
-
-win.print();
+},500);
 
 }
