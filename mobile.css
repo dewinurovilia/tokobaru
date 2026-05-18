@@ -1,8 +1,32 @@
+/* DESKTOP */
+
+.sidebar,
+.sidebar-overlay{
+display:none;
+}
 /* =========================
 MOBILE PERFECT UI
 ========================= */
 
 @media(max-width:768px){
+.sidebar,
+.sidebar-overlay{
+display:block;
+}
+
+.search-box{
+margin-bottom:12px;
+}
+
+.products-grid{
+margin-top:0;
+padding-top:0;
+}
+
+.clear-search{
+z-index:10;
+pointer-events:auto;
+}
 
 /* BODY */
 
@@ -303,39 +327,6 @@ align-items:center;
 justify-content:center;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-position:fixed;
-
-top:0;
-left:-300px;
-
-width:260px;
-height:100vh;
-
-background:
-linear-gradient(
-180deg,
-#0f172a,
-#1e293b
-);
-
-padding:20px;
-
-overflow-y:auto;
-
-transition:.3s;
-
-z-index:999999;
-}
-
-/* ACTIVE */
-
-.sidebar.active{
-left:0;
-}
-
 /* SIDEBAR TITLE */
 
 .sidebar h2{
@@ -367,24 +358,7 @@ text-align:left;
 }
 
 }
-
-}
-.search-box{
-margin-bottom:12px;
-}
-
-.products-grid{
-margin-top:0;
-padding-top:0;
-}
-.clear-search{
-z-index:10;
-pointer-events:auto;
-}
-/* =========================
-SIDEBAR MOBILE MODERN
-========================= */
-
+/* AKTIF */
 @media(max-width:768px){
 
 /* SIDEBAR */
@@ -427,68 +401,6 @@ border-bottom-right-radius:24px;
 left:0;
 }
 
-/* JUDUL */
-
-.sidebar h2{
-
-color:white;
-
-font-size:24px;
-font-weight:700;
-
-margin-bottom:25px;
-
-text-align:center;
-
-}
-
-/* TOMBOL KATEGORI */
-
-.sidebar button{
-
-width:100%;
-
-border:none;
-
-padding:15px 16px;
-
-margin-bottom:12px;
-
-border-radius:16px;
-
-background:
-rgba(255,255,255,0.08);
-
-color:white;
-
-font-size:15px;
-font-weight:600;
-
-text-align:left;
-
-cursor:pointer;
-
-transition:0.25s;
-
-backdrop-filter:blur(6px);
-
-}
-
-/* HOVER */
-
-.sidebar button:hover{
-
-background:
-linear-gradient(
-135deg,
-#2563eb,
-#3b82f6
-);
-
-transform:translateX(5px);
-
-}
-
 /* OVERLAY */
 
 .sidebar-overlay{
@@ -510,7 +422,7 @@ z-index:999998;
 
 }
 
-/* AKTIF */
+/* OVERLAY ACTIVE */
 
 .sidebar-overlay.active{
 
@@ -518,5 +430,4 @@ opacity:1;
 pointer-events:auto;
 
 }
-
 }
