@@ -183,3 +183,142 @@ padding-top:0;
 z-index:10;
 pointer-events:auto;
 }
+/* =========================
+SIDEBAR MOBILE MODERN
+========================= */
+
+@media(max-width:768px){
+
+/* SIDEBAR */
+
+.sidebar{
+
+position:fixed;
+top:0;
+left:-320px;
+
+width:280px;
+height:100vh;
+
+background:
+linear-gradient(
+180deg,
+#0f172a,
+#1e293b
+);
+
+padding:22px 18px;
+
+overflow-y:auto;
+
+transition:0.35s ease;
+
+z-index:999999;
+
+box-shadow:
+8px 0 30px rgba(0,0,0,0.25);
+
+border-top-right-radius:24px;
+border-bottom-right-radius:24px;
+
+}
+
+/* AKTIF */
+
+.sidebar.active{
+left:0;
+}
+
+/* JUDUL */
+
+.sidebar h2{
+
+color:white;
+
+font-size:24px;
+font-weight:700;
+
+margin-bottom:25px;
+
+text-align:center;
+
+}
+
+/* TOMBOL KATEGORI */
+
+.sidebar button{
+
+width:100%;
+
+border:none;
+
+padding:15px 16px;
+
+margin-bottom:12px;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,0.08);
+
+color:white;
+
+font-size:15px;
+font-weight:600;
+
+text-align:left;
+
+cursor:pointer;
+
+transition:0.25s;
+
+backdrop-filter:blur(6px);
+
+}
+
+/* HOVER */
+
+.sidebar button:hover{
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+transform:translateX(5px);
+
+}
+
+/* OVERLAY */
+
+.sidebar-overlay{
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,0.45);
+
+backdrop-filter:blur(2px);
+
+opacity:0;
+pointer-events:none;
+
+transition:0.3s;
+
+z-index:999998;
+
+}
+
+/* AKTIF */
+
+.sidebar-overlay.active{
+
+opacity:1;
+pointer-events:auto;
+
+}
+
+}
