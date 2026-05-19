@@ -1617,3 +1617,26 @@ font-weight:500;
 color:#94a3b8;
 
 }
+#darkModeToggle{
+margin-left:auto;
+border:none;
+background:#2563eb;
+color:white;
+padding:8px 12px;
+border-radius:10px;
+cursor:pointer;
+font-size:18px;
+}
+body.dark{
+background:#0f172a;
+color:white;
+}
+
+body.dark .topbar{
+background:#1e293b;
+}
+
+body.dark .product-card{
+background:#1e293b;
+color:white;
+}
