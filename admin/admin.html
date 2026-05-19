@@ -978,11 +978,30 @@ item.harga
 
 if(hargaBaru === null) return;
 
+/* PILIH KATEGORI */
+
+let pilihanKategori = "Pilih kategori:\n\n";
+
+kategoriList.forEach((kategori, i)=>{
+pilihanKategori += `${i + 1}. ${kategori}\n`;
+});
+
+const pilih = prompt(
+pilihanKategori,
+kategoriList.indexOf(item.kategori) + 1
+);
+
+if(pilih === null) return;
+
+const kategoriBaru =
+kategoriList[Number(pilih) - 1];
+
 /* VALIDASI */
 
 if(
 namaBaru.trim() === '' ||
-Number(hargaBaru) <= 0
+Number(hargaBaru) <= 0 ||
+!kategoriBaru
 ){
 
 showToast('Data tidak valid');
@@ -999,7 +1018,9 @@ produk[index] = {
 
 nama: namaBaru,
 
-harga: Number(hargaBaru)
+harga: Number(hargaBaru),
+
+kategori: kategoriBaru
 
 };
 
@@ -1008,6 +1029,8 @@ harga: Number(hargaBaru)
 await set(ref(db), produk);
 
 /* REFRESH */
+
+loadKategori();
 
 renderProduk();
 
