@@ -1426,18 +1426,6 @@ Number(angka)
 .toLocaleString('id-ID');
 
 }
-// kode lain di atas
-
-window.toggleSidebar = function(){
-
-  const sidebar =
-  document.querySelector('.sidebar');
-
-  sidebar.classList.toggle('active');
-
-};
-
-/* TARUH DI SINI */
 let currentSlide = 0;
 
 const slides =
@@ -1446,6 +1434,9 @@ document.querySelectorAll('.slide');
 const track =
 document.querySelector('.slider-track');
 
+let autoSlide;
+
+/* UPDATE SLIDE */
 function updateSlide(){
 
   track.style.transform =
@@ -1453,14 +1444,37 @@ function updateSlide(){
 
 }
 
-setInterval(() => {
+/* AUTO SLIDE */
+function startSlide(){
 
-  currentSlide++;
+  autoSlide = setInterval(() => {
 
-  if(currentSlide >= slides.length){
-    currentSlide = 0;
-  }
+    currentSlide++;
 
-  updateSlide();
+    if(currentSlide >= slides.length){
+      currentSlide = 0;
+    }
 
-}, 3500);
+    updateSlide();
+
+  }, 3500);
+
+}
+
+/* STOP SAAT DIKLIK */
+slides.forEach(slide => {
+
+  slide.addEventListener('click', () => {
+
+    clearInterval(autoSlide);
+
+    setTimeout(() => {
+      startSlide();
+    }, 4000);
+
+  });
+
+});
+
+/* JALANKAN */
+startSlide();
