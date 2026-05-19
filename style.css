@@ -1505,27 +1505,23 @@ TOPBAR MODERN
 
 display:flex;
 align-items:center;
-justify-content:center;
+justify-content:space-between;
 
 position:sticky;
 top:0;
 
 z-index:999;
 
-padding:15px;
+padding:15px 16px;
 
 background:#edf2ff;
 
-}
+gap:10px;
 
+}
 /* TOMBOL MENU */
 
 .menu-toggle{
-
-position:absolute;
-
-left:15px;
-
 width:46px;
 height:46px;
 
@@ -1559,10 +1555,20 @@ box-shadow:
 
 .topbar h1{
 
-font-size:28px;
+font-size:26px;
 font-weight:800;
 
 color:#0f172a;
+
+flex:1;
+
+text-align:center;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
 
 }
 #uangBayar{
@@ -1639,4 +1645,35 @@ background:#1e293b;
 body.dark .product-card{
 background:#1e293b;
 color:white;
+}
+#darkModeToggle{
+
+width:46px;
+height:46px;
+
+border:none;
+border-radius:14px;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+color:white;
+
+font-size:24px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+cursor:pointer;
+
+box-shadow:
+0 4px 12px rgba(37,99,235,.25);
+
+flex-shrink:0;
+
 }
