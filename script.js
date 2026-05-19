@@ -1476,39 +1476,4 @@ slides.forEach(slide => {
 
 });
 
-/* JALANKAN */
-startSlide();
-<script>
-
-const darkBtn =
-document.getElementById('darkModeToggle');
-
-darkBtn.onclick = () => {
-
-document.body.classList.toggle('dark');
-
-if(document.body.classList.contains('dark')){
-
-localStorage.setItem('theme','dark');
-
-darkBtn.innerHTML = '☀️';
-
-}else{
-
-localStorage.setItem('theme','light');
-
-darkBtn.innerHTML = '🌙';
-
-}
-
-};
-
-if(localStorage.getItem('theme') === 'dark'){
-
-document.body.classList.add('dark');
-
-darkBtn.innerHTML = '☀️';
-
-}
-
 </script>
