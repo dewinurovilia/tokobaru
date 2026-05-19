@@ -1426,3 +1426,41 @@ Number(angka)
 .toLocaleString('id-ID');
 
 }
+// kode lain di atas
+
+window.toggleSidebar = function(){
+
+  const sidebar =
+  document.querySelector('.sidebar');
+
+  sidebar.classList.toggle('active');
+
+};
+
+/* TARUH DI SINI */
+let currentSlide = 0;
+
+const slides =
+document.querySelectorAll('.slide');
+
+const track =
+document.querySelector('.slider-track');
+
+function updateSlide(){
+
+  track.style.transform =
+  `translate3d(-${currentSlide * 100}%,0,0)`;
+
+}
+
+setInterval(() => {
+
+  currentSlide++;
+
+  if(currentSlide >= slides.length){
+    currentSlide = 0;
+  }
+
+  updateSlide();
+
+}, 3500);
