@@ -1290,6 +1290,21 @@ font-weight:800;
 margin-bottom:20px;
 
 }
+.slider{
+overflow:hidden;
+position:relative;
+}
+
+.slider-track{
+display:flex;
+transition:transform .4s ease;
+will-change:transform;
+}
+
+.slide{
+min-width:100%;
+flex-shrink:0;
+}
 /* =========================
 DESKTOP FIX
 ========================= */
