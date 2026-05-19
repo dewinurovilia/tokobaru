@@ -25,22 +25,6 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
-body{
-
-background:
-linear-gradient(
-135deg,
-#edf4ff,
-#f8fbff
-);
-
-overflow-x:hidden;
-
-color:var(--dark);
-
-}
-
-
 .kategori-badge{
 font-size:10px;
 padding:4px 10px;
@@ -592,11 +576,6 @@ box-shadow:
 transform:translateY(-2px);
 
 }
-/* CART */
-
-.cart-box{
-width:100%;
-}
 /* POPUP */
 
 .popup-content{
@@ -644,24 +623,27 @@ SEARCH WRAPPER
 ===================================================== */
 
 .search-box{
-
+padding:6px 16px;
+width:100%;
 position:relative;
-
-padding:14px 16px;
-
 }
-
-/* INPUT */
-
 .search-box input{
 
-height:54px;
+width:100%;
 
-font-size:18px;
+height:50px;
 
-padding:0 60px 0 18px;
+font-size:17px;
 
-border-radius:20px;
+padding:0 55px 0 18px;
+
+border:none;
+
+border-radius:18px;
+
+background:white;
+
+outline:none;
 
 }
 
@@ -669,14 +651,12 @@ border-radius:20px;
 
 .clear-search{
 
-width:42px;
-height:42px;
+width:38px;
+height:38px;
 
-font-size:22px;
+font-size:20px;
 
-right:24px;
-
-border-radius:50%;
+right:22px;
 
 }
 .clear-search:hover{
@@ -684,25 +664,6 @@ border-radius:50%;
 transform:
 translateY(-50%)
 scale(1.08);
-
-}
-/* =====================================================
-FIX LAYOUT PRODUK FULL
-===================================================== */
-
-body{
-overflow-x:hidden;
-}
-
-/* =====================================================
-FIX TOPBAR & SEARCH TIDAK GESER
-===================================================== */
-html,
-body{
-margin:0;
-padding:0;
-
-overflow-x:hidden;
 
 }
 
@@ -714,24 +675,6 @@ min-height:100vh;
 padding:20px 15px 100px;
 overflow-y:auto;
 overflow-x:hidden;
-}
-
-/* SEARCH */
-
-.search-box{
-
-width:100%;
-
-position:relative;
-
-}
-
-/* INPUT */
-
-.search-box input{
-
-width:100%;
-
 }
 
 .admin-btn{
@@ -916,29 +859,6 @@ transform:translateY(0);
 TOMBOL STOK HABIS
 ========================= */
 
-.btn-stok-habis{
-
-min-width:58px;
-height:42px;
-
-padding:0 10px;
-
-border:none;
-border-radius:14px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-background:#9e9e9e;
-color:white;
-
-font-size:12px;
-font-weight:600;
-
-flex-shrink:0;
-
-}
 /* =========================
 RESPONSIVE MOBILE
 ========================= */
@@ -969,28 +889,26 @@ padding:15px;
 }
 
 }
-.btn-stok-habis,
 .buy-btn{
 
-width:42px;
-height:42px;
+width:52px;
+height:52px;
+
+border:none;
+border-radius:16px;
+
+background:#00c853;
+color:white;
+
+font-size:28px;
+font-weight:bold;
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-border:none;
-border-radius:12px;
-
-font-size:18px;
-font-weight:bold;
-
 flex-shrink:0;
-}
 
-.buy-btn{
-background:#00c853;
-color:white;
 }
 
 .btn-stok-habis{
@@ -1002,11 +920,22 @@ PRODUK RESPONSIVE MODERN
 ===================================================== */
 .product-card{
 
-padding:18px;
+background:white;
 
-border-radius:24px;
+border-radius:28px;
 
-min-height:auto;
+padding:16px;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+gap:18px;
+
+box-shadow:
+0 8px 20px rgba(0,0,0,0.05);
+
+transition:.25s;
 
 }
 .products-grid{
@@ -1059,19 +988,6 @@ margin-bottom:8px;
 
 .product-price{
 font-size:18px;
-font-weight:700;
-color:#16a34a;
-}
-
-.buy-btn{
-
-width:56px;
-height:56px;
-
-font-size:34px;
-
-border-radius:18px;
-
 }
 
 .btn-stok-habis{
@@ -1095,19 +1011,15 @@ flex-shrink:0;
 /* MENU BAWAH MODERN */
 
 .bottom-menu{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-height:60px;
-background:#ffffff;
-display:flex;
-justify-content:space-around;
-align-items:center;
-box-shadow:0 -2px 15px rgba(0,0,0,0.15);
-z-index:99999;
-border-top-left-radius:15px;
-border-top-right-radius:15px;
+padding:8px 0;
+}
+
+.bottom-menu button{
+font-size:14px;
+}
+
+.bottom-menu span{
+font-size:22px;
 }
 
 /* TOMBOL */
@@ -1142,11 +1054,6 @@ color:#16a34a;
 font-size:18px;
 }
 
-/* AGAR KONTEN TIDAK TERTUTUP */
-
-body{
-padding-bottom:70px;
-}
 /* HILANGKAN TOMBOL CART LAMA */
 
 .cart-float{
@@ -1173,27 +1080,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 font-weight:bold;
-}
-/* CART BOX */
-
-.cart-box{
-
-bottom:65px !important;
-
-height:calc(100vh - 90px);
-
-border-top-left-radius:20px;
-
-border-top-right-radius:20px;
-
-}
-
-/* MENU BAWAH TETAP DI ATAS */
-
-.bottom-menu{
-
-z-index:9999999;
-
 }
 
 /* SIDEBAR SIMPLE PREMIUM */
@@ -1278,26 +1164,6 @@ DESKTOP FIX
 ========================= */
 
 @media(min-width:769px){
-
-.bottom-menu{
-display:none;
-}
-
-/* CART */
-
-.cart-box{
-
-width:390px !important;
-
-height:auto;
-
-top:0;
-bottom:auto;
-
-border-radius:0;
-
-}
-
 /* PRODUK */
 
 .products-grid{
@@ -1592,29 +1458,6 @@ color:#94a3b8;
 
 }
 #darkModeToggle{
-margin-left:auto;
-border:none;
-background:#2563eb;
-color:white;
-padding:8px 12px;
-border-radius:10px;
-cursor:pointer;
-font-size:18px;
-}
-body.dark{
-background:#0f172a;
-color:white;
-}
-
-body.dark .topbar{
-background:#1e293b;
-}
-
-body.dark .product-card{
-background:#1e293b;
-color:white;
-}
-#darkModeToggle{
 
 width:46px;
 height:46px;
@@ -1645,7 +1488,273 @@ box-shadow:
 flex-shrink:0;
 
 }
-/* JARAK AGAR KONTEN TIDAK TERTUTUP MENU */
+body.dark{
+
+background:
+linear-gradient(
+180deg,
+#0f172a,
+#020617
+);
+
+}
+body.dark .product-name{
+color:white;
+}
+
+body.dark .product-detail{
+color:#cbd5e1;
+}
 body{
+
+margin:0;
+padding:0;
 padding-bottom:90px;
+
+overflow-x:hidden;
+
+color:var(--dark);
+
+background:
+linear-gradient(
+180deg,
+#eef2ff,
+#e2e8f0
+);
+
+}
+.bottom-menu{
+
+padding:8px 0;
+
+z-index:9999999;
+
+background:
+rgba(255,255,255,.92);
+
+backdrop-filter:blur(14px);
+
+box-shadow:
+0 -4px 18px rgba(0,0,0,0.06);
+
+}
+
+.product-card:active{
+transform:scale(.98);
+}
+body.dark .product-card{
+background:#1e293b;
+}
+
+body.dark .topbar{
+background:#1e293b;
+}
+
+body.dark .bottom-menu{
+background:rgba(15,23,42,.95);
+}
+@media(min-width:769px){
+
+.bottom-menu{
+display:none;
+}
+
+}
+body.dark .search-box input{
+
+background:#1e293b;
+
+color:white;
+
+}
+
+body.dark .search-box input::placeholder{
+color:#cbd5e1;
+}
+body.dark .kategori-list button{
+
+background:
+rgba(255,255,255,0.06);
+
+}
+body.dark .cart-box{
+background:#111827;
+}
+
+body.dark .cart-header h2{
+color:white;
+}
+/* =====================================================
+PREMIUM EXTRA UI
+===================================================== */
+
+/* SMOOTH SCROLL */
+
+html{
+scroll-behavior:smooth;
+}
+
+/* TRANSITION */
+
+button,
+input,
+.product-card,
+.bottom-menu,
+.topbar,
+.sidebar{
+
+transition:
+background .25s,
+color .25s,
+border .25s,
+transform .25s;
+
+}
+
+/* SEARCH */
+
+.search-box input{
+
+box-shadow:
+0 4px 12px rgba(0,0,0,0.05);
+
+}
+
+.search-box input:focus{
+
+box-shadow:
+0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+/* CARD HOVER */
+
+.product-card:hover{
+transform:translateY(-3px);
+}
+
+/* BUTTON TAP */
+
+button:active{
+transform:scale(.96);
+}
+
+/* ACTIVE MENU */
+
+.bottom-menu button.active{
+color:#2563eb;
+}
+
+.bottom-menu button.active span{
+transform:scale(1.1);
+}
+
+/* SIDEBAR SCROLLBAR */
+
+.sidebar::-webkit-scrollbar{
+width:6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+background:#334155;
+border-radius:20px;
+}
+
+/* =====================================================
+DARK MODE EXTRA
+===================================================== */
+
+/* PRODUCT */
+
+body.dark .product-price{
+color:white;
+}
+
+/* SEARCH */
+
+body.dark .search-box input{
+
+background:#1e293b;
+
+color:white;
+
+}
+
+body.dark .search-box input::placeholder{
+color:#cbd5e1;
+}
+
+/* CLEAR SEARCH */
+
+body.dark .clear-search{
+color:white;
+}
+
+/* KATEGORI */
+
+body.dark .kategori-list button{
+
+background:
+rgba(255,255,255,0.06);
+
+}
+
+body.dark .kategori-list button.active{
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#3b82f6
+);
+
+}
+
+/* CART */
+
+body.dark .cart-box{
+background:#111827;
+}
+
+body.dark .cart-header h2{
+color:white;
+}
+
+body.dark .cart-box input,
+body.dark .cart-box select{
+
+background:#1e293b;
+
+border-color:#334155;
+
+color:white;
+
+}
+
+/* POPUP */
+
+body.dark .popup-content{
+background:#111827;
+}
+
+body.dark .popup-content h2{
+color:white;
+}
+
+/* PRODUCT CARD */
+
+body.dark .product-card{
+background:#1e293b;
+}
+
+/* TOPBAR */
+
+body.dark .topbar{
+background:#1e293b;
+}
+
+/* BOTTOM MENU */
+
+body.dark .bottom-menu{
+background:rgba(15,23,42,.95);
 }
