@@ -45,6 +45,7 @@ font-weight:700;
 CART BOX
 ===================================================== */
 
+
 .cart-box{
 
 position:fixed;
@@ -55,13 +56,19 @@ right:-100%;
 width:390px;
 max-width:100%;
 
-height:auto;
+height:100vh;
 
 background:white;
 
 padding:20px;
+padding-bottom:140px;
 
-overflow:auto;
+overflow-y:auto;
+overflow-x:hidden;
+
+-webkit-overflow-scrolling:touch;
+
+touch-action:pan-y;
 
 transition:.35s;
 
@@ -71,7 +78,6 @@ box-shadow:
 -10px 0 30px rgba(0,0,0,.12);
 
 }
-
 .cart-box.active{
 right:0;
 }
@@ -1757,4 +1763,13 @@ background:#1e293b;
 
 body.dark .bottom-menu{
 background:rgba(15,23,42,.95);
+}
+
+.cart-box::-webkit-scrollbar{
+width:6px;
+}
+
+.cart-box::-webkit-scrollbar-thumb{
+background:#475569;
+border-radius:20px;
 }
