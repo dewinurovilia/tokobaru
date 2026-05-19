@@ -1227,7 +1227,6 @@ border-top-right-radius:20px;
 z-index:9999999;
 
 }
-/* SIDEBAR SIMPLE PREMIUM */
 
 /* SIDEBAR SIMPLE PREMIUM */
 
@@ -1236,20 +1235,22 @@ z-index:9999999;
 position:fixed;
 
 top:0;
-left:-320px;
+left:0;
+
+transform:translateX(-100%);
 
 width:280px;
 height:100vh;
 
 padding:22px 18px;
-
 padding-bottom:120px;
 
 box-sizing:border-box;
 
 overflow-y:auto;
 
-transition:.3s ease;
+/* lebih ringan */
+transition:transform .25s ease;
 
 z-index:999999;
 
@@ -1260,30 +1261,25 @@ linear-gradient(
 #111827
 );
 
+/* shadow diperingan */
 box-shadow:
-4px 0 15px rgba(0,0,0,0.15);
+2px 0 10px rgba(0,0,0,0.12);
 
 border-top-right-radius:24px;
 border-bottom-right-radius:24px;
 
-}
-
-/* SHADOW RINGAN */
-
-box-shadow:
-4px 0 15px rgba(0,0,0,0.15);
-
-border-top-right-radius:24px;
-border-bottom-right-radius:24px;
+/* optimasi render */
+will-change: transform;
+transform-style: preserve-3d;
 
 }
+
 /* SIDEBAR ACTIVE */
-
 .sidebar.active{
-left:0;
+transform:translateX(0);
 }
-/* JUDUL SIDEBAR */
 
+/* JUDUL SIDEBAR */
 .sidebar h2{
 
 color:white;
