@@ -989,7 +989,8 @@ window.cetakStruk = async function(){
     <body>
       <div class="center">
         <b>TOKO DEFANA</b><br>
-        Terima Kasih
+        Jln.Raya Kalitidu-Ngasem no.33
+        Ds. Dukohkidul Kec. Ngasem
       </div>
       <div class="line"></div>
       Nama : ${nama}<br>
