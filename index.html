@@ -546,7 +546,6 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
 getDatabase,
 ref,
-onValue,
 get
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -560,7 +559,7 @@ authDomain:
 "catatan-241c4.firebaseapp.com",
 
 databaseURL:
-"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app",
+"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app/",
 
 projectId:
 "catatan-241c4",
@@ -576,36 +575,26 @@ appId:
 
 };
 
-const app =
-initializeApp(firebaseConfig);
-
 const db =
 getDatabase(app);
 
-window.firebaseDB = db;
-window.firebaseRef = ref;
-window.firebaseOnValue = onValue;
-
-/* POPUP PASSWORD */
-
+/* GLOBAL */
 window.bukaCatatan = async function(){
 
 const inputPassword =
 prompt("Masukkan Password Catatan");
 
-if(inputPassword === null) return;
+if(!inputPassword) return;
 
 try{
 
 const snapshot =
-await get(
-ref(db,"passwordCatatan")
-);
+await get(ref(db,"passwordCatatan"));
 
 if(snapshot.exists()){
 
 const passwordFirebase =
-snapshot.val();
+String(snapshot.val());
 
 if(inputPassword === passwordFirebase){
 
@@ -635,7 +624,6 @@ alert("Firebase Error");
 }
 
 </script>
-
 </body>
 </html>
 </html>
