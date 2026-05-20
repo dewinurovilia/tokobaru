@@ -375,8 +375,17 @@ Tutup
 </a>
 <script type="module">
 
-import { initializeApp }
+import {
+initializeApp
+}
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+onValue
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 import {
 getAuth,
@@ -394,7 +403,7 @@ databaseURL: "https://fauz2327-b8dfa-default-rtdb.asia-southeast1.firebasedataba
 projectId: "fauz2327-b8dfa",
 storageBucket: "fauz2327-b8dfa.firebasestorage.app",
 messagingSenderId: "625104866445",
-appId: "1:625104866445:web:129165fbc539edb36466c4",
+appId: "1:625104866445:web:129165fbc539edb36466c4"
 
 };
 
@@ -403,7 +412,15 @@ initializeApp(firebaseConfig);
 
 const db =
 getDatabase(app);
-const auth = getAuth(app);
+
+const auth =
+getAuth(app);
+
+window.firebaseDB = db;
+
+window.firebaseRef = ref;
+
+window.firebaseOnValue = onValue;
 
 window.firebaseAuth = auth;
 
@@ -415,9 +432,6 @@ signOut;
 
 window.firebaseOnAuth =
 onAuthStateChanged;
-window.firebaseDB = db;
-window.firebaseRef = ref;
-window.firebaseOnValue = onValue;
 
 </script>
 <!-- SCRIPT -->
