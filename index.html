@@ -586,6 +586,221 @@ alert("Firebase Error");
 }
 
 </script>
+<!-- POPUP PASSWORD CATATAN -->
+
+<div id="popupCatatan" class="popup">
+
+<div class="popup-content">
+
+<h2>🔒 Password Catatan</h2>
+
+<input
+type="password"
+id="passwordCatatanInput"
+placeholder="Masukkan Password">
+
+<div class="popup-actions">
+
+<button
+class="popup-btn"
+onclick="cekPasswordCatatan()">
+
+Masuk
+
+</button>
+
+<button
+class="popup-close"
+onclick="tutupPopupCatatan()">
+
+Batal
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+/* BUKA POPUP */
+
+function bukaCatatanPopup(){
+
+document
+.getElementById("popupCatatan")
+.style.display = "flex";
+
+}
+
+/* TUTUP POPUP */
+
+function tutupPopupCatatan(){
+
+document
+.getElementById("popupCatatan")
+.style.display = "none";
+
+}
+
+/* CEK PASSWORD */
+
+async function cekPasswordCatatan(){
+
+const inputPassword =
+document.getElementById(
+"passwordCatatanInput"
+).value;
+
+if(!inputPassword){
+
+alert("Masukkan Password");
+
+return;
+
+}
+
+try{
+
+const response =
+await fetch(
+"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app/passwordCatatan.json"
+);
+
+const passwordFirebase =
+await response.json();
+
+if(
+inputPassword ===
+String(passwordFirebase)
+){
+
+window.location.href =
+"catatan.html";
+
+}else{
+
+alert("Password Salah");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+alert("Firebase Error");
+
+}
+
+}
+
+</script>
+<!-- POPUP LOKASI -->
+
+<div id="popupLokasi" class="popup">
+
+<div class="popup-content">
+
+<h2>📍 Buka Google Maps?</h2>
+
+<p>
+Lokasi toko akan dibuka di Google Maps
+</p>
+
+<div class="popup-actions">
+
+<button
+class="popup-btn"
+onclick="bukaMaps()">
+
+Buka
+
+</button>
+
+<button
+class="popup-close"
+onclick="tutupPopupLokasi()">
+
+Batal
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+/* BUKA POPUP */
+
+function bukaLokasiPopup(){
+
+document
+.getElementById("popupLokasi")
+.style.display = "flex";
+
+}
+
+/* TUTUP POPUP */
+
+function tutupPopupLokasi(){
+
+document
+.getElementById("popupLokasi")
+.style.display = "none";
+
+}
+
+/* BUKA MAPS */
+
+function bukaMaps(){
+
+window.open(
+'https://maps.app.goo.gl/Sqf951NhZioxFuC2A'
+);
+
+}
+
+</script>
+<script>
+
+function ambilLokasiUser(){
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+(position)=>{
+
+const lat =
+position.coords.latitude;
+
+const lng =
+position.coords.longitude;
+
+lokasiUser =
+`https://maps.google.com/?q=${lat},${lng}`;
+
+},
+
+(error)=>{
+
+console.log(error);
+
+}
+
+);
+
+}
+
+}
+
+ambilLokasiUser();
+
+</script>
+
 </body>
 </body>
 </html>
