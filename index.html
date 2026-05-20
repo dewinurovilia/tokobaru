@@ -804,9 +804,17 @@ ambilLokasiUser();
 
 let lokasiUser = "";
 
-function ambilLokasiUser(){
+async function ambilLokasiUser(){
 
-if(navigator.geolocation){
+if(!navigator.geolocation){
+
+alert("Browser tidak mendukung lokasi");
+
+return false;
+
+}
+
+return new Promise((resolve)=>{
 
 navigator.geolocation.getCurrentPosition(
 
@@ -821,15 +829,51 @@ position.coords.longitude;
 lokasiUser =
 `https://www.google.com/maps?q=${lat},${lng}`;
 
-}
+resolve(true);
 
+},
+
+(error)=>{
+
+/* JIKA DITOLAK */
+
+if(error.code === 1){
+
+alert(
+"Izin lokasi ditolak.\n\nAktifkan lokasi di pengaturan browser."
 );
 
 }
 
+/* JIKA GAGAL */
+
+else{
+
+alert(
+"Gagal mengambil lokasi"
+);
+
 }
 
-ambilLokasiUser();
+resolve(false);
+
+},
+
+{
+
+enableHighAccuracy:true,
+timeout:10000,
+maximumAge:0
+
+}
+
+);
+
+});
+
+}
+
+</script>
 
 </script>
 </body>
