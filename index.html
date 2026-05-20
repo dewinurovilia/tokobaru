@@ -540,10 +540,59 @@ Batal
 </body>
 <script type="module">
 
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import {
+getDatabase,
+ref,
+onValue,
 get
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyD3kxyMQzhx0z9wW6cwcSc1tPdM51pwYSU",
+
+authDomain:
+"catatan-241c4.firebaseapp.com",
+
+databaseURL:
+"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId:
+"catatan-241c4",
+
+storageBucket:
+"catatan-241c4.firebasestorage.app",
+
+messagingSenderId:
+"959249550493",
+
+appId:
+"1:959249550493:web:abc6173158b52706f69874"
+
+};
+
+/* INISIAL FIREBASE */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getDatabase(app);
+
+/* GLOBAL */
+
+window.firebaseDB = db;
+window.firebaseRef = ref;
+window.firebaseOnValue = onValue;
+
+/* LOGIN CATATAN */
 
 window.bukaCatatan = async function(){
 
@@ -556,7 +605,7 @@ try{
 
 const snapshot =
 await get(
-firebaseRef(firebaseDB,"passwordCatatan")
+ref(db,"passwordCatatan")
 );
 
 if(snapshot.exists()){
