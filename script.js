@@ -846,7 +846,12 @@ await ambilLokasiUser();
 if(!izinLokasi) return;
   let pesan = '🛒 PESANAN TOKO DEFANA%0A%0A';
   pesan += '📍 Lokasi Pembeli%0A';
-  pesan += 'Nama : ' + nama + '%0A';
+  pesan +=
+  encodeURIComponent(lokasiUser);
+
+pesan += '%0A%0A';
+
+pesan += 'Nama : ' + nama + '%0A';
 
   pesan += 'Pengiriman : ' + pengiriman + '%0A';
 
