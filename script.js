@@ -840,7 +840,10 @@ window.checkoutWA = async function(){
     showToast('Keranjang kosong');
     return;
   }
+const izinLokasi =
+await ambilLokasiUser();
 
+if(!izinLokasi) return;
   let pesan = '🛒 PESANAN TOKO DEFANA%0A%0A';
   pesan += '📍 Lokasi Pembeli%0A';
   pesan += 'Nama : ' + nama + '%0A';
