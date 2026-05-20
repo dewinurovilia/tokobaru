@@ -538,4 +538,61 @@ Batal
 
 </div>
 </body>
+<script type="module">
+
+import {
+get
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+window.bukaCatatan = async function(){
+
+const inputPassword =
+prompt("Masukkan Password Catatan");
+
+if(inputPassword === null) return;
+
+try{
+
+const snapshot =
+await get(
+firebaseRef(firebaseDB,"passwordCatatan")
+);
+
+if(snapshot.exists()){
+
+const passwordFirebase =
+snapshot.val();
+
+if(inputPassword === passwordFirebase){
+
+window.location.href =
+"catatan.html";
+
+}else{
+
+alert("Password Salah");
+
+}
+
+}else{
+
+alert("Password belum dibuat di Firebase");
+
+}
+
+}catch(error){
+
+console.log(error);
+
+alert("Terjadi kesalahan Firebase");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
 </html>
