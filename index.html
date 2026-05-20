@@ -764,42 +764,7 @@ window.open(
 }
 
 </script>
-<script>
 
-function ambilLokasiUser(){
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(
-
-(position)=>{
-
-const lat =
-position.coords.latitude;
-
-const lng =
-position.coords.longitude;
-
-lokasiUser =
-`https://maps.google.com/?q=${lat},${lng}`;
-
-},
-
-(error)=>{
-
-console.log(error);
-
-}
-
-);
-
-}
-
-}
-
-ambilLokasiUser();
-
-</script>
 <script>
 
 let lokasiUser = "";
