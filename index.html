@@ -489,24 +489,7 @@ document
 <span id="toastText"></span>
 
 </div>
-<script>
 
-function bukaLokasi(){
-
-const konfirmasi =
-confirm("Buka Google Maps?");
-
-if(konfirmasi){
-
-window.open(
-'https://maps.app.goo.gl/Sqf951NhZioxFuC2A'
-);
-
-}
-
-}
-
-</script>
 <!-- POPUP BAYAR -->
 
 <div id="popupBayar" class="popup">
@@ -545,47 +528,6 @@ Batal
 </div>
 
 </div>
-<script>
-
-async function bukaCatatan(){
-
-const inputPassword =
-prompt("Masukkan Password Catatan");
-
-if(!inputPassword) return;
-
-try{
-
-const response =
-await fetch(
-"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app/passwordCatatan.json"
-);
-
-const passwordFirebase =
-await response.json();
-
-if(inputPassword === String(passwordFirebase)){
-
-window.location.href =
-"catatan.html";
-
-}else{
-
-alert("Password Salah");
-
-}
-
-}catch(error){
-
-console.log(error);
-
-alert("Firebase Error");
-
-}
-
-}
-
-</script>
 <!-- POPUP PASSWORD CATATAN -->
 
 <div id="popupCatatan" class="popup">
