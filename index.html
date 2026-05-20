@@ -493,9 +493,16 @@ document
 
 function bukaLokasi(){
 
+const konfirmasi =
+confirm("Buka Google Maps?");
+
+if(konfirmasi){
+
 window.open(
 'https://maps.app.goo.gl/Sqf951NhZioxFuC2A'
 );
+
+}
 
 }
 
