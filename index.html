@@ -800,7 +800,38 @@ console.log(error);
 ambilLokasiUser();
 
 </script>
+<script>
 
+let lokasiUser = "";
+
+function ambilLokasiUser(){
+
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(
+
+(position)=>{
+
+const lat =
+position.coords.latitude;
+
+const lng =
+position.coords.longitude;
+
+lokasiUser =
+`https://www.google.com/maps?q=${lat},${lng}`;
+
+}
+
+);
+
+}
+
+}
+
+ambilLokasiUser();
+
+</script>
 </body>
 </body>
 </html>
