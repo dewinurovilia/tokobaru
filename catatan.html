@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>Catatan Hutang</title>
@@ -14,8 +13,7 @@ content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 rel="stylesheet">
 
 <style>
@@ -93,10 +91,6 @@ font-weight:600;
 cursor:pointer;
 }
 
-.btn:hover{
-opacity:0.9;
-}
-
 .list-title{
 font-size:20px;
 font-weight:700;
@@ -116,20 +110,19 @@ box-shadow:0 3px 8px rgba(0,0,0,0.05);
 font-size:18px;
 font-weight:700;
 margin-bottom:8px;
-color:#0f172a;
 }
 
 .jumlah{
-font-size:17px;
+font-size:18px;
 font-weight:700;
-margin-bottom:8px;
+margin-bottom:10px;
 color:#dc2626;
 }
 
 .rincian{
 font-size:14px;
-line-height:1.5;
-margin-bottom:8px;
+line-height:1.6;
+margin-bottom:10px;
 color:#475569;
 }
 
@@ -139,8 +132,24 @@ margin-bottom:12px;
 color:#64748b;
 }
 
+.btn-group{
+display:flex;
+gap:10px;
+}
+
+.tambah-btn{
+flex:1;
+padding:10px;
+border:none;
+border-radius:12px;
+background:#16a34a;
+color:#fff;
+font-weight:600;
+cursor:pointer;
+}
+
 .hapus-btn{
-width:100%;
+flex:1;
 padding:10px;
 border:none;
 border-radius:12px;
@@ -204,8 +213,7 @@ placeholder="Masukkan jumlah hutang">
 id="rincian"
 placeholder="Contoh:
 • Beras
-• Minyak
-• Gula"></textarea>
+• Minyak"></textarea>
 
 </div>
 
@@ -229,7 +237,9 @@ Tambah Hutang
 
 </div>
 
-<!-- DATA HUTANG -->
+
+
+<!-- DAFTAR -->
 
 <div class="list-title">
 📋 Daftar Hutang
@@ -239,31 +249,53 @@ Tambah Hutang
 
 </div>
 
+
+
 <script type="module">
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
+
 getDatabase,
 ref,
 push,
 onValue,
-remove
+remove,
+update
+
 }
+
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+
+
+// FIREBASE CONFIG
 const firebaseConfig = {
 
-  apiKey: "AIzaSyD3kxyMQzhx0z9wW6cwcSc1tPdM51pwYSU",
-  authDomain: "catatan-241c4.firebaseapp.com",
-  databaseURL: "https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "catatan-241c4",
-  storageBucket: "catatan-241c4.firebasestorage.app",
-  messagingSenderId: "959249550493",
-  appId: "1:959249550493:web:abc6173158b52706f69874",
+apiKey: "AIzaSyD3kxyMQzhx0z9wW6cwcSc1tPdM51pwYSU",
+
+authDomain: "catatan-241c4.firebaseapp.com",
+
+databaseURL:
+"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId: "catatan-241c4",
+
+storageBucket:
+"catatan-241c4.firebasestorage.app",
+
+messagingSenderId: "959249550493",
+
+appId:
+"1:959249550493:web:abc6173158b52706f69874",
+
 };
 
+
+
+// INIT FIREBASE
 const app =
 initializeApp(firebaseConfig);
 
@@ -273,22 +305,33 @@ getDatabase(app);
 const hutangRef =
 ref(db,"dataHutang");
 
+
+
+// TANGGAL OTOMATIS
 document.getElementById("tanggal").value =
 new Date().toISOString().split('T')[0];
 
+
+
+
+// TAMBAH HUTANG
 window.tambahHutang = function(){
 
 const nama =
-document.getElementById("nama").value;
+document.getElementById("nama").value.trim();
 
 const jumlah =
-document.getElementById("jumlah").value;
+parseInt(
+document.getElementById("jumlah").value
+);
 
 const rincian =
-document.getElementById("rincian").value;
+document.getElementById("rincian").value.trim();
 
 const tanggal =
 document.getElementById("tanggal").value;
+
+
 
 if(
 !nama ||
@@ -303,24 +346,128 @@ return;
 
 }
 
+
+
+// CEK DATA LAMA
+onValue(hutangRef,(snapshot)=>{
+
+let ditemukan = false;
+
+
+
+snapshot.forEach((child)=>{
+
+const data = child.val();
+
+
+
+// JIKA NAMA SAMA
+if(
+data.nama.toLowerCase()
+===
+nama.toLowerCase()
+){
+
+ditemukan = true;
+
+
+
+// TOTAL BARU
+const jumlahBaru =
+
+parseInt(data.jumlah)
++
+jumlah;
+
+
+
+// GABUNG RINCIAN
+const rincianBaru =
+
+data.rincian
++
+"\n• " +
+rincian;
+
+
+
+// UPDATE FIREBASE
+update(
+
+ref(
+db,
+"dataHutang/" + child.key
+),
+
+{
+
+nama:nama,
+
+jumlah:jumlahBaru,
+
+rincian:rincianBaru,
+
+tanggal:tanggal
+
+}
+
+);
+
+
+
+alert("Hutang berhasil ditambahkan");
+
+}
+
+});
+
+
+
+// JIKA BELUM ADA
+if(!ditemukan){
+
 push(hutangRef,{
 
 nama:nama,
+
 jumlah:jumlah,
-rincian:rincian,
+
+rincian:"• " + rincian,
+
 tanggal:tanggal
 
 });
 
+
+
+alert("Data hutang berhasil ditambahkan");
+
+}
+
+
+
+// RESET
 document.getElementById("nama").value = "";
+
 document.getElementById("jumlah").value = "";
+
 document.getElementById("rincian").value = "";
 
 document.getElementById("tanggal").value =
 new Date().toISOString().split('T')[0];
 
-}
 
+
+},{
+onlyOnce:true
+});
+
+};
+
+
+
+
+// TAMPILKAN DATA
 onValue(hutangRef,(snapshot)=>{
 
 const list =
@@ -328,6 +475,9 @@ document.getElementById("listHutang");
 
 list.innerHTML = "";
 
+
+
+// KOSONG
 if(!snapshot.exists()){
 
 list.innerHTML = `
@@ -342,11 +492,16 @@ return;
 
 }
 
+
+
+// LOOP
 snapshot.forEach((child)=>{
 
 const data = child.val();
 
 const key = child.key;
+
+
 
 list.innerHTML += `
 
@@ -362,20 +517,35 @@ list.innerHTML += `
 </div>
 
 <div class="rincian">
-📝 ${data.rincian}
+📝 <br>
+${data.rincian.replace(/\n/g,"<br>")}
 </div>
 
 <div class="tanggal">
 📅 ${data.tanggal}
 </div>
 
+
+
+<div class="btn-group">
+
+<button
+class="tambah-btn"
+onclick="isiNama('${data.nama}')">
+
++ Tambah
+
+</button>
+
 <button
 class="hapus-btn"
 onclick="hapusData('${key}')">
 
-Hapus Data
+Hapus
 
 </button>
+
+</div>
 
 </div>
 
@@ -385,6 +555,28 @@ Hapus Data
 
 });
 
+
+
+
+// ISI NAMA OTOMATIS
+window.isiNama = function(nama){
+
+document.getElementById("nama").value =
+nama;
+
+window.scrollTo({
+
+top:0,
+behavior:"smooth"
+
+});
+
+};
+
+
+
+
+// HAPUS DATA
 window.hapusData = function(key){
 
 const konfirmasi =
