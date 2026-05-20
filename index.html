@@ -379,11 +379,12 @@ import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-getDatabase,
-ref,
-onValue
+getAuth,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
 
@@ -402,7 +403,18 @@ initializeApp(firebaseConfig);
 
 const db =
 getDatabase(app);
+const auth = getAuth(app);
 
+window.firebaseAuth = auth;
+
+window.firebaseSignIn =
+signInWithEmailAndPassword;
+
+window.firebaseSignOut =
+signOut;
+
+window.firebaseOnAuth =
+onAuthStateChanged;
 window.firebaseDB = db;
 window.firebaseRef = ref;
 window.firebaseOnValue = onValue;
@@ -782,7 +794,6 @@ maximumAge:0
 
 }
 
-</script>
 <!-- POPUP ADMIN -->
 
 <div id="popupAdmin" class="popup">
@@ -821,6 +832,8 @@ Batal
 
 </div>
 
+<p id="loginInfo"></p>
+
 </div>
 
 </div>
@@ -832,7 +845,9 @@ function bukaPopupAdmin(){
 document
 .getElementById("popupAdmin")
 .classList.add("active");
+
 document.body.classList.add("popup-open");
+
 }
 
 function tutupPopupAdmin(){
@@ -840,37 +855,102 @@ function tutupPopupAdmin(){
 document
 .getElementById("popupAdmin")
 .classList.remove("active");
+
 document.body.classList.remove("popup-open");
+
 }
 
-function loginAdminPopup(){
+/* LOGIN FIREBASE */
+
+async function loginAdminPopup(){
 
 const email =
 document.getElementById(
 "adminEmail"
-).value;
+).value.trim();
 
 const password =
 document.getElementById(
 "adminPassword"
-).value;
+).value.trim();
 
-if(
-email === "catatan@gmail.com" &&
-password === "282828"
-){
+const info =
+document.getElementById(
+"loginInfo"
+);
+
+if(!email || !password){
+
+info.innerHTML =
+"⚠️ Lengkapi Email dan Password";
+
+return;
+
+}
+
+try{
+
+await window.firebaseSignIn(
+
+window.firebaseAuth,
+email,
+password
+
+);
+
+info.innerHTML =
+"✅ Login Berhasil";
+
+setTimeout(()=>{
 
 window.location.href =
 "admin/admin.html";
 
-}else{
+},1000);
 
-alert("Email atau Password Salah");
+}catch(error){
+
+console.log(error);
+
+info.innerHTML =
+"❌ Email atau Password Salah";
 
 }
+
+}
+
+/* CEK LOGIN */
+
+window.firebaseOnAuth(
+
+window.firebaseAuth,
+
+(user)=>{
+
+if(user){
+
+console.log(
+"Admin Login:",
+user.email
+);
+
+}
+
+}
+
+);
+
+/* LOGOUT */
+
+function logoutAdmin(){
+
+window.firebaseSignOut(
+window.firebaseAuth
+);
+
+window.location.href =
+"index.html";
 
 }
 
 </script>
-</body>
-</html>
