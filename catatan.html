@@ -495,12 +495,30 @@ return;
 
 
 // LOOP
+const dataArray = [];
+
 snapshot.forEach((child)=>{
 
-const data = child.val();
+dataArray.push({
 
-const key = child.key;
+key: child.key,
+data: child.val()
 
+});
+
+});
+
+
+// DATA TERBARU DI ATAS
+dataArray.reverse();
+
+
+// LOOP DATA
+dataArray.forEach((item)=>{
+
+const data = item.data;
+
+const key = item.key;
 
 
 list.innerHTML += `
