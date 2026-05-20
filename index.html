@@ -451,7 +451,7 @@ Lokasi
 Catatan
 </button>
     
-<button onclick="window.location.href='admin/admin.html'">
+<button onclick="bukaPopupAdmin()">
 <span>⚙️</span>
 Admin
 </button>
@@ -874,6 +874,93 @@ maximumAge:0
 }
 
 </script>
+<!-- POPUP ADMIN -->
+
+<div id="popupAdmin" class="popup">
+
+<div class="popup-content">
+
+<h2>🔒 Login Admin</h2>
+
+<input
+type="email"
+id="adminEmail"
+placeholder="Email Admin">
+
+<input
+type="password"
+id="adminPassword"
+placeholder="Password Admin">
+
+<div class="popup-actions">
+
+<button
+class="popup-btn"
+onclick="loginAdminPopup()">
+
+Masuk
+
+</button>
+
+<button
+class="popup-close"
+onclick="tutupPopupAdmin()">
+
+Batal
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function bukaPopupAdmin(){
+
+document
+.getElementById("popupAdmin")
+.style.display = "flex";
+
+}
+
+function tutupPopupAdmin(){
+
+document
+.getElementById("popupAdmin")
+.style.display = "none";
+
+}
+
+function loginAdminPopup(){
+
+const email =
+document.getElementById(
+"adminEmail"
+).value;
+
+const password =
+document.getElementById(
+"adminPassword"
+).value;
+
+if(
+email === "catatan@gmail.com" &&
+password === "282828"
+){
+
+window.location.href =
+"admin/admin.html";
+
+}else{
+
+alert("Email atau Password Salah");
+
+}
+
+}
 
 </script>
 </body>
