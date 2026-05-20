@@ -537,48 +537,9 @@ Batal
 </div>
 
 </div>
-<script type="module">
+<script>
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getDatabase,
-ref,
-get
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-const firebaseConfig = {
-
-apiKey:
-"AIzaSyD3kxyMQzhx0z9wW6cwcSc1tPdM51pwYSU",
-
-authDomain:
-"catatan-241c4.firebaseapp.com",
-
-databaseURL:
-"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app/",
-
-projectId:
-"catatan-241c4",
-
-storageBucket:
-"catatan-241c4.firebasestorage.app",
-
-messagingSenderId:
-"959249550493",
-
-appId:
-"1:959249550493:web:abc6173158b52706f69874"
-
-};
-
-const db =
-getDatabase(app);
-
-/* GLOBAL */
-window.bukaCatatan = async function(){
+async function bukaCatatan(){
 
 const inputPassword =
 prompt("Masukkan Password Catatan");
@@ -587,15 +548,15 @@ if(!inputPassword) return;
 
 try{
 
-const snapshot =
-await get(ref(db,"passwordCatatan"));
-
-if(snapshot.exists()){
+const response =
+await fetch(
+"https://catatan-241c4-default-rtdb.asia-southeast1.firebasedatabase.app/passwordCatatan.json"
+);
 
 const passwordFirebase =
-String(snapshot.val());
+await response.json();
 
-if(inputPassword === passwordFirebase){
+if(inputPassword === String(passwordFirebase)){
 
 window.location.href =
 "catatan.html";
@@ -603,12 +564,6 @@ window.location.href =
 }else{
 
 alert("Password Salah");
-
-}
-
-}else{
-
-alert("Password belum dibuat");
 
 }
 
@@ -625,5 +580,4 @@ alert("Firebase Error");
 </script>
 </body>
 </body>
-</html>
 </html>
