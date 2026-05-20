@@ -551,8 +551,6 @@ get
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-/* FIREBASE CONFIG */
-
 const firebaseConfig = {
 
 apiKey:
@@ -578,21 +576,17 @@ appId:
 
 };
 
-/* INISIAL FIREBASE */
-
 const app =
 initializeApp(firebaseConfig);
 
 const db =
 getDatabase(app);
 
-/* GLOBAL */
-
 window.firebaseDB = db;
 window.firebaseRef = ref;
 window.firebaseOnValue = onValue;
 
-/* LOGIN CATATAN */
+/* POPUP PASSWORD */
 
 window.bukaCatatan = async function(){
 
