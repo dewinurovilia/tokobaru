@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Catatan Hutang</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f1f5f9;
+padding:15px;
+padding-bottom:90px;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:20px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+margin-bottom:20px;
+}
+
+.title{
+font-size:24px;
+font-weight:700;
+text-align:center;
+margin-bottom:20px;
+color:#0f172a;
+}
+
+.input-box{
+margin-bottom:14px;
+}
+
+.input-box label{
+display:block;
+font-size:14px;
+font-weight:600;
+margin-bottom:6px;
+color:#334155;
+}
+
+.input-box input,
+.input-box textarea{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:1px solid #cbd5e1;
+font-size:14px;
+outline:none;
+}
+
+.input-box textarea{
+resize:none;
+height:90px;
+}
+
+.btn{
+width:100%;
+padding:13px;
+border:none;
+border-radius:14px;
+background:#16a34a;
+color:#fff;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+}
+
+.btn:hover{
+opacity:0.9;
+}
+
+.list-title{
+font-size:20px;
+font-weight:700;
+margin-bottom:15px;
+color:#0f172a;
+}
+
+.data-item{
+background:#fff;
+padding:18px;
+border-radius:18px;
+margin-bottom:15px;
+box-shadow:0 3px 8px rgba(0,0,0,0.05);
+}
+
+.nama{
+font-size:18px;
+font-weight:700;
+margin-bottom:8px;
+color:#0f172a;
+}
+
+.jumlah{
+font-size:17px;
+font-weight:700;
+margin-bottom:8px;
+color:#dc2626;
+}
+
+.rincian{
+font-size:14px;
+line-height:1.5;
+margin-bottom:8px;
+color:#475569;
+}
+
+.tanggal{
+font-size:13px;
+margin-bottom:12px;
+color:#64748b;
+}
+
+.hapus-btn{
+width:100%;
+padding:10px;
+border:none;
+border-radius:12px;
+background:#ef4444;
+color:#fff;
+font-weight:600;
+cursor:pointer;
+}
+
+.kosong{
+background:#fff;
+padding:20px;
+border-radius:16px;
+text-align:center;
+color:#64748b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- FORM -->
+
+<div class="card">
+
+<div class="title">
+📝 Catatan Hutang
+</div>
+
+<div class="input-box">
+
+<label>Nama</label>
+
+<input
+type="text"
+id="nama"
+placeholder="Masukkan nama">
+
+</div>
+
+<div class="input-box">
+
+<label>Jumlah Hutang</label>
+
+<input
+type="number"
+id="jumlah"
+placeholder="Masukkan jumlah hutang">
+
+</div>
+
+<div class="input-box">
+
+<label>Rincian Hutang</label>
+
+<textarea
+id="rincian"
+placeholder="Contoh:
+• Beras
+• Minyak
+• Gula"></textarea>
+
+</div>
+
+<div class="input-box">
+
+<label>Tanggal</label>
+
+<input
+type="date"
+id="tanggal">
+
+</div>
+
+<button
+class="btn"
+onclick="tambahHutang()">
+
+Tambah Hutang
+
+</button>
+
+</div>
+
+<!-- DATA HUTANG -->
+
+<div class="list-title">
+📋 Daftar Hutang
+</div>
+
+<div id="listHutang"></div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+push,
+onValue,
+remove
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCvco9APepbM1YRhDLGzE2uxFBVtLL2NLs",
+
+authDomain:
+"fauz2327-b8dfa.firebaseapp.com",
+
+databaseURL:
+"https://fauz2327-b8dfa-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId:
+"fauz2327-b8dfa",
+
+storageBucket:
+"fauz2327-b8dfa.firebasestorage.app",
+
+messagingSenderId:
+"625104866445",
+
+appId:
+"1:625104866445:web:129165fbc539edb36466c4"
+
+};
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getDatabase(app);
+
+const hutangRef =
+ref(db,"dataHutang");
+
+document.getElementById("tanggal").value =
+new Date().toISOString().split('T')[0];
+
+window.tambahHutang = function(){
+
+const nama =
+document.getElementById("nama").value;
+
+const jumlah =
+document.getElementById("jumlah").value;
+
+const rincian =
+document.getElementById("rincian").value;
+
+const tanggal =
+document.getElementById("tanggal").value;
+
+if(
+!nama ||
+!jumlah ||
+!rincian ||
+!tanggal
+){
+
+alert("Lengkapi semua data");
+
+return;
+
+}
+
+push(hutangRef,{
+
+nama:nama,
+jumlah:jumlah,
+rincian:rincian,
+tanggal:tanggal
+
+});
+
+document.getElementById("nama").value = "";
+document.getElementById("jumlah").value = "";
+document.getElementById("rincian").value = "";
+
+document.getElementById("tanggal").value =
+new Date().toISOString().split('T')[0];
+
+}
+
+onValue(hutangRef,(snapshot)=>{
+
+const list =
+document.getElementById("listHutang");
+
+list.innerHTML = "";
+
+if(!snapshot.exists()){
+
+list.innerHTML = `
+
+<div class="kosong">
+Belum ada data hutang
+</div>
+
+`;
+
+return;
+
+}
+
+snapshot.forEach((child)=>{
+
+const data = child.val();
+
+const key = child.key;
+
+list.innerHTML += `
+
+<div class="data-item">
+
+<div class="nama">
+👤 ${data.nama}
+</div>
+
+<div class="jumlah">
+💰 Rp ${Number(data.jumlah)
+.toLocaleString("id-ID")}
+</div>
+
+<div class="rincian">
+📝 ${data.rincian}
+</div>
+
+<div class="tanggal">
+📅 ${data.tanggal}
+</div>
+
+<button
+class="hapus-btn"
+onclick="hapusData('${key}')">
+
+Hapus Data
+
+</button>
+
+</div>
+
+`;
+
+});
+
+});
+
+window.hapusData = function(key){
+
+const konfirmasi =
+confirm("Hapus data hutang ini?");
+
+if(konfirmasi){
+
+remove(
+ref(db,"dataHutang/" + key)
+);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
