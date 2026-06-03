@@ -81,11 +81,28 @@ function setPopupState(id, open) {
 }
 
 function loadProduk() {
-  const list = byId("productList");
+  onValue(ref(firebaseDB, "produk"), (snapshot) => {
+    const data = snapshot.val();
 
-  if (list) {
-    list.innerHTML = '<div class="empty-state">Memuat produk...</div>';
-  }
+    console.log("DATA PRODUK:", data);
+
+    produk = data
+      ? Object.entries(data).map(([key, value]) => ({
+          firebaseKey: key,
+          id: key,
+          nama: value.nama || "",
+          harga: Number(value.harga || 0),
+          stok: Number(value.stok || 0),
+          kategori: value.kategori || "Lainnya"
+        }))
+      : [];
+
+    console.log("HASIL ARRAY:", produk);
+
+    renderKategori();
+    renderProduk();
+  });
+}
 
   onValue(
     ref(firebaseDB),
