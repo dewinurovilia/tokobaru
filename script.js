@@ -123,7 +123,6 @@ function loadProduk() {
       renderProduk("Gagal memuat produk. Coba refresh halaman.");
     }
   );
-}
 
 function renderKategori() {
   const kategoriLists = [
